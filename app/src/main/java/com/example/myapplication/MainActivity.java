@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Integer id,year, major,db;
     String pw;
     EditText editTextid, editTextpw;
+
 //챱챱
 
     private void setdb(int db)
