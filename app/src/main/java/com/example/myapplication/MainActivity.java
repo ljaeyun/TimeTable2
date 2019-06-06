@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     String pw;
     EditText editTextid, editTextpw;
 
+//챱챱
+
     private void setdb(int db)
     {
         this.db = db;
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
              }
         });
 
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Integer n = getmajor();
-                //queryData(n);
                 gethakbun();
                 getPassword();
                 Intent intent = new Intent(getApplicationContext(),TimeTableActivity.class);
@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
           String hakbun = "";
           hakbun = editTextid.getText().toString();
           setId(Integer.parseInt(hakbun));//int로 바꿔서 전달
-
     }
 
 }
