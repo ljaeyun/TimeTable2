@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="학과">
+        <item>경영대학 경영학부</item>
+        <item>경영대학 국제통상학부</item>
+        <item>공과대학 건축학과</item>
+        <item>공과대학 건축공학과</item>
+        <item>공과대학 화학공학과</item>
+        <item>공과대학 환경공학과</item>
+        <item>소프트웨어융합대학 컴퓨터정보공학부</item>
+        <item>소프트웨어융합대학 소프트웨어학부</item>
+        <item>소프트웨어융합대학 정보융합학부</item>
+        <item>인문사회과학대학 국어국문학과</item>
+        <item>인문사회과학대학 동북아문화산업학부</item>
+        <item>인문사회과학대학 미디어영상학부</item>
+        <item>인문사회과학대학 미디어커뮤니케이션학부</item>
+        <item>인문사회과학대학 산업심리학과</item>
+        <item>인문사회과학대학 영어산업학과</item>
+        <item>인문사회과학대학 영어영문학과</item>
+        <item>자연과학대학 생활체육학과</item>
+        <item>자연과학대학 수학과</item>
+        <item>자연과학대학 전자바이오물리학과</item>
+        <item>자연과학대학 정보콘텐츠학과</item>
+        <item>자연과학대학 화학과</item>
+        <item>전자정보공과대학 로봇학부</item>
+        <item>전자정보공과대학 전기공학과</item>
+        <item>전자정보공과대학 전자공학과</item>
+        <item>전자정보공과대학 전자융합공학과</item>
+        <item>전자정보공과대학 전자재료공학과</item>
+        <item>전자정보공과대학 전자통신공학과</item>
+        <item>전자정보공과대학 컴퓨터공학과</item>
+        <item>전자정보공과대학 컴퓨터소프트웨어학과</item>
+        <item>정책법학대학 국제학부</item>
+        <item>정책법학대학 법학부</item>
+        <item>정책법학대학 자산관리학과</item>
+        <item>정책법학대학 행정학과</item>
+
+    </string-array>
+    <string-array name="학년">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+</resources>
