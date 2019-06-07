@@ -104,19 +104,21 @@ public class TimeTableActivity extends AppCompatActivity {
         int n = 0, m = 0;// 월: 0~9
         if (요일1.equals("화")) {//화:10~19
             n = 10;
-        } else if (요일2 .equals("화")) {
-            m = 10;
-        } else if (요일1 .equals("수")) {
+        }  else if (요일1 .equals("수")) {
             n = 20;
-        } else if (요일2 .equals("수")) {
-            m = 20;
         } else if (요일1 .equals("목")) {
             n=30;
-        } else if (요일2 .equals("목")) {
-           m=30;
-        } else if (요일1 .equals("금")) {
+        }else if (요일1 .equals("금")) {
             n=40;
-        } else if (요일2 .equals("금")) {
+        }
+
+        if (요일2 .equals("화")) {
+            m = 10;
+        }  else if (요일2 .equals("수")) {
+            m = 20;
+        }  else if (요일2 .equals("목")) {
+           m=30;
+        }  else if (요일2 .equals("금")) {
             m = 40;
         }
         String[] arr1 = 시간1.split("\\.|,");//시간1 .이나,으로 구분하고
