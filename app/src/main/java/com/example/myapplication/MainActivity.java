@@ -23,7 +23,7 @@ import static java.lang.Integer.parseInt;
 public class MainActivity extends AppCompatActivity {
     TextView text1;
     Integer id,year, major,db;
-    String pw;
+    String pw; // 비밀번호
     EditText editTextid, editTextpw;
 
 //챱챱
