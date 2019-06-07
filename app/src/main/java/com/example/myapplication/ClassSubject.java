@@ -18,6 +18,7 @@ public class ClassSubject {
 
     public String getName()
     {//과목이름 가져오는 함수
+
         return name;
     }
 
