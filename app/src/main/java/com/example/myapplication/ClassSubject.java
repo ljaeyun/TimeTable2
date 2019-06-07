@@ -12,6 +12,7 @@ public class ClassSubject {
 
     public void put(int a)
     {//arraylist에 추가하는 함수
+
         time.add(a);//변경변경{0,1,2},{4,5,6}이렇게 되게
     }
 
