@@ -123,15 +123,9 @@ public class TimeTableActivity extends AppCompatActivity {
         }
         String[] arr1 = 시간1.split("\\.|,");//시간1 .이나,으로 구분하고
         String[] arr2 = 시간2.split("\\.|,");//시간2 .이나,으로 구분하고
-        //null 예외처리
+        //null 예외처리!!!!
 
         //배열 시간에{0,1,2}이런식으로 넣게 변경해야됨
-        //.,이 없으면....
-        if (arr1.length == 0)
-            s.put(n + Integer.parseInt(시간1));
-        if (arr2.length == 0)
-            s.put(m + Integer.parseInt(시간2));
-
         //자른거
         for (int i = 0; i < arr1.length; i++)
             s.put(n + Integer.parseInt(arr1[i]));
