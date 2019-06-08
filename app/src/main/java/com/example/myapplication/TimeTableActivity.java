@@ -9,53 +9,54 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Toast;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-
-import javax.security.auth.Subject;
-
 public class TimeTableActivity extends AppCompatActivity {
-    Integer sid, syear, smajor, db;
+
+    Integer sid,syear,smajor,db;
     String spw;
     SQLiteDatabase database;
     TextView text1;
-    int[] idArray = new int[25];
-    TextView[] tvArray = new TextView[25];
+    int[] idArray =new int[25];
 
-    int[] timearr = new int[50];//시간표에 쓸.. 번호
+    TextView[] tvArray =  new TextView[25];
 
-
-    private Integer getId() {
+    private Integer getId()
+    {
         return sid;
     }
 
-    private void setId(int sid) {
+    private void setId(int sid)
+    {
         this.sid = sid;
     }
 
-    private String getPw() {
+    private String getPw()
+    {
         return spw;
     }
 
-    private void setPw(String spw) {
-        this.spw = spw;
-    }
+    private void setPw(String spw) { this.spw = spw; }
 
-    private Integer getyear() {
+    private Integer getyear()
+    {
         return syear;
     }
 
-    private void setyear(int syear) {
+    private void setyear(int syear)
+    {
         this.syear = syear;
     }
 
-    private Integer getmajor() {
+    private Integer getmajor()
+    {
         return smajor;
     }
 
-    private void setmajor(int smajor) {
+    private void setmajor(int smajor)
+    {
         this.smajor = smajor;
     }
 
@@ -64,97 +65,57 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
-        for (int i = 0; i < 50; i++)
-            timearr[i] = i;//월:0~9 화:10~19
 
         text1 = (TextView) findViewById(R.id.text1);
 
         Intent intent1 = getIntent();
-        db = intent1.getIntExtra("database", 1);
-        sid = intent1.getIntExtra("studentId", 1);
+        db = intent1.getIntExtra("database",1);
+        sid = intent1.getIntExtra("studentId",1);
         spw = intent1.getStringExtra("studentPw");
-        syear = intent1.getIntExtra("studentYear", 1);
-        smajor = intent1.getIntExtra("studentMajor", 1);
+        syear = intent1.getIntExtra("studentYear",1);
+        smajor = intent1.getIntExtra("studentMajor",1);
         setmajor(smajor);
         choosedb(db);
 
-        for (int i = 0; i < idArray.length; i++) {
-            int jj = i / 5;
-            int jjj = i % 5;
-            idArray[i] = getResources().getIdentifier("lec" + jj + "_" + jjj, "id", "com.example.myapplication");
+        for(int i = 0 ; i < idArray.length; i++){
+            int jj=i/5;
+            int jjj=i%5;
+            idArray[i] = getResources().getIdentifier("lec"+jj+"_"+jjj,"id","com.example.myapplication");
         }
 
-        for (int i = 0; i < tvArray.length; i++) {
-            tvArray[i] = (TextView) findViewById(idArray[i]);
+        for(int i = 0 ; i < tvArray.length; i++){
+            tvArray[i] = (TextView)findViewById(idArray[i]);
         }
 
+       // Toast.makeText(this,sid+" "+smajor+" "+syear,Toast.LENGTH_SHORT).show();
         Button button = (Button) findViewById(R.id.button);
         queryData(smajor);
 
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(),SelectionActivity.class);
+               startActivity(intent);
             }
         });
     }
 
-    private void timecal(ClassSubject s, String 요일1, String 시간1, String 요일2, String 시간2) {
-        int n = 0, m = 0;// 월: 0~9
-        if (요일1.equals("화")) {//화:10~19
-            n = 10;
-        }  else if (요일1 .equals("수")) {
-            n = 20;
-        } else if (요일1 .equals("목")) {
-            n=30;
-        }else if (요일1 .equals("금")) {
-            n=40;
-        }
-        if(요일2!=null)
-        {if (요일2 .equals("화")) {
-            m = 10;
-        }  else if (요일2 .equals("수")) {
-            m = 20;
-        }  else if (요일2 .equals("목")) {
-           m=30;
-        }  else if (요일2 .equals("금")) {
-            m = 40;
-        }}
-        TimeArr t = new TimeArr();
 
-        String[] arr1 = 시간1.split("\\.|,");//시간1 .이나,으로 구분하고
-
-        if(시간2!=null) {
-            String[] arr2 = 시간2.split("\\.|,");//시간2 .이나,으로 구분하고
-            for (int i = 0; i < arr2.length; i++)
-                t.put(m + Integer.parseInt(arr2[i]));
-        }//null 예외처리!!!!
-
-        //배열 시간에{0,1,2}이런식으로 넣게 변경해야됨
-        //자른거
-        for (int i = 0; i < arr1.length; i++)
-            t.put(n + Integer.parseInt(arr1[i]));
-
-
-        s.put(t);
-    }
-
-    private void choosedb(int db) {
-        if (db >= 0 && db <= 1)
-            database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);
-        else if (db >= 2 && db <= 5)
-            database = openOrCreateDatabase("engineer.db", MODE_PRIVATE, null);
-        else if (db >= 6 && db <= 8)
-            database = openOrCreateDatabase("sw.db", MODE_PRIVATE, null);
-        else if (db >= 9 && db <= 15)
-            database = openOrCreateDatabase("hss.db", MODE_PRIVATE, null);
-        else if (db >= 16 && db <= 20)
-            database = openOrCreateDatabase("natural.db", MODE_PRIVATE, null);
-        else if (db >= 21 && db <= 28)
-            database = openOrCreateDatabase("ei.db", MODE_PRIVATE, null);
+    private void choosedb(int db){
+        if(db>=0&&db<=1)
+            database=openOrCreateDatabase("biz.db",MODE_PRIVATE,null);
+        else if(db>=2&&db<=5)
+            database=openOrCreateDatabase("engineer.db",MODE_PRIVATE,null);
+        else if(db>=6&&db<=8)
+            database=openOrCreateDatabase("sw.db",MODE_PRIVATE,null);
+        else if(db>=9&&db<=15)
+            database=openOrCreateDatabase("hss.db",MODE_PRIVATE,null);
+        else if(db>=16&&db<=20)
+            database=openOrCreateDatabase("natural.db",MODE_PRIVATE,null);
+        else if(db>=21&&db<=28)
+            database=openOrCreateDatabase("ei.db",MODE_PRIVATE,null);
         else
-            database = openOrCreateDatabase("kwlaw.db", MODE_PRIVATE, null);
+            database=openOrCreateDatabase("kwlaw.db",MODE_PRIVATE,null);
     }
 
     private void queryData(int major) {
@@ -265,60 +226,32 @@ public class TimeTableActivity extends AppCompatActivity {
                 table = "";
                 break;
         }
-        syear += 1;
-        int num = 0;
-        String sql1 = "select 학정번호, 과목명, 이수, 담당교수, 요일1,시간1,요일2,시간2 from ";
-        String sql2 = " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'";
-        String sql = sql1 + table + sql2;
-        ArrayList<ClassSubject> classlist = new ArrayList<>();//클래스타입의 arraylist.....
+syear+=1;
+        String sql1 = "select 학정번호, 과목명, 이수, 담당교수, 시간1 from ";
+        String sql2 = " where 이수 like '%필' and 학정번호 like '_____"+syear+"%'";
+        String sql = sql1+table+sql2;
 
-        try {
-            Cursor c1 = database.rawQuery("select distinct 과목명 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
-            //과목이름 한번만
-            if (c1 != null) {
-                num = c1.getCount();
-                for (int i = 0; i < num; i++) {
-                    c1.moveToNext();
-                    {
-                        ClassSubject s1 = new ClassSubject(c1.getString(0));
-                        classlist.add(s1);//필수과목이름을 가진 ..
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
-        }
+        try{
+            Cursor c = database.rawQuery(sql,null);
 
-        try {
-            Cursor c = database.rawQuery(sql, null);
-
-            if (c != null) {
+            if( c!=null)
+            {
                 int count = c.getCount();
 
-                for (int i = 0; i < count; i++) {
+                for(int i=0;i<count;i++)
+                {
                     c.moveToNext();
                     {
-                        for (int j = 0; j < 4; j++) {
-                            tvArray[i * 5 + j].setText(c.getString(j));
-                        }
-                        if(c.getString(6)!=null)
-                        tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5) + c.getString(6) + c.getString(7));
-                        else
-                            tvArray[i*5+4].setText(c.getString(4)+c.getString(5));
-                        //마지막 칸 화1목2로 출력 null일때 예외처리
-
-                        for (int k = 0; k < num; k++) {
-                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//학정번호가 같은 arraylist에
-                                timecal(classlist.get(k), c.getString(4), c.getString(5), c.getString(6), c.getString(7));//과목명
-                            }
+                        for(int j=0;j<5;j++)
+                        {
+                            tvArray[i*5+j].setText(c.getString(j));
                         }
                     }
                 }
             }
-        } catch (Exception e) {
+        }catch(Exception e) {
             e.printStackTrace();
-            Log.e("", e.getMessage());
+            Log.e("",e.getMessage());
         }
     }
 }
