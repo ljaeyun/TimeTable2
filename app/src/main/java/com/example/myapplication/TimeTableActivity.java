@@ -65,8 +65,6 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
-        for (int i = 0; i < 50; i++)
-            timearr[i] = i;//월:0~9 화:10~19
 
         text1 = (TextView) findViewById(R.id.inputSearch);
 
