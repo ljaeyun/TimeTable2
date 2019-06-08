@@ -65,6 +65,9 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        pagerAdpater = new TableViewPagerAdapter(this);
+        viewPager.setAdapter(pagerAdpater);
 
         text1 = (TextView) findViewById(R.id.inputSearch);
 
