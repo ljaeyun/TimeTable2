@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.Toast;
 
 public class TimeTableActivity extends AppCompatActivity {
 
@@ -22,6 +20,9 @@ public class TimeTableActivity extends AppCompatActivity {
     int[] idArray =new int[25];
 
     TextView[] tvArray =  new TextView[25];
+
+    private  ViewPager viewPager;
+    private TableViewPagerAdapter pagerAdpater;
 
     private Integer getId()
     {
@@ -65,6 +66,9 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        pagerAdpater = new TableViewPagerAdapter(this);
+        viewPager.setAdapter(pagerAdpater);
 
         text1 = (TextView) findViewById(R.id.text1);
 
