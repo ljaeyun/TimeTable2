@@ -9,6 +9,17 @@
     tools:context=".TimeTableActivity">
 
 
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="712dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -44,19 +55,7 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="73dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
-
-
-
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"

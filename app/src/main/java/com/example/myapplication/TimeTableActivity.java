@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Arrays;
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
@@ -21,8 +19,8 @@ public class TimeTableActivity extends AppCompatActivity {
     String spw;
     SQLiteDatabase database;
     TextView text1;
-    int[] idArray = new int[25];
-    TextView[] tvArray = new TextView[25];
+    int[] idArray = new int[30];
+    TextView[] tvArray = new TextView[30];
 
     int[] timearr = new int[50];//시간표에 쓸.. 번호
 
@@ -67,7 +65,7 @@ public class TimeTableActivity extends AppCompatActivity {
         for (int i = 0; i < 50; i++)
             timearr[i] = i;//월:0~9 화:10~19
 
-        text1 = (TextView) findViewById(R.id.text1);
+        text1 = (TextView) findViewById(R.id.inputSearch);
 
         Intent intent1 = getIntent();
         db = intent1.getIntExtra("database", 1);
@@ -100,32 +98,60 @@ public class TimeTableActivity extends AppCompatActivity {
         });
     }
 
+    private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<TimeArr>> rrr, ArrayList<TimeArr> a,int j)
+    {
+        int max = list.size();//전체 과목 수?
+
+        for(int i=0, length = list.get(j).getTimeSize();i<length;i++)//j번째 과목의 분반개수
+        {
+            ArrayList<TimeArr> arr = (ArrayList<TimeArr>)a.clone();//왜복사해야되는지는 모르겠음
+
+            arr.add(list.get(j).getTimearr(i));
+            if(j==max-1)
+                rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
+            else
+                make(list,rrr,arr,j+1);//그다음 과목으로 넘어갑니다
+        }
+    }
+
+    private void johab(ArrayList<ClassSubject> list)
+    {
+        ArrayList<TimeArr> a=new ArrayList<>();
+        ArrayList<ArrayList<TimeArr>> rrr = new ArrayList<>();//최종 조합 배열?
+
+        make(list,rrr,a,0);
+
+        text1.setText(rrr.size()+"개 조합");
+
+    }
+
     private void timecal(ClassSubject s, String 요일1, String 시간1, String 요일2, String 시간2) {
         int n = 0, m = 0;// 월: 0~9
         if (요일1.equals("화")) {//화:10~19
             n = 10;
-        }  else if (요일1 .equals("수")) {
+        } else if (요일1.equals("수")) {
             n = 20;
-        } else if (요일1 .equals("목")) {
-            n=30;
-        }else if (요일1 .equals("금")) {
-            n=40;
+        } else if (요일1.equals("목")) {
+            n = 30;
+        } else if (요일1.equals("금")) {
+            n = 40;
         }
-        if(요일2!=null)
-        {if (요일2 .equals("화")) {
-            m = 10;
-        }  else if (요일2 .equals("수")) {
-            m = 20;
-        }  else if (요일2 .equals("목")) {
-           m=30;
-        }  else if (요일2 .equals("금")) {
-            m = 40;
-        }}
+        if (요일2 != null) {
+            if (요일2.equals("화")) {
+                m = 10;
+            } else if (요일2.equals("수")) {
+                m = 20;
+            } else if (요일2.equals("목")) {
+                m = 30;
+            } else if (요일2.equals("금")) {
+                m = 40;
+            }
+        }
         TimeArr t = new TimeArr();
 
         String[] arr1 = 시간1.split("\\.|,");//시간1 .이나,으로 구분하고
 
-        if(시간2!=null) {
+        if (시간2 != null) {
             String[] arr2 = 시간2.split("\\.|,");//시간2 .이나,으로 구분하고
             for (int i = 0; i < arr2.length; i++)
                 t.put(m + Integer.parseInt(arr2[i]));
@@ -135,7 +161,6 @@ public class TimeTableActivity extends AppCompatActivity {
         //자른거
         for (int i = 0; i < arr1.length; i++)
             t.put(n + Integer.parseInt(arr1[i]));
-
 
         s.put(t);
     }
@@ -302,10 +327,12 @@ public class TimeTableActivity extends AppCompatActivity {
                         for (int j = 0; j < 4; j++) {
                             tvArray[i * 5 + j].setText(c.getString(j));
                         }
-                        if(c.getString(6)!=null)
-                        tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5) + c.getString(6) + c.getString(7));
+
+                        //출력은 나중에 조합된 과목만 출력하는걸로 바꿀 예정
+                        if (c.getString(6) != null)
+                            tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5) + c.getString(6) + c.getString(7));
                         else
-                            tvArray[i*5+4].setText(c.getString(4)+c.getString(5));
+                            tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5));
                         //마지막 칸 화1목2로 출력 null일때 예외처리
 
                         for (int k = 0; k < num; k++) {
@@ -320,5 +347,7 @@ public class TimeTableActivity extends AppCompatActivity {
             e.printStackTrace();
             Log.e("", e.getMessage());
         }
+
+        johab(classlist);
     }
 }

@@ -18,8 +18,16 @@ public class ClassSubject {
 
     public String getName()
     {//과목이름 가져오는 함수
-
         return name;
     }
 
+    public int getTimeSize()
+    {
+        return time.size();
+    }
+
+    public TimeArr getTimearr(int i)
+    {
+        return time.get(i);
+    }
 }
