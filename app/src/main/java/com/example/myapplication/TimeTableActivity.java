@@ -102,7 +102,7 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<TimeArr>> rrr, ArrayList<TimeArr> a,int j)
-    {
+    {//조합은 제대로 안돌아가는것같아요
         int max = list.size();//전체 과목 수?
 
         for(int i=0, length = list.get(j).getTimeSize();i<length;i++)//j번째 과목의 분반개수
@@ -344,12 +344,14 @@ public class TimeTableActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+                johab(classlist);//필수인 과목이 없을때도 함수를 실행해서 그런것 같아요
+
             }
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("", e.getMessage());
         }
 
-        johab(classlist);
     }
 }
