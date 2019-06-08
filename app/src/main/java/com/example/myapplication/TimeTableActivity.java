@@ -111,8 +111,8 @@ public class TimeTableActivity extends AppCompatActivity {
         }else if (요일1 .equals("금")) {
             n=40;
         }
-
-        if (요일2 .equals("화")) {
+        if(요일2!=null)
+        {if (요일2 .equals("화")) {
             m = 10;
         }  else if (요일2 .equals("수")) {
             m = 20;
@@ -120,17 +120,24 @@ public class TimeTableActivity extends AppCompatActivity {
            m=30;
         }  else if (요일2 .equals("금")) {
             m = 40;
-        }
+        }}
+        TimeArr t = new TimeArr();
+
         String[] arr1 = 시간1.split("\\.|,");//시간1 .이나,으로 구분하고
-        String[] arr2 = 시간2.split("\\.|,");//시간2 .이나,으로 구분하고
-        //null 예외처리!!!!
+
+        if(시간2!=null) {
+            String[] arr2 = 시간2.split("\\.|,");//시간2 .이나,으로 구분하고
+            for (int i = 0; i < arr2.length; i++)
+                t.put(m + Integer.parseInt(arr2[i]));
+        }//null 예외처리!!!!
 
         //배열 시간에{0,1,2}이런식으로 넣게 변경해야됨
         //자른거
         for (int i = 0; i < arr1.length; i++)
-            s.put(n + Integer.parseInt(arr1[i]));
-        for (int i = 0; i < arr2.length; i++)
-            s.put(m + Integer.parseInt(arr2[i]));
+            t.put(n + Integer.parseInt(arr1[i]));
+
+
+        s.put(t);
     }
 
     private void choosedb(int db) {
@@ -266,14 +273,14 @@ public class TimeTableActivity extends AppCompatActivity {
         ArrayList<ClassSubject> classlist = new ArrayList<>();//클래스타입의 arraylist.....
 
         try {
-            Cursor c = database.rawQuery("select distinct 과목명 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
+            Cursor c1 = database.rawQuery("select distinct 과목명 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
             //과목이름 한번만
-            if (c != null) {
-                num = c.getCount();
+            if (c1 != null) {
+                num = c1.getCount();
                 for (int i = 0; i < num; i++) {
-                    c.moveToNext();
+                    c1.moveToNext();
                     {
-                        ClassSubject s1 = new ClassSubject(c.getString(0));
+                        ClassSubject s1 = new ClassSubject(c1.getString(0));
                         classlist.add(s1);//필수과목이름을 가진 ..
                     }
                 }
@@ -295,8 +302,11 @@ public class TimeTableActivity extends AppCompatActivity {
                         for (int j = 0; j < 4; j++) {
                             tvArray[i * 5 + j].setText(c.getString(j));
                         }
+                        if(c.getString(6)!=null)
                         tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5) + c.getString(6) + c.getString(7));
-                        //마지막 칸 화1목2로 출력 null일때 예외처리해야됨
+                        else
+                            tvArray[i*5+4].setText(c.getString(4)+c.getString(5));
+                        //마지막 칸 화1목2로 출력 null일때 예외처리
 
                         for (int k = 0; k < num; k++) {
                             if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//학정번호가 같은 arraylist에
