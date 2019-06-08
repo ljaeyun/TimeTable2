@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 import java.util.ArrayList;
-
 import javax.security.auth.Subject;
 
 public class TimeTableActivity extends AppCompatActivity {
@@ -161,7 +160,6 @@ public class TimeTableActivity extends AppCompatActivity {
                 t.put(m + Integer.parseInt(arr2[i]));
         }//null 예외처리!!!!
 
-        //배열 시간에{0,1,2}이런식으로 넣게 변경해야됨
         //자른거
         for (int i = 0; i < arr1.length; i++)
             t.put(n + Integer.parseInt(arr1[i]));
