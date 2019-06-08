@@ -9,20 +9,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
 
 public class TimeTableActivity extends AppCompatActivity {
-    Integer sid, syear, smajor, db;
+
+    Integer sid,syear,smajor,db;
     String spw;
     SQLiteDatabase database;
     TextView text1;
     int[] idArray = new int[30];
     TextView[] tvArray = new TextView[30];
 
-    int[] timearr = new int[50];//시간표에 쓸.. 번호
+    private  ViewPager viewPager;
+    private TableViewPagerAdapter pagerAdpater;
 
 
     private Integer getId() {
