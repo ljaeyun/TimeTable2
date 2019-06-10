@@ -103,14 +103,17 @@ public class TimeTableActivity extends AppCompatActivity {
         });
     }
 
-    private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<TimeArr>> rrr, ArrayList<TimeArr> a, int j) {//모든 조합 구해서 rrr에
+    private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
         int max = list.size();//전체 과목 수?
 
         for (int i = 0, length = list.get(j).getTimeSize(); i < length; i++)//j번째 과목의 분반개수
         {
-            ArrayList<TimeArr> arr = (ArrayList<TimeArr>) a.clone();//왜복사해야되는지는 모르겠음
+            ClassSubject cs = new ClassSubject(list.get(j).getName());
+            cs.setTimearr(list.get(j).getTimearr(i));//i번째 분반 시간표만 갖는 ClassSubject
 
-            arr.add(list.get(j).getTimearr(i));
+            ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
+
+            arr.add(cs);//ClassSubject를 넣어야지
             if (j == max - 1)
                 rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
             else
@@ -126,15 +129,15 @@ public class TimeTableActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean checkOverlap(ArrayList<ArrayList<TimeArr>> rrr, int j) {//중복검사
+    private boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
         ArrayList<Integer> chk = new ArrayList<>();//임시로 모든 시간을 저장한다 순서대로
-        for (int i = 0; i < rrr.get(j).size(); i++) {
-            for (int k = 0; k < rrr.get(j).get(i).size(); k++) {
+        for (int i = 0; i < rrr.size(); i++) {
+            for (int k = 0; k < rrr.get(i).getTimeSize(); k++) {
                 if (i == 0) {
-                    chk.add(rrr.get(j).get(0).print(k));//첫번째 시간은 다 넣고
+                    chk.add(rrr.get(0).getTimearr(0).print(k));//첫번째 시간은 다 넣고
                 } else {
-                    if (find(chk, rrr.get(j).get(i).print(k)) == true)
-                        chk.add(rrr.get(j).get(i).print(k));//없으면 집어넣는다.
+                    if (find(chk, rrr.get(i).getTimearr(0).print(k)))
+                        chk.add(rrr.get(i).getTimearr(0).print(k));//없으면 집어넣는다.
                     else
                         return false;//겹치는거 나오면
                 }
@@ -144,20 +147,24 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     private void johab(ArrayList<ClassSubject> list) {
-        ArrayList<TimeArr> a = new ArrayList<>();
-        ArrayList<ArrayList<TimeArr>> rrr = new ArrayList<>();//최종 조합 배열?
+        ArrayList<ClassSubject> a = new ArrayList<>();
+        ArrayList<ArrayList<ClassSubject>> rrr = new ArrayList<>();//최종 조합 배열?
 
         make(list, rrr, a, 0);//총 조합 rrr에 저장
 
         for (int i = 0; i < rrr.size(); i++) {//rrr i번째 조합 확인
-            if (checkOverlap(rrr, i) == false)
+            if (!checkOverlap(rrr.get(i)))
                 rrr.remove(i);//중복걸린거 지우기
         }
 
         text1.setText(rrr.size() + "개 조합");
+        for (int i = 0; i < 5; i++) {
+            tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
+            tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
+        }//조합첫번째꺼 출력
     }
 
-    private void timecal(ClassSubject s, String 요일1, String 시간1, String 요일2, String 시간2) {
+    private void timecal(ClassSubject s, String code, String 요일1, String 시간1, String 요일2, String 시간2) {
         int n = 0, m = 0;// 월: 0~9
         if (요일1.equals("화")) {//화:10~19
             n = 10;
@@ -185,16 +192,17 @@ public class TimeTableActivity extends AppCompatActivity {
 
         if (시간2 != null) {
             String[] arr2 = 시간2.split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
-            for (int i = 0; i < arr2.length; i++)
-            {
-                if(arr2[i].equals("")==false)//공백으로 자르고나면 ""남음...
-                t.put(m + Integer.parseInt(arr2[i]));
+            for (int i = 0; i < arr2.length; i++) {
+                if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
+                    t.put(m + Integer.parseInt(arr2[i]));
             }
         }//null 예외처리!!!!
 
         //자른거
         for (int i = 0; i < arr1.length; i++)
             t.put(n + Integer.parseInt(arr1[i]));
+
+        t.putCode(code);//학정번호도 넣어봅시다
 
         s.put(t);
     }
@@ -358,7 +366,7 @@ public class TimeTableActivity extends AppCompatActivity {
                 for (int i = 0; i < count; i++) {
                     c.moveToNext();
                     {
-                        if (i < 6) {//일단 표에 출력할 수 있는 과목 수가 6개
+                        /*if (i < 6) {//일단 표에 출력할 수 있는 과목 수가 6개
                             for (int j = 0; j < 4; j++) {
                                 tvArray[i * 5 + j].setText(c.getString(j));
                             }
@@ -370,10 +378,11 @@ public class TimeTableActivity extends AppCompatActivity {
                                 tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5));
                             //마지막 칸 화1목2로 출력 null일때 예외처리
                         }//6개까지는 출력되고
+                        */
 
-                        for (int k = 0; k < num; k++) {
-                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//학정번호가 같은 arraylist에
-                                timecal(classlist.get(k), c.getString(4), c.getString(5), c.getString(6), c.getString(7));//과목명
+                        for (int k = 0; k < num; k++) {//과목개수
+                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
+                                timecal(classlist.get(k), c.getString(0), c.getString(4), c.getString(5), c.getString(6), c.getString(7));
                             }
                         }//classlist에 넣는건 모든과목 다
                     }

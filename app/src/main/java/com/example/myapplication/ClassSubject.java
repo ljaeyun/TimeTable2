@@ -12,7 +12,6 @@ public class ClassSubject {
 
     public void put(TimeArr a)
     {//arraylist에 추가하는 함수
-
         time.add(a);//변경변경{0,1,2},{4,5,6}이렇게 되게
     }
 
@@ -29,5 +28,11 @@ public class ClassSubject {
     public TimeArr getTimearr(int i)
     {
         return time.get(i);
+    }
+
+    public void setTimearr(TimeArr arr)
+    {
+        this.time.clear();
+        this.time.add(arr);
     }
 }
