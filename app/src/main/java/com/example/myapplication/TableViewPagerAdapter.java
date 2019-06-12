@@ -36,7 +36,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
             TableLayout tableLayout = (TableLayout) view.findViewById(R.id.tableLayout);
 
             TextView textView = (TextView) view.findViewById(R.id.table);
-            textView.setText("시간표" + position);
+            textView.setText("시간표" + position+1);
         }
 
         container.addView(view);
