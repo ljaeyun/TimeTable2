@@ -161,10 +161,13 @@ public class TimeTableActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
             tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
+            tvArray[i * 5 + 2].setText(rrr.get(0).get(i).getTimearr(0).getEsu());//이수 출력
+            tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
+
         }//조합첫번째꺼 출력
     }
 
-    private void timecal(ClassSubject s, String code, String 요일1, String 시간1, String 요일2, String 시간2) {
+    private void timecal(ClassSubject s, String code, String prof, String esu, String 요일1, String 시간1, String 요일2, String 시간2) {
         int n = 0, m = 0;// 월: 0~9
         if (요일1.equals("화")) {//화:10~19
             n = 10;
@@ -203,7 +206,8 @@ public class TimeTableActivity extends AppCompatActivity {
             t.put(n + Integer.parseInt(arr1[i]));
 
         t.putCode(code);//학정번호도 넣어봅시다
-
+        t.setprof(prof);//교수명도
+        t.setEsu(esu);
         s.put(t);
     }
 
@@ -382,7 +386,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
                         for (int k = 0; k < num; k++) {//과목개수
                             if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
-                                timecal(classlist.get(k), c.getString(0), c.getString(4), c.getString(5), c.getString(6), c.getString(7));
+                                timecal(classlist.get(k), c.getString(0),c.getString(3),c.getString(2), c.getString(4), c.getString(5), c.getString(6), c.getString(7));
                             }
                         }//classlist에 넣는건 모든과목 다
                     }
