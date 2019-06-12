@@ -36,13 +36,16 @@ public class TableViewPagerAdapter extends PagerAdapter {
             TableLayout tableLayout = (TableLayout) view.findViewById(R.id.tableLayout);
 
             TextView textView = (TextView) view.findViewById(R.id.table);
-            textView.setText("시간표" + position);
+            int tableNum = position + 1;
+            textView.setText("시간표" + tableNum);
             //tsdf
+
         }
 
         container.addView(view);
         return view;
     }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object)
@@ -59,6 +62,12 @@ public class TableViewPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object)
     {
         return (view == (View)object);
+    }
+
+
+    public int getPosition(int position)
+    {
+        return position;
     }
 
 }
