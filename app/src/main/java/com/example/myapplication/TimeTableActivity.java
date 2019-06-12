@@ -157,7 +157,7 @@ public class TimeTableActivity extends AppCompatActivity {
                 rrr.remove(i);//중복걸린거 지우기
         }
 
-        text1.setText(rrr.size() + "개 조합");
+       // text1.setText(rrr.size() + "개 조합"+ pagerAdpater.getPosition());
         for (int i = 0; i < 5; i++) {
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
             tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
@@ -170,6 +170,8 @@ public class TimeTableActivity extends AppCompatActivity {
             }
                 tvArray[i*5+4].setText(str);
         }//조합첫번째꺼 출력
+
+
     }
 
     private String NumtoTime(int num)

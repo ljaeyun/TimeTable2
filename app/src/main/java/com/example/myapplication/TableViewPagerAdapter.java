@@ -10,9 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class TableViewPagerAdapter extends PagerAdapter {
     private Context mContext = null;
-
+    public int position;
     public TableViewPagerAdapter()
     {
 
@@ -36,9 +38,12 @@ public class TableViewPagerAdapter extends PagerAdapter {
             TableLayout tableLayout = (TableLayout) view.findViewById(R.id.tableLayout);
 
             TextView textView = (TextView) view.findViewById(R.id.table);
+
             int tableNum = position + 1;
+            this.position = position;
             textView.setText("시간표" + tableNum);
             //tsdf
+
 
         }
 
@@ -65,9 +70,9 @@ public class TableViewPagerAdapter extends PagerAdapter {
     }
 
 
-    public int getPosition(int position)
+    public int getPosition()
     {
-        return position;
+        return this.position;
     }
 
 }
