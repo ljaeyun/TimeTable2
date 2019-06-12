@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 public class TableViewPagerAdapter extends PagerAdapter {
     private Context mContext = null;
@@ -34,6 +35,8 @@ public class TableViewPagerAdapter extends PagerAdapter {
 
             TableLayout tableLayout = (TableLayout) view.findViewById(R.id.tableLayout);
 
+            TextView textView = (TextView) view.findViewById(R.id.table);
+            textView.setText("시간표" + position);
         }
 
         container.addView(view);
