@@ -163,8 +163,64 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
             tvArray[i * 5 + 2].setText(rrr.get(0).get(i).getTimearr(0).getEsu());//이수 출력
             tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
-
+            String str="";
+            for(int j=0;j<rrr.get(0).get(i).getTimearr(0).size();j++)
+            {
+                str+=NumtoTime(rrr.get(0).get(i).getTimearr(0).print(j))+' ';
+            }
+                tvArray[i*5+4].setText(str);
         }//조합첫번째꺼 출력
+    }
+
+    private String NumtoTime(int num)
+    {
+        String time="";
+        if(num<10)
+            time="월";
+        else if(num>=10&&num<20)
+            time="화";
+        else if(num>=20&&num<30)
+            time="수";
+        else if(num>=30&&num<40)
+            time="목";
+        else if(num>=40)
+            time="금";
+
+        int m =num%10;
+        switch(m)
+        {
+            case 0:
+                time+='0';
+                break;
+            case 1:
+                time+='1';
+                break;
+            case 2:
+                time+='2';
+                break;
+            case 3:
+                time+='3';
+                break;
+            case 4:
+                time+='4';
+                break;
+            case 5:
+                time+='5';
+                break;
+            case 6:
+                time+='6';
+                break;
+            case 7:
+                time+='7';
+                break;
+            case 8:
+                time+='8';
+                break;
+            case 9:
+                time+= "9";
+                break;
+        }
+        return time;
     }
 
     private void timecal(ClassSubject s, String code, String prof, String esu, String 요일1, String 시간1, String 요일2, String 시간2) {
