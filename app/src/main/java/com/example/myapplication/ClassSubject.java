@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ClassSubject {
     private String name;//과목이름
-    private ArrayList<TimeArr> time = new ArrayList<>();//시간배열 변경변경
+    private ArrayList<TimeArr> time = new ArrayList<>();//시간배열 변경변경 이름 바꿔야겠다
 
     public ClassSubject(String name) {
         this.name = name;

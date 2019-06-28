@@ -7,6 +7,7 @@ public class TimeArr {
     private String code;//학정번호
     private String prof;//교수명
     private String esu;//이수
+    private String timestr;//문자열로
 
     public void put(int a)
     {
@@ -49,5 +50,12 @@ public class TimeArr {
     public String getEsu()
     {
         return esu;
+    }
+
+    public String getTimestr(){return timestr;}
+
+    public void setTimestr(String timestr)
+    {
+        this.timestr = timestr;
     }
 }
