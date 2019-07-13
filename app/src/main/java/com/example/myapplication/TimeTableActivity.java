@@ -1,13 +1,16 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
@@ -17,18 +20,19 @@ import java.util.ArrayList;
 import javax.security.auth.Subject;
 
 public class TimeTableActivity extends AppCompatActivity {
+    private Context mContext = null;
 
     Integer sid, syear, smajor, db;
     String spw;
     SQLiteDatabase database;
     TextView text1;
-    int[] idArray = new int[30];
+    int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
-    ArrayList<ArrayList<ClassSubject>> rrr;
+    ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
 
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
-
+    TableLayout tableLayout;
 
     private Integer getId() {
         return sid;
@@ -72,6 +76,7 @@ public class TimeTableActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdpater);
 
         text1 = (TextView) findViewById(R.id.inputSearch);
+        tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
         Intent intent1 = getIntent();
         db = intent1.getIntExtra("database", 1);
@@ -158,7 +163,7 @@ public class TimeTableActivity extends AppCompatActivity {
     private boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
         ArrayList<Integer> chk = new ArrayList<>();//임시로 모든 시간을 저장한다 순서대로
         for (int i = 0; i < rrr.size(); i++) {
-            for (int k = 0; k < rrr.get(i).getTimeSize(); k++) {
+            for (int k = 0; k < rrr.get(i).getTimearr(0).size(); k++) {
                 if (i == 0) {
                     chk.add(rrr.get(0).getTimearr(0).print(k));//첫번째 시간은 다 넣고
                 } else {
@@ -180,8 +185,10 @@ public class TimeTableActivity extends AppCompatActivity {
 
         for (int i = 0; i < rrr.size(); i++) {//rrr i번째 조합 확인
             if (!checkOverlap(rrr.get(i)))
+            {
                 rrr.remove(i);//중복걸린거 지우기
-        }
+                i--;//아 조합 오류
+        }}
 
         for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
@@ -190,6 +197,8 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
             tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
         }//처음에 조합첫번째꺼 출력
+
+       pagerAdpater.setRrr(rrr);
     }
 
     private void choosedb(int db) {
@@ -402,20 +411,6 @@ public class TimeTableActivity extends AppCompatActivity {
                 for (int i = 0; i < count; i++) {
                     c.moveToNext();
                     {
-                        /*if (i < 6) {//일단 표에 출력할 수 있는 과목 수가 6개
-                            for (int j = 0; j < 4; j++) {
-                                tvArray[i * 5 + j].setText(c.getString(j));
-                            }
-
-                            //출력은 나중에 조합된 과목만 출력하는걸로 바꿀 예정
-                            if (c.getString(6) != null)
-                                tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5) + c.getString(6) + c.getString(7));
-                            else
-                                tvArray[i * 5 + 4].setText(c.getString(4) + c.getString(5));
-                            //마지막 칸 화1목2로 출력 null일때 예외처리
-                        }//6개까지는 출력되고
-                        */
-
                         for (int k = 0; k < num; k++) {//과목개수
                             if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
                                 timecal(classlist.get(k), c);//깔끔한 함수
