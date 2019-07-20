@@ -48,8 +48,7 @@ public class SelectionActivity extends AppCompatActivity {
                 int num = 0;
 
                 try {
-                    Cursor c1 = database.rawQuery("select 과목명, 학정번호 from allclass where 과목명 like '%"+s+"%'", null);
-//일단 한 테이블에 모든 교양넣었음
+                    Cursor c1 = database.rawQuery("select 과목명, 학정번호 from allclass where 과목명 like '%"+s+"%'", null);//일단 한 테이블에 모든 교양넣었음
                     if (c1 != null) {
                         num = c1.getCount();
                         c1.moveToNext();
