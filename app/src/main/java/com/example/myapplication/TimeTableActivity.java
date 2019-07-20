@@ -391,10 +391,8 @@ public class TimeTableActivity extends AppCompatActivity {
                 num = c1.getCount();
                 for (int i = 0; i < num; i++) {
                     c1.moveToNext();
-                    {
                         ClassSubject s1 = new ClassSubject(c1.getString(0));
                         classlist.add(s1);//필수과목이름을 가진 ..
-                    }
                 }
             }
         } catch (Exception e) {

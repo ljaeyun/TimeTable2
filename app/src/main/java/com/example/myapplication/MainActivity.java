@@ -17,9 +17,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import static java.lang.Integer.parseInt;
-
-
 public class MainActivity extends AppCompatActivity {
     TextView text1;
     Integer id,year, major,db;
@@ -112,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Integer n = getmajor();
-                gethakbun();
-                getPassword();
+                //gethakbun();
+               // getPassword();
+                id = 1;
+                pw="dd";//테스트용 바로 확인누르고 입장가능
                 Intent intent = new Intent(getApplicationContext(),TimeTableActivity.class);
                 intent.putExtra("database",db);
                 intent.putExtra("studentId",id);
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private void getPassword() {
         String password = "";
         password = editTextpw.getText().toString();
-        setPw(password);//int로 바꿔서 전달
+        setPw(password);
     }
 
     private void gethakbun() {

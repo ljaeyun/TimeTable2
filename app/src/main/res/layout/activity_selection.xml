@@ -229,6 +229,7 @@
         android:text="꼭 넣어야 할 강의" />
 
     <SearchView
+        android:id="@+id/findclass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="75dp" />
@@ -299,6 +300,7 @@
                         android:text="1" />
 
                     <TextView
+                        android:id="@+id/cn1"
                         android:layout_width="176dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="1dp"
@@ -505,4 +507,5 @@
     </TableLayout>
 </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
