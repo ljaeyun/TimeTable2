@@ -22,7 +22,7 @@ import javax.security.auth.Subject;
 public class TimeTableActivity extends AppCompatActivity {
     private Context mContext = null;
 
-    Integer sid, syear, smajor, db;
+    Integer sid, syear, smajor, db, freeDay = 0;
     String spw;
     SQLiteDatabase database;
     TextView text1;
@@ -84,6 +84,7 @@ public class TimeTableActivity extends AppCompatActivity {
         spw = intent1.getStringExtra("studentPw");
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
+
         setmajor(smajor);
         choosedb(db);
 
@@ -104,7 +105,7 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -132,6 +133,29 @@ public class TimeTableActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+
+                case 1:
+                    freeDay = data.getIntExtra("Day", 1);
+
+                    Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
+
+                    break;
+
+
+                default:
+
+                    break;
+
+            }
+        }
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
@@ -184,11 +208,11 @@ public class TimeTableActivity extends AppCompatActivity {
         make(list, rrr, a, 0);//총 조합 rrr에 저장
 
         for (int i = 0; i < rrr.size(); i++) {//rrr i번째 조합 확인
-            if (!checkOverlap(rrr.get(i)))
-            {
+            if (!checkOverlap(rrr.get(i))) {
                 rrr.remove(i);//중복걸린거 지우기
                 i--;//아 조합 오류
-        }}
+            }
+        }
 
         for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
@@ -198,7 +222,7 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
         }//처음에 조합첫번째꺼 출력
 
-       pagerAdpater.setRrr(rrr);
+        pagerAdpater.setRrr(rrr);
     }
 
     private void choosedb(int db) {
@@ -391,8 +415,8 @@ public class TimeTableActivity extends AppCompatActivity {
                 num = c1.getCount();
                 for (int i = 0; i < num; i++) {
                     c1.moveToNext();
-                        ClassSubject s1 = new ClassSubject(c1.getString(0));
-                        classlist.add(s1);//필수과목이름을 가진 ..
+                    ClassSubject s1 = new ClassSubject(c1.getString(0));
+                    classlist.add(s1);//필수과목이름을 가진 ..
                 }
             }
         } catch (Exception e) {

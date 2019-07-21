@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class SelectionActivity extends AppCompatActivity {
     SQLiteDatabase database;
     TextView text2;
     String className="";
+    Integer freeDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,64 @@ public class SelectionActivity extends AppCompatActivity {
         searchview = (SearchView) findViewById(R.id.findclass);
         text2 = (TextView) findViewById(R.id.cn1);
 
+        findViewById(R.id.mon).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                printChecked(view);
+            }
+        });
+        findViewById(R.id.tue).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                printChecked(view);
+            }
+        });
+        findViewById(R.id.wen).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                printChecked(view);
+            }
+        });
+        findViewById(R.id.thu).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                printChecked(view);
+            }
+        });
+        findViewById(R.id.fri).setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                printChecked(view);
+            }
+        });
+
+
         getClassName();
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent();
+                intent.putExtra("Day",freeDay);//공강요일 넘김
+                setResult(RESULT_OK,intent);
+                finish();//닫기
             }
         });
+    }
+
+    public void printChecked(View view)
+    {
+        final CheckBox cb1 = (CheckBox)findViewById(R.id.mon);
+        final CheckBox cb2 = (CheckBox)findViewById(R.id.tue);
+        final CheckBox cb3 = (CheckBox)findViewById(R.id.wen);
+        final CheckBox cb4 = (CheckBox)findViewById(R.id.thu);
+        final CheckBox cb5 = (CheckBox)findViewById(R.id.fri);
+        Integer result = 0 ;//정수말고 다른걸로
+        if(cb1.isChecked() == true) result = 1;
+        if(cb2.isChecked() == true) result = 2;
+        if(cb3.isChecked() == true) result = 3;
+        if(cb4.isChecked() == true) result = 4;
+        if(cb5.isChecked() == true) result = 5;
+        freeDay=result;
     }
 
     private void getClassName() {
@@ -52,7 +105,7 @@ public class SelectionActivity extends AppCompatActivity {
                     if (c1 != null) {
                         num = c1.getCount();
                         c1.moveToNext();
-                        text2.setText("d"+num);
+                        text2.setText("d"+num);//일단 개수출력
 
                     }
                 } catch (Exception e) {
