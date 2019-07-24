@@ -11,13 +11,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SelectionActivity extends AppCompatActivity {
     SearchView searchview;
     SQLiteDatabase database;
+    TableLayout tableLayout;
     TextView text2;
+    TextView t1,t2;
     String className="";
     Integer freeDay;
 
@@ -27,9 +30,31 @@ public class SelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
 
-        Button button = (Button) findViewById(R.id.button_close);
+        Button button_close = (Button) findViewById(R.id.button_close);
+        Button button_apply = (Button) findViewById(R.id.button_apply);
         searchview = (SearchView) findViewById(R.id.findclass);
         text2 = (TextView) findViewById(R.id.cn1);
+        t1 = (TextView) findViewById(R.id.select1);
+        t2 = (TextView) findViewById(R.id.select2);
+
+        tableLayout = (TableLayout) findViewById(R.id.classTable);
+        tableLayout.setOnClickListener(new Button.OnClickListener(){//넣을과목 검색하고 추가할 과목 고름
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.select1:
+                        Toast.makeText(getApplicationContext(), 1 + "kk", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.select2:
+                        Toast.makeText(getApplicationContext(), 2 + "kk", Toast.LENGTH_SHORT).show();
+                        break;
+                        default:
+                            Toast.makeText(getApplicationContext(), 3 + "kk", Toast.LENGTH_SHORT).show();
+break;
+                }
+            }
+        });
+
 
         findViewById(R.id.mon).setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -62,11 +87,26 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
-
-        getClassName();
-        button.setOnClickListener(new Button.OnClickListener() {
+        text2.setOnClickListener(new TextView.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), 1 + "kk", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        getClassName();
+        button_close.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//닫기
+            }
+        });
+
+        button_apply.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {//적용버튼 추가
+                //필수랑 공강요일이랑 겹치면 팝업창뜨게 할까 https://ghj1001020.tistory.com/9
                 Intent intent = new Intent();
                 intent.putExtra("Day",freeDay);//공강요일 넘김
                 setResult(RESULT_OK,intent);

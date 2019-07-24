@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager;
@@ -25,6 +26,7 @@ public class TimeTableActivity extends AppCompatActivity {
     Integer sid, syear, smajor, db, freeDay = 0;
     String spw;
     SQLiteDatabase database;
+    SearchView searchview;
     TextView text1;
     int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
@@ -75,6 +77,7 @@ public class TimeTableActivity extends AppCompatActivity {
         pagerAdpater = new TableViewPagerAdapter(this);
         viewPager.setAdapter(pagerAdpater);
 
+        searchview = (SearchView) findViewById(R.id.find);
         text1 = (TextView) findViewById(R.id.inputSearch);
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
@@ -87,6 +90,8 @@ public class TimeTableActivity extends AppCompatActivity {
 
         setmajor(smajor);
         choosedb(db);
+
+        findClass();
 
         for (int i = 0; i < idArray.length; i++) {
             int jj = i / 5;
@@ -104,8 +109,11 @@ public class TimeTableActivity extends AppCompatActivity {
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-                startActivityForResult(intent, 1);
+              //  Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
+               //startActivityForResult(intent, 1);
+                Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
+               // intent1.putExtra("data", "Test Popup");
+              //  startActivityForResult(intent1, 2);
             }
         });
 
@@ -141,21 +149,42 @@ public class TimeTableActivity extends AppCompatActivity {
         //super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-
                 case 1:
-                    freeDay = data.getIntExtra("Day", 1);
-
+                    //freeDay = data.getIntExtra("Day", 1);
                     Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
-
                     break;
-
-
+                    case 2:
+                        //String result = data.getStringExtra("result");
+                        break;
                 default:
-
                     break;
-
             }
         }
+    }
+
+    private void findClass() {
+        final SQLiteDatabase alldb;
+        alldb = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
+
+        //searchview.setSubmitButtonEnabled(true);//확인버튼 활성화
+
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                int num = 0;
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
+
+    public void mOnPopupClick(View v){
+        //데이터 담아서 팝업(액티비티) 호출
+
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
