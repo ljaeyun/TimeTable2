@@ -109,11 +109,8 @@ public class TimeTableActivity extends AppCompatActivity {
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-               //startActivityForResult(intent, 1);
-                Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
-               // intent1.putExtra("data", "Test Popup");
-              //  startActivityForResult(intent1, 2);
+                Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
+               startActivityForResult(intent,1);
             }
         });
 
@@ -172,6 +169,8 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 int num = 0;
+                Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
+                startActivity(intent);//검색결과출력은 팝업으로 해봅시다
                 return true;
             }
 
@@ -180,11 +179,6 @@ public class TimeTableActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    public void mOnPopupClick(View v){
-        //데이터 담아서 팝업(액티비티) 호출
-
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
