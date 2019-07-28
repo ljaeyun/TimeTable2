@@ -23,7 +23,7 @@ import javax.security.auth.Subject;
 public class TimeTableActivity extends AppCompatActivity {
     private Context mContext = null;
 
-    Integer sid, syear, smajor, db, freeDay = 0;
+    Integer sid, syear, smajor, db, freeDay = 0,position=0;
     String spw;
     SQLiteDatabase database;
     SearchView searchview;
@@ -31,7 +31,7 @@ public class TimeTableActivity extends AppCompatActivity {
     int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
-
+    ClassSubject pluscs;
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
     TableLayout tableLayout;
@@ -110,7 +110,7 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-               startActivityForResult(intent,1);
+               startActivityForResult(intent,100);
             }
         });
 
@@ -122,6 +122,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
+                position=i;//현재페이지
                 if (rrr.size() > i) {//조합개수 나중에 페이지개수 조절로..
                     for (int j = 0; j < rrr.get(i).size(); j++) {//과목 개수만큼만 출력
                         tvArray[j * 5 + 0].setText(rrr.get(i).get(j).getTimearr(0).getCode());
@@ -141,17 +142,25 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
         //super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 1:
-                    //freeDay = data.getIntExtra("Day", 1);
+                case 100://추가버튼
+                    //freeDay = intent.getIntExtra("Day", 1);
                     Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
                     break;
-                    case 2:
-                        //String result = data.getStringExtra("result");
+                    case 200://과목검색 searchview
+                        pluscs = (ClassSubject) intent.getParcelableExtra("plus");//추가할 과목 받아옴
+                        rrr.get(position).add(pluscs);//현재페이지에만 추가해야되는데
+                        for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
+                            tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
+                            tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
+                            tvArray[i * 5 + 2].setText(rrr.get(0).get(i).getTimearr(0).getEsu());//이수 출력
+                            tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
+                            tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
+                        }//다시 출력
                         break;
                 default:
                     break;
@@ -160,17 +169,14 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     private void findClass() {
-        final SQLiteDatabase alldb;
-        alldb = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
-
         //searchview.setSubmitButtonEnabled(true);//확인버튼 활성화
-
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 int num = 0;
                 Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
-                startActivity(intent);//검색결과출력은 팝업으로 해봅시다
+                intent.putExtra("classname",s);//검색할 과목
+                startActivityForResult(intent,200);
                 return true;
             }
 

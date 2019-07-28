@@ -1,8 +1,9 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TimeArr {
+public class TimeArr implements Serializable {
     private ArrayList<Integer> timearray = new ArrayList<>();
     private String code;//학정번호
     private String prof;//교수명

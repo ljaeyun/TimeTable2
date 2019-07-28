@@ -37,24 +37,24 @@ public class SelectionActivity extends AppCompatActivity {
         t1 = (TextView) findViewById(R.id.select1);
         t2 = (TextView) findViewById(R.id.select2);
 
-        tableLayout = (TableLayout) findViewById(R.id.classTable);
-        tableLayout.setOnClickListener(new Button.OnClickListener(){//넣을과목 검색하고 추가할 과목 고름
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.select1:
-                        Toast.makeText(getApplicationContext(), 1 + "kk", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.select2:
-                        Toast.makeText(getApplicationContext(), 2 + "kk", Toast.LENGTH_SHORT).show();
-                        break;
-                        default:
-                            Toast.makeText(getApplicationContext(), 3 + "kk", Toast.LENGTH_SHORT).show();
-break;
-                }
-            }
-        });
-
+//        tableLayout = (TableLayout) findViewById(R.id.classTable);
+//        tableLayout.setOnClickListener(new Button.OnClickListener(){//넣을과목 검색하고 추가할 과목 고름
+//            @Override
+//            public void onClick(View v) {
+//                switch (v.getId()){
+//                    case R.id.select1:
+//                        Toast.makeText(getApplicationContext(), 1 + "kk", Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case R.id.select2:
+//                        Toast.makeText(getApplicationContext(), 2 + "kk", Toast.LENGTH_SHORT).show();
+//                        break;
+//                        default:
+//                            Toast.makeText(getApplicationContext(), 3 + "kk", Toast.LENGTH_SHORT).show();
+//break;
+//                }
+//            }
+//        });
+//
 
         findViewById(R.id.mon).setOnClickListener(new Button.OnClickListener(){
             @Override

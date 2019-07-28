@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="400dp"
+    android:layout_height="300dp"
     android:background="#ffffff"
-
-    tools:context=".TimeTableActivity">
+>
 
 
     <Button
@@ -16,438 +14,89 @@
         android:layout_height="45dp"
         android:layout_gravity="right"
         android:text="X"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="6dp" />
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="3"
-            >
+            android:background="@color/colorTableBack">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="학정번호"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="과목명"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="이수"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="교수"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="시간"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="15"
+            android:scrollbars="none">
 
             <TableLayout
-                android:layout_width="257dp"
-                android:layout_height="486dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
+                android:id="@+id/result_table"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="15"
                 android:orientation="vertical">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorTableBack">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="학정"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="과목명"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="이수"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="교수"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="시간"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
-
-
-                </TableRow>
-
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:layout_weight="1"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec0_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec0_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec0_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec0_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec0_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec1_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec1_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec1_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec1_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec1_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec2_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec2_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec2_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec2_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec2_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec3_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec3_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec3_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec3_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec3_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec4_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec4_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec4_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec4_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
-
-                                />
-
-                            <TextView
-                                android:id="@+id/lec4_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
-
-                                />
-
-                        </TableRow>
-
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorPrimaryDark">
-
-
-                            <TextView
-                                android:id="@+id/lec5_0"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec5_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec5_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec5_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
-
-                                />
-
-                            <TextView
-                                android:id="@+id/lec5_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
-
-                                />
-
-                        </TableRow>
-                    </LinearLayout>
-
-
-                </ScrollView>
             </TableLayout>
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
