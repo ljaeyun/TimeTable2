@@ -15,15 +15,14 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
 
 public class TimeTableActivity extends AppCompatActivity {
-    private Context mContext = null;
+    public static Context mContext = null;
 
-    Integer sid, syear, smajor, db, freeDay = 0,position=0;
+    Integer sid, syear, smajor, db, freeDay = 0, position = 0;
     String spw;
     SQLiteDatabase database;
     SearchView searchview;
@@ -110,7 +109,7 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-               startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
             }
         });
 
@@ -122,7 +121,8 @@ public class TimeTableActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
-                position=i;//현재페이지
+                clearText();//이전꺼 지우고
+                position = i;//현재페이지
                 if (rrr.size() > i) {//조합개수 나중에 페이지개수 조절로..
                     for (int j = 0; j < rrr.get(i).size(); j++) {//과목 개수만큼만 출력
                         tvArray[j * 5 + 0].setText(rrr.get(i).get(j).getTimearr(0).getCode());
@@ -139,6 +139,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
             }
         });
+        mContext=this;
     }
 
     @Override
@@ -151,32 +152,38 @@ public class TimeTableActivity extends AppCompatActivity {
                     //freeDay = intent.getIntExtra("Day", 1);
                     Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
                     break;
-                    case 200://과목검색 searchview
-                        pluscs = (ClassSubject) intent.getParcelableExtra("plus");//추가할 과목 받아옴
-                        rrr.get(position).add(pluscs);//현재페이지에만 추가해야되는데
-                        for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
-                            tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
-                            tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
-                            tvArray[i * 5 + 2].setText(rrr.get(0).get(i).getTimearr(0).getEsu());//이수 출력
-                            tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
-                            tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
-                        }//다시 출력
-                        break;
+                case 200://과목검색 searchview
+                    pluscs = (ClassSubject) intent.getParcelableExtra("plus");//추가할 과목 받아옴
+                    if (pluscs != null)
+                        rrr.get(position).add(pluscs);//현재페이지에만 추가
+                    if (!checkOverlap(rrr.get(position)))
+                        rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
+//필수 없을때는 안된다..
+                    for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
+                        tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
+                        tvArray[i * 5 + 1].setText(rrr.get(position).get(i).getName());
+                        tvArray[i * 5 + 2].setText(rrr.get(position).get(i).getTimearr(0).getEsu());//이수 출력
+                        tvArray[i * 5 + 3].setText(rrr.get(position).get(i).getTimearr(0).getProf());//교수명 출력
+                        tvArray[i * 5 + 4].setText(rrr.get(position).get(i).getTimearr(0).getTimestr());
+                    }//다시 출력
+                    pagerAdpater.setRrr(rrr);
+
+                    break;
                 default:
                     break;
             }
         }
     }
 
-    private void findClass() {
+    private void findClass() {//과목검색함수
         //searchview.setSubmitButtonEnabled(true);//확인버튼 활성화
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 int num = 0;
                 Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
-                intent.putExtra("classname",s);//검색할 과목
-                startActivityForResult(intent,200);
+                intent.putExtra("classname", s);//검색할 과목
+                startActivityForResult(intent, 200);
                 return true;
             }
 
@@ -185,6 +192,13 @@ public class TimeTableActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void clearText() {//과목 목록 초기화
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 5; j++)
+                tvArray[i * 5 + j].setText("");
+        }
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
@@ -251,7 +265,6 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
         }//처음에 조합첫번째꺼 출력
 
-        pagerAdpater.setRrr(rrr);
     }
 
     private void choosedb(int db) {
@@ -320,7 +333,6 @@ public class TimeTableActivity extends AppCompatActivity {
         t.setTimestr(timestr);
         s.put(t);
     }
-
 
     private void queryData(int major) {
         text1.setText("");
@@ -453,29 +465,35 @@ public class TimeTableActivity extends AppCompatActivity {
             Log.e("", e.getMessage());
         }
 
-        try {
-            Cursor c = database.rawQuery(sql, null);
+        if (num != 0) {//필수과목이 있는 경우에만!
+            try {
+                Cursor c = database.rawQuery(sql, null);
 
-            if (c != null) {
-                int count = c.getCount();
+                if (c != null) {
+                    int count = c.getCount();
 
-                for (int i = 0; i < count; i++) {
-                    c.moveToNext();
-                    {
-                        for (int k = 0; k < num; k++) {//과목개수
-                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
-                                timecal(classlist.get(k), c);//깔끔한 함수
-                            }
-                        }//classlist에 넣는건 모든과목 다
+                    for (int i = 0; i < count; i++) {
+                        c.moveToNext();
+                        {
+                            for (int k = 0; k < num; k++) {//과목개수
+                                if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
+                                    timecal(classlist.get(k), c);//깔끔한 함수
+                                }
+                            }//classlist에 넣는건 모든과목 다
+                        }
                     }
+
+                    johab(classlist);//필수인 과목이 없을때도 함수를 실행해서 그런것 같아요
                 }
-
-                johab(classlist);//필수인 과목이 없을때도 함수를 실행해서 그런것 같아요
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("", e.getMessage());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
+        } else//없는 경우에는 알림
+        {
+            rrr = new ArrayList<>();//최종 조합 배열?
+            Toast.makeText(getApplicationContext(), syear + " 학년 필수 과목이 없습니다.", Toast.LENGTH_LONG).show();
         }
-
+        pagerAdpater.setRrr(rrr);
     }
 }

@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +18,9 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class TableViewPagerAdapter extends PagerAdapter {
-    private Context mContext = null;
+    public static Context mContext = null;
     private int position;
+    private int page=1;
     int[] tableArray = new int[35];//시간표에 출력
     TextView[] tvArray2 = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
@@ -64,12 +68,19 @@ public class TableViewPagerAdapter extends PagerAdapter {
         for (int i = 0; i < tvArray2.length; i++) {
             tvArray2[i] = (TextView) view.findViewById(tableArray[i]);
         }
-        drawTable();
+
+        if (rrr != null) {//필수과목이 있는 경우에만
+            drawTable();
+        }
+
         container.addView(view);
         return view;
     }
 
-
+public void setPage(int page)
+{
+    this.page = page;
+}
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
@@ -77,7 +88,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+     return 5;
     }
 
     @Override
@@ -101,18 +112,18 @@ public class TableViewPagerAdapter extends PagerAdapter {
     }
 
     public void drawTable() {
-        for(int j=0;j<rrr.get(position).size();j++)
-        {
-            for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
-                if((rrr.get(position).get(j).getTimearr(0).print(i)%10) <7)//6교시까지만 표시
-                {
-                    int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
-                tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
-                tvArray2[t].append("\n"+rrr.get(position).get(j).getName());
+            if (rrr.size() > position) {//rrr이 null일때 오류
+                for (int j = 0; j < rrr.get(position).size(); j++) {
+                    for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
+                        if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7)//6교시까지만 표시
+                        {
+                            int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
+                            tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
+                            tvArray2[t].append("\n" + rrr.get(position).get(j).getName());
+                        }
+                    }
+                }
             }
-            }
-        }//뭐에서 오류?
-        // tvArray2[0].setText(rrr.get(position).get(0).getName());
-        // tvArray2[24].setText("dd");
-    }
+        }
 }
+
