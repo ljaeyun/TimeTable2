@@ -10,6 +10,15 @@ public class TimeArr implements Serializable {
     private String esu;//이수
     private String timestr;//문자열로
 
+    public TimeArr()
+    {
+        this.timearray = new ArrayList<>();
+        this.code="";
+        this.prof="";
+        this.esu = "";
+        this.timestr="";
+    }
+
     public void put(int a)
     {
         timearray.add(a);

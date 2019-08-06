@@ -15,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import javax.security.auth.Subject;
@@ -30,7 +31,7 @@ public class TimeTableActivity extends AppCompatActivity {
     int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
-    ClassSubject pluscs;
+    ArrayList<ClassSubject> pluscs = new ArrayList<>();
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
     TableLayout tableLayout;
@@ -139,7 +140,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
             }
         });
-        mContext=this;
+        mContext = this;
     }
 
     @Override
@@ -153,12 +154,17 @@ public class TimeTableActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
                     break;
                 case 200://과목검색 searchview
-                    pluscs = (ClassSubject) intent.getParcelableExtra("plus");//추가할 과목 받아옴
-                    if (pluscs != null)
-                        rrr.get(position).add(pluscs);//현재페이지에만 추가
-                    if (!checkOverlap(rrr.get(position)))
-                        rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
-//필수 없을때는 안된다..
+                    pluscs = intent.getParcelableArrayListExtra("plus");
+                    if (pluscs != null) {
+                        for (int i = 0; i < pluscs.size(); i++) {
+                            rrr.get(position).add(pluscs.get(i));//현재 페이지에 추가
+                            if (!checkOverlap(rrr.get(position)))
+                                rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
+                        }
+                        if (rrr.get(position).get(0).getName().equals("null"))
+                            rrr.get(position).remove(0);//일단 필수과목이 없는경우 오류를 없애기 위해
+                    }
+
                     for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
                         tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
                         tvArray[i * 5 + 1].setText(rrr.get(position).get(i).getName());
@@ -166,8 +172,6 @@ public class TimeTableActivity extends AppCompatActivity {
                         tvArray[i * 5 + 3].setText(rrr.get(position).get(i).getTimearr(0).getProf());//교수명 출력
                         tvArray[i * 5 + 4].setText(rrr.get(position).get(i).getTimearr(0).getTimestr());
                     }//다시 출력
-                    pagerAdpater.setRrr(rrr);
-
                     break;
                 default:
                     break;
@@ -492,6 +496,13 @@ public class TimeTableActivity extends AppCompatActivity {
         } else//없는 경우에는 알림
         {
             rrr = new ArrayList<>();//최종 조합 배열?
+            ClassSubject cs = new ClassSubject("null");
+            ArrayList<ClassSubject> arr = new ArrayList<>();
+            TimeArr timeArr = new TimeArr();
+            cs.put(timeArr);
+            arr.add(cs);
+            rrr.add(arr);//빈거를 넣어준다
+
             Toast.makeText(getApplicationContext(), syear + " 학년 필수 과목이 없습니다.", Toast.LENGTH_LONG).show();
         }
         pagerAdpater.setRrr(rrr);

@@ -25,10 +25,13 @@ import org.w3c.dom.Text;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
 public class ClassListActivity extends Activity {
     SQLiteDatabase database;
     String classname;
     int count = 0, num = 0;
+    ArrayList<ClassSubject> arr;
     ClassSubject cs;
     Cursor c;
     TableRow tr[];
@@ -51,6 +54,7 @@ public class ClassListActivity extends Activity {
         TableLayout.LayoutParams rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TableLayout t = (TableLayout) findViewById(R.id.result_table);
         TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
+        arr = new ArrayList<>();
 
         try {
             c = database.rawQuery("select 학정번호, 과목명, 이수, 담당교수, 요일1,시간1,요일2,시간2 from allclass where 과목명 like '%" + classname + "%'", null);//일단 한 테이블에 모든 교양넣었음
@@ -77,15 +81,27 @@ public class ClassListActivity extends Activity {
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
                             text[i][j].setTag(i);
+
                             text[i][j].setOnClickListener(new Button.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {//여러개 선택하면 어떡하징..
                                     num = (Integer) v.getTag();//선택된 번호
-                                    for (int k = 0; k < 5; k++)
-                                        text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
-                                    c.moveToPosition(num);
-                                    cs = new ClassSubject(c.getString(1));
-                                    ((TimeTableActivity) TimeTableActivity.mContext).timecal(cs, c);
+                                    if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
+                                        for (int k = 0; k < 5; k++)
+                                            text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
+                                        c.moveToPosition(num);
+                                        for (int l = 0; l < arr.size(); l++) {
+                                            if (arr.get(l).getName().equals(c.getString(1)))
+                                                arr.remove(l);//배열에서 찾아서 지운다
+                                        }
+                                    } else {//처음 누르면
+                                        for (int k = 0; k < 5; k++)
+                                            text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                        c.moveToPosition(num);
+                                        cs = new ClassSubject(c.getString(1));
+                                        ((TimeTableActivity) TimeTableActivity.mContext).timecal(cs, c);
+                                        arr.add(cs); //배열에 넣는다
+                                    }
                                     //finish();//바로 닫히면서 추가하게 할지 추가버튼을 만들지
                                 }
                             });
@@ -114,7 +130,7 @@ public class ClassListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("plus", cs);
+                intent.putParcelableArrayListExtra("plus", arr);
                 setResult(RESULT_OK, intent);
                 finish();//닫기
             }
