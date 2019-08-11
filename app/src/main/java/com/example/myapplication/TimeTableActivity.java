@@ -35,6 +35,9 @@ public class TimeTableActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
     TableLayout tableLayout;
+    long nStart = 0;
+    long nEnd = 0;
+
 
     private Integer getId() {
         return sid;
@@ -70,6 +73,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        nStart = System.nanoTime();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
@@ -216,10 +220,14 @@ public class TimeTableActivity extends AppCompatActivity {
             ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
 
             arr.add(cs);//ClassSubject를 넣어야지
-            if (j == max - 1)
-                rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
-            else
-                make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
+            if (checkOverlap(arr))//겹치지않는다면
+            {
+                if (j == max - 1) //마지막과목이라면
+                    rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
+                else
+                    make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
+            } else//겹친다면
+                arr.remove(arr.size() - 1);//방금 넣은거 뺀다
         }
     }
 
@@ -234,15 +242,11 @@ public class TimeTableActivity extends AppCompatActivity {
     private boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
         ArrayList<Integer> chk = new ArrayList<>();//임시로 모든 시간을 저장한다 순서대로
         for (int i = 0; i < rrr.size(); i++) {
-            for (int k = 0; k < rrr.get(i).getTimearr(0).size(); k++) {
-                if (i == 0) {
-                    chk.add(rrr.get(0).getTimearr(0).print(k));//첫번째 시간은 다 넣고
-                } else {
-                    if (find(chk, rrr.get(i).getTimearr(0).print(k)))
-                        chk.add(rrr.get(i).getTimearr(0).print(k));//없으면 집어넣는다.
-                    else
-                        return false;//겹치는거 나오면
-                }
+            for (int k = 0; k < rrr.get(i).getTimearr(0).size(); k++) {//i번째 과목의 시간
+                if (find(chk, rrr.get(i).getTimearr(0).print(k)))//겹치는지 확인하고
+                    chk.add(rrr.get(i).getTimearr(0).print(k));//없으면 집어넣는다.
+                else
+                    return false;//겹치는거 나오면
             }
         }
         return true;
@@ -254,13 +258,6 @@ public class TimeTableActivity extends AppCompatActivity {
 
         make(list, rrr, a, 0);//총 조합 rrr에 저장
 
-        for (int i = 0; i < rrr.size(); i++) {//rrr i번째 조합 확인
-            if (!checkOverlap(rrr.get(i))) {
-                rrr.remove(i);//중복걸린거 지우기
-                i--;//아 조합 오류
-            }
-        }
-
         for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
             tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
@@ -269,6 +266,8 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
         }//처음에 조합첫번째꺼 출력
 
+        nEnd = System.nanoTime();
+        System.out.println("total elapsed time = " + (nEnd - nStart));
     }
 
     private void choosedb(int db) {
