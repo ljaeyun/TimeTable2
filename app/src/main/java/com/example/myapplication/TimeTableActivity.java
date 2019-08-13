@@ -114,6 +114,7 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
+                intent.putParcelableArrayListExtra("now_list", rrr.get(position));
                 startActivityForResult(intent, 100);
             }
         });
@@ -239,7 +240,7 @@ public class TimeTableActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
+    public boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
         ArrayList<Integer> chk = new ArrayList<>();//임시로 모든 시간을 저장한다 순서대로
         for (int i = 0; i < rrr.size(); i++) {
             for (int k = 0; k < rrr.get(i).getTimearr(0).size(); k++) {//i번째 과목의 시간
@@ -477,13 +478,11 @@ public class TimeTableActivity extends AppCompatActivity {
 
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
-                        {
-                            for (int k = 0; k < num; k++) {//과목개수
-                                if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
-                                    timecal(classlist.get(k), c);//깔끔한 함수
-                                }
-                            }//classlist에 넣는건 모든과목 다
-                        }
+                        for (int k = 0; k < num; k++) {//과목개수
+                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
+                                timecal(classlist.get(k), c);//깔끔한 함수
+                            }
+                        }//classlist에 넣는건 모든과목 다
                     }
 
                     johab(classlist);//필수인 과목이 없을때도 함수를 실행해서 그런것 같아요
