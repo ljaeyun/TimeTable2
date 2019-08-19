@@ -232,7 +232,7 @@ public class TimeTableActivity extends AppCompatActivity {
         }
     }
 
-    private boolean find(ArrayList<Integer> chk, int k) {
+    public boolean find(ArrayList<Integer> chk, int k) {
         for (int ii = 0; ii < chk.size(); ii++) {
             if (k == chk.get(ii))
                 return false;//순서대로 찾았는데 없다
@@ -291,49 +291,56 @@ public class TimeTableActivity extends AppCompatActivity {
     public void timecal(ClassSubject s, Cursor c) {
         int n = 0, m = 0;// 월: 0~9
         String timestr = null;//시간 문자열
-        if (c.getString(4).equals("화")) {//화:10~19
-            n = 10;
-        } else if (c.getString(4).equals("수")) {
-            n = 20;
-        } else if (c.getString(4).equals("목")) {
-            n = 30;
-        } else if (c.getString(4).equals("금")) {
-            n = 40;
-        }
-        if (c.getString(6) != null) {
-            if (c.getString(6).equals("화")) {
-                m = 10;
-            } else if (c.getString(6).equals("수")) {
-                m = 20;
-            } else if (c.getString(6).equals("목")) {
-                m = 30;
-            } else if (c.getString(6).equals("금")) {
-                m = 40;
-            }
-            timestr = c.getString(4) + c.getString(5) + ' ' + c.getString(6) + c.getString(7);
-        } else
-            timestr = c.getString(4) + c.getString(5);
-
-
         TimeArr t = new TimeArr();
 
-        String[] arr1 = c.getString(5).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
-
-        if (c.getString(7) != null) {
-            String[] arr2 = c.getString(7).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
-            for (int i = 0; i < arr2.length; i++) {
-                if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
-                    t.put(m + Integer.parseInt(arr2[i]));
+        if (c.getString(5) != null) {
+            if (c.getString(5).equals("화")) {//화:10~19
+                n = 10;
+            } else if (c.getString(5).equals("수")) {
+                n = 20;
+            } else if (c.getString(5).equals("목")) {
+                n = 30;
+            } else if (c.getString(5).equals("금")) {
+                n = 40;
+            } else if (c.getString(5).equals("토")) {
+                n = 50;
             }
-        }//null 예외처리!!!!
+            if (c.getString(7) != null) {
+                if (c.getString(7).equals("화")) {
+                    m = 10;
+                } else if (c.getString(7).equals("수")) {
+                    m = 20;
+                } else if (c.getString(7).equals("목")) {
+                    m = 30;
+                } else if (c.getString(7).equals("금")) {
+                    m = 40;
+                }
+                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7) + c.getString(8);
+            } else
+                timestr = c.getString(5) + c.getString(6);
 
-        //자른거
-        for (int i = 0; i < arr1.length; i++)
-            t.put(n + Integer.parseInt(arr1[i]));
 
+            String[] arr1 = c.getString(6).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
+
+            if (c.getString(8) != null) {
+                String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
+                for (int i = 0; i < arr2.length; i++) {
+                    if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
+                        t.put(m + Integer.parseInt(arr2[i]));
+                }
+            }//null 예외처리!!!!
+
+            //자른거
+            for (int i = 0; i < arr1.length; i++)
+                t.put(n + Integer.parseInt(arr1[i]));
+        } else {//인강인 경우..
+            n = 50;
+            t.put(n);
+        }
         t.putCode(c.getString(0));//학정번호도 넣어봅시다
         t.setEsu(c.getString(2));//이수
-        t.setprof(c.getString(3));//교수명도
+        t.setCredit(Integer.parseInt(c.getString(3)));//학점
+        t.setprof(c.getString(4));//교수명도
         t.setTimestr(timestr);
         s.put(t);
     }
@@ -448,7 +455,7 @@ public class TimeTableActivity extends AppCompatActivity {
         }
         syear += 1;
         int num = 0;
-        String sql1 = "select 학정번호, 과목명, 이수, 담당교수, 요일1,시간1,요일2,시간2 from ";
+        String sql1 = "select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from ";
         String sql2 = " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'";
         String sql = sql1 + table + sql2;
         ArrayList<ClassSubject> classlist = new ArrayList<>();//클래스타입의 arraylist.....

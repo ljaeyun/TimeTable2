@@ -9,6 +9,7 @@ public class TimeArr implements Serializable {
     private String prof;//교수명
     private String esu;//이수
     private String timestr;//문자열로
+    private Integer credit;//학점
 
     public TimeArr()
     {
@@ -17,6 +18,7 @@ public class TimeArr implements Serializable {
         this.prof="";
         this.esu = "";
         this.timestr="";
+        this.credit = 0;
     }
 
     public void put(int a)
@@ -67,5 +69,15 @@ public class TimeArr implements Serializable {
     public void setTimestr(String timestr)
     {
         this.timestr = timestr;
+    }
+
+    public void setCredit(int credit)
+    {
+        this.credit = credit;
+    }
+
+    public Integer getCredit()
+    {
+        return this.credit;
     }
 }
