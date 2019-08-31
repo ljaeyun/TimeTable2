@@ -65,6 +65,7 @@ public class SelectionActivity extends AppCompatActivity {
         t1 = (TextView) findViewById(R.id.select1);
         t2 = (TextView) findViewById(R.id.select2);
 
+        makedb();
 
         getTimeTable();
 
@@ -196,6 +197,63 @@ public class SelectionActivity extends AppCompatActivity {
         });
     }
 
+    public boolean isTableExists(String tableName) {
+        database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
+        try {
+            Cursor cursor = database.rawQuery("select * from " + tableName + "", null);
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.close();
+                    return true;
+                }
+                cursor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("", e.getMessage());
+            return false;
+        }
+
+        return false;
+    }
+
+    private void makedb() {
+        database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
+
+        if (!isTableExists("allsubject")) {//처음에만 만든다
+            database.execSQL("create table allsubject as select * from 과학과기술");
+            database.execSQL("alter table allsubject add column typecode integer default 1");
+
+            database.execSQL("create table test1 as select * from 언어와표현");
+            database.execSQL("alter table test1 add column typecode integer default 2");
+
+            database.execSQL("create table test2 as select * from 인간과철학");
+            database.execSQL("alter table test2 add column typecode integer default 3");
+
+            database.execSQL("create table test3 as select * from 사회와경제");
+            database.execSQL("alter table test3 add column typecode integer default 4");
+
+            database.execSQL("create table test4 as select * from 글로벌");
+            database.execSQL("alter table test4 add column typecode integer default 5");
+
+            database.execSQL("create table test5 as select * from 예술과체육");
+            database.execSQL("alter table test5 add column typecode integer default 6");
+
+            database.execSQL("create table test6 as select * from e러닝");
+            database.execSQL("alter table test6 add column typecode integer default 7");
+
+            database.execSQL("create table test7 as select * from 실용영어");
+            database.execSQL("alter table test7 add column typecode integer default 8");
+
+            for (int i = 1; i < 8; i++)
+                database.execSQL("insert into allsubject select * from test" + i);//모두 넣는다
+
+            for (int i = 1; i < 8; i++)
+                database.execSQL("drop table test" + i);//모두 지운다
+
+        }
+    }
+
     private int creditSum(ArrayList<ClassSubject> arr) {
         int sum = 0;
         for (int i = 0; i < arr.size(); i++)
@@ -233,11 +291,21 @@ public class SelectionActivity extends AppCompatActivity {
                 {    //if (creditSum(arr) >= min)//최소학접모다 크면
                     arr.addAll(classList);
                     rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
-                }   else
-                        make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
+                } else
+                    make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
             } else//겹친다면
                 arr.remove(arr.size() - 1);//방금 넣은거 뺀다
         }
+    }
+
+    private boolean isavailable(ArrayList<ClassSubject> a, ClassSubject cs) {
+        ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();
+        arr.addAll(classList);//이미 있는 과목이랑도 비교
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i).getTypecode() == cs.getTypecode() && arr.get(i).getTimearr(0).getCode().substring(5, 6).equalsIgnoreCase(cs.getTimearr(0).getCode().substring(5, 6)))
+                return false;
+        }
+        return true;
     }
 
     private void combination(ArrayList<ClassSubject> list, ArrayList<ClassSubject> cs, int n, int r, int i) {
@@ -252,11 +320,13 @@ public class SelectionActivity extends AppCompatActivity {
             arr.add(a);//넣고
             cs.clear();//초기화
         } else {
-            a.add(list.get(i));
-            combination(list, a, n - 1, r - 1, i + 1);
+            if (isavailable(a, list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지
+                a.add(list.get(i));
+                combination(list, a, n - 1, r - 1, i + 1);
 
-            if (a.size() != 0)
-                a.remove(a.size() - 1);
+                if (a.size() != 0)
+                    a.remove(a.size() - 1);
+            }
             combination(list, a, n - 1, r, i + 1);
         }
     }
@@ -267,7 +337,7 @@ public class SelectionActivity extends AppCompatActivity {
         ArrayList<ClassSubject> list = new ArrayList<>();//모든과목을 이름으로 넣는다..일단
 
         try {
-            Cursor c1 = database.rawQuery("select distinct 과목명 from allclass", null);
+            Cursor c1 = database.rawQuery("select distinct 과목명 from allsubject", null);
             //과목이름 한번만
             if (c1 != null) {
                 num = c1.getCount();
@@ -284,7 +354,7 @@ public class SelectionActivity extends AppCompatActivity {
 
         int credit1 = 0, credit2 = 0, credit3 = 0;//1학점 과목 개수 2학점 과목 개수
         try {
-            Cursor c = database.rawQuery("select distinct 과목명 from allclass where 학점 like '1'", null);
+            Cursor c = database.rawQuery("select distinct 과목명 from allsubject where 학점 like '1'", null);
             if (c != null) {
                 credit1 = c.getCount();
                 c.moveToNext();
@@ -294,7 +364,7 @@ public class SelectionActivity extends AppCompatActivity {
             Log.e("", e.getMessage());
         }
         try {
-            Cursor c = database.rawQuery("select distinct 과목명 from allclass where 학점 like '2'", null);
+            Cursor c = database.rawQuery("select distinct 과목명 from allsubject where 학점 like '2'", null);
             if (c != null) {
                 credit2 = c.getCount();
                 c.moveToNext();
@@ -319,7 +389,7 @@ public class SelectionActivity extends AppCompatActivity {
 
         int max_num = n1 + n2;
         try {
-            Cursor c = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from allclass", null);
+            Cursor c = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2,typecode from allsubject", null);
             if (c != null) {
                 int count = c.getCount();
 
@@ -328,6 +398,8 @@ public class SelectionActivity extends AppCompatActivity {
                     for (int k = 0; k < num; k++) {
                         if (c.getString(1).equalsIgnoreCase(list.get(k).getName())) {//과목이름이 같은 arraylist에
                             ((TimeTableActivity) TimeTableActivity.mContext).timecal(list.get(k), c);
+                            list.get(k).setTypecode(c.getInt(9));
+
                         }
                     }
                 }
@@ -338,17 +410,17 @@ public class SelectionActivity extends AppCompatActivity {
         }
 
         ArrayList<ClassSubject> cs = new ArrayList<>();
-      // for (int r = min_num; r < max_num; r++) {
-            arr = new ArrayList<>();//총 조합이 여기에 저장된다
-            combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
+        // for (int r = min_num; r < max_num; r++) {
+        arr = new ArrayList<>();//총 조합이 여기에 저장된다
+        combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
         //일단 2개 고르는걸로.. 연산이 너무 크다
 
-            ArrayList<ClassSubject> a = new ArrayList<>();
-            rrr = new ArrayList<>();//최종 조합 배열?
-            for (int i = 0; i < arr.size(); i++)
-                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
+        ArrayList<ClassSubject> a = new ArrayList<>();
+        rrr = new ArrayList<>();//최종 조합 배열?
+        for (int i = 0; i < arr.size(); i++)
+            make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
 
-      //  }
+        //  }
 
     }
 
