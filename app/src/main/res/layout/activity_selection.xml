@@ -133,7 +133,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
+        android:layout_marginLeft="65dp"
         android:layout_marginTop="20dp"
         android:text="원하는 공강 요일" />
 
@@ -192,10 +192,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#DCDCD3"
-        android:orientation="horizontal"
         android:layout_gravity="center"
-        >
+        android:background="#DCDCD3"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
@@ -235,9 +234,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="110dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="교양 영역 선택" />
+        android:text="교양 영역 선택 (1개 이상 3개 이하)" />
 
     <TableLayout
         android:layout_width="wrap_content"

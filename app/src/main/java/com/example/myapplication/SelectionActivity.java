@@ -28,6 +28,7 @@ public class SelectionActivity extends AppCompatActivity {
     String className = "";
     Integer freeDay;
     ArrayList<Integer> nowtimearr;
+    ArrayList<Integer> subjectarr = new ArrayList<>();
     ArrayList<ClassSubject> classList;
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
     ArrayList<ArrayList<ClassSubject>> arr;
@@ -67,7 +68,6 @@ public class SelectionActivity extends AppCompatActivity {
 
         makedb();
 
-        getTimeTable();
 
 //        tableLayout = (TableLayout) findViewById(R.id.classTable);
 //        tableLayout.setOnClickListener(new Button.OnClickListener(){//넣을과목 검색하고 추가할 과목 고름
@@ -167,7 +167,6 @@ public class SelectionActivity extends AppCompatActivity {
                 printChecked(view);
             }
         });
-
         text2.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +188,12 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {//적용버튼 추가
                 // Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);//다른 화면을 열어줄 계획
                 // startActivityForResult(intent, 100);
+                if (subjectarr.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "교양영역을 1개이상 선택해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                getTimeTable();
+
                 Intent intent = new Intent();
                 intent.putExtra("Day", freeDay);//공강요일 넘김
                 setResult(RESULT_OK, intent);
@@ -285,12 +290,12 @@ public class SelectionActivity extends AppCompatActivity {
             ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
 
             arr.add(cs);//ClassSubject를 넣어야지
-            if (checkOverlap(arr) && creditSum(arr) <= max)//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
-            {
-                if (j == maxnum - 1) //마지막과목이라면
-                {    //if (creditSum(arr) >= min)//최소학접모다 크면
-                    arr.addAll(classList);
-                    rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
+            if (checkOverlap(arr) && creditSum(arr) <= max) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
+                if (j == maxnum - 1) { //마지막과목이라면
+                    //if (creditSum(arr) >= min) { //최소학접모다 크면
+                        arr.addAll(classList);
+                        rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
+                    //}
                 } else
                     make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
             } else//겹친다면
@@ -331,97 +336,85 @@ public class SelectionActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isExists(ArrayList<ClassSubject> list, Cursor c) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getName().equalsIgnoreCase(c.getString(1))) {
+                ((TimeTableActivity) TimeTableActivity.mContext).timecal(list.get(i), c);//분반 추가하고
+                return true;//이미 있다
+            }
+        }
+        return false;//없다
+    }
+
     private void getTimeTable() {
         int min_num = min / 3 + 1;//최소 학점/3 +1 = 최소 과목 수
-        int num = 0;
-        ArrayList<ClassSubject> list = new ArrayList<>();//모든과목을 이름으로 넣는다..일단
 
-        try {
-            Cursor c1 = database.rawQuery("select distinct 과목명 from allsubject", null);
-            //과목이름 한번만
-            if (c1 != null) {
-                num = c1.getCount();
-                for (int i = 0; i < num; i++) {
-                    c1.moveToNext();
-                    ClassSubject s1 = new ClassSubject(c1.getString(0));
-                    list.add(s1);//과목이름을 가진 ..
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
-        }
+        ArrayList<ClassSubject> list = new ArrayList<>();
 
-        int credit1 = 0, credit2 = 0, credit3 = 0;//1학점 과목 개수 2학점 과목 개수
-        try {
-            Cursor c = database.rawQuery("select distinct 과목명 from allsubject where 학점 like '1'", null);
-            if (c != null) {
-                credit1 = c.getCount();
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
-        }
-        try {
-            Cursor c = database.rawQuery("select distinct 과목명 from allsubject where 학점 like '2'", null);
-            if (c != null) {
-                credit2 = c.getCount();
-                c.moveToNext();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
-        }//이걸 이렇게 여러번 검색해야하나!!!
-        credit3 = num - credit1 - credit2;
-        int n1 = 0, n2 = 0;
-        if (max <= credit1) {
-            n1 = max;
-        } else {
-            if ((max - credit1) % 2 == 0) {
-                n1 = credit1;
-                n2 = (max - n1) / 2;
-            } else {
-                n1 = credit1 - 1;
-                n2 = (max - n1 + 1) / 2;
-            }
-        }
-
-        int max_num = n1 + n2;
-        try {
-            Cursor c = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2,typecode from allsubject", null);
-            if (c != null) {
-                int count = c.getCount();
-
-                for (int i = 0; i < count; i++) {
-                    c.moveToNext();
-                    for (int k = 0; k < num; k++) {
-                        if (c.getString(1).equalsIgnoreCase(list.get(k).getName())) {//과목이름이 같은 arraylist에
-                            ((TimeTableActivity) TimeTableActivity.mContext).timecal(list.get(k), c);
-                            list.get(k).setTypecode(c.getInt(9));
-
+        int n = 0;
+        for (int s = 0; s < subjectarr.size(); s++) {
+            try {
+                Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2,typecode from allsubject where typecode like " + subjectarr.get(s), null);
+                if (c1 != null) {
+                    int num = c1.getCount();
+                    n += num;
+                    for (int i = 0; i < n; i++) {
+                        c1.moveToNext();
+                        if (!isExists(list, c1)) {//list에 존재하지 않으면
+                            ClassSubject cs = new ClassSubject(c1.getString(1));
+                            list.add(cs);//과목이름을 가진 ..
+                            ((TimeTableActivity) TimeTableActivity.mContext).timecal(list.get(list.size() - 1), c1);//분반 추가하고
+                            list.get(list.size() - 1).setTypecode(c1.getInt(9));
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("", e.getMessage());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
         }
 
+        int credit1 = 0, credit2 = 0;//1학점 과목 개수 2학점 과목 개수
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getTimearr(0).getCredit() == 1)
+                credit1++;
+            else if (list.get(i).getTimearr(0).getCredit() == 2)
+                credit2++;
+        }
+
+        int n1 = 0, n2 = 0, n3 = 0;
+        if (max <= credit1) {
+            n1 = max;
+        } else {
+            if ((max - credit1) <= credit2 * 2) {
+                if ((max - credit1) % 2 == 0) {
+                    n1 = credit1;
+                    n2 = (max - n1) / 2;
+                } else {
+                    n1 = credit1 - 1;
+                    n2 = (max - n1 + 1) / 2;
+                }
+            } else {
+                n1 = credit1;
+                n2 = credit2;
+                n3 = (max - n1 - n2 * 2) / 3;
+            }
+        }
+
+        int max_num = n1 + n2 + n3;
+
         ArrayList<ClassSubject> cs = new ArrayList<>();
-        // for (int r = min_num; r < max_num; r++) {
-        arr = new ArrayList<>();//총 조합이 여기에 저장된다
-        combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
-        //일단 2개 고르는걸로.. 연산이 너무 크다
+        //for (int r = min_num; r <= max_num; r++) {
+        //그냥 몇개 과목 들을지 고릅시다..
+            arr = new ArrayList<>();//총 조합이 여기에 저장된다
+            combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
+            //일단 2개 고르는걸로.. 연산이 너무 크다
 
-        ArrayList<ClassSubject> a = new ArrayList<>();
-        rrr = new ArrayList<>();//최종 조합 배열?
-        for (int i = 0; i < arr.size(); i++)
-            make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
-
-        //  }
-
+            ArrayList<ClassSubject> a = new ArrayList<>();
+            rrr = new ArrayList<>();//최종 조합 배열?
+            for (int i = 0; i < arr.size(); i++)
+                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
+       // }
     }
 
     public void printChecked(View view) {
@@ -448,7 +441,8 @@ public class SelectionActivity extends AppCompatActivity {
         final CheckBox cb6 = (CheckBox) findViewById(R.id.arts);
         final CheckBox cb7 = (CheckBox) findViewById(R.id.e_learning);
         final CheckBox cb8 = (CheckBox) findViewById(R.id.english);
-        ArrayList<Integer> result = new ArrayList<>();//정수말고 다른걸로
+
+        ArrayList<Integer> result = new ArrayList<>();
         if (cb1.isChecked()) result.add(1);
         if (cb2.isChecked()) result.add(2);
         if (cb3.isChecked()) result.add(3);
@@ -457,7 +451,13 @@ public class SelectionActivity extends AppCompatActivity {
         if (cb6.isChecked()) result.add(6);
         if (cb7.isChecked()) result.add(7);
         if (cb8.isChecked()) result.add(8);
-        //freeDay = result;
+
+        if (result.size() > 3) {
+            Toast.makeText(getApplicationContext(), "교양영역을 3개이하로 선택해주세요", Toast.LENGTH_SHORT).show();
+        }
+
+        subjectarr.clear();
+        subjectarr = (ArrayList<Integer>) result.clone();
     }
 
     private void getClassName() {
