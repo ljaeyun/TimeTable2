@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class TableViewPagerAdapter extends PagerAdapter {
     public static Context mContext = null;
     private int position;
-    private int page=1;
+    private int page = 1;
     int[] tableArray = new int[35];//시간표에 출력
     TextView[] tvArray2 = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
@@ -38,7 +38,6 @@ public class TableViewPagerAdapter extends PagerAdapter {
         View view = null;
 
         if (mContext != null) {
-
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.table_one, container, false);
@@ -77,10 +76,10 @@ public class TableViewPagerAdapter extends PagerAdapter {
         return view;
     }
 
-public void setPage(int page)
-{
-    this.page = page;
-}
+    public void setPage(int page) {
+        this.page = page;
+    }
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
@@ -88,7 +87,7 @@ public void setPage(int page)
 
     @Override
     public int getCount() {
-     return 5;
+        return page;
     }
 
     @Override
@@ -102,6 +101,8 @@ public void setPage(int page)
 
     public void setRrr(ArrayList<ArrayList<ClassSubject>> rrr) {
         this.rrr = rrr;
+        setPage(rrr.size());//페이지 수
+        notifyDataSetChanged();
     }
 
     public int changeint(int t) {//아직 6교시칸밖에 없어서 변환
@@ -112,18 +113,18 @@ public void setPage(int page)
     }
 
     public void drawTable() {
-            if (rrr.size() > position) {//rrr이 null일때 오류
-                for (int j = 0; j < rrr.get(position).size(); j++) {
-                    for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
-                        if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7||rrr.get(position).get(j).getTimearr(0).print(i)<50)//6교시까지만 표시, 금요일까지만 표시
-                        {
-                            int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
-                            tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
-                            tvArray2[t].append("\n" + rrr.get(position).get(j).getName());
-                        }
+        if (rrr.size() > position) {//rrr이 null일때 오류
+            for (int j = 0; j < rrr.get(position).size(); j++) {
+                for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
+                    if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7 || rrr.get(position).get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
+                    {
+                        int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
+                        tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
+                        tvArray2[t].append("\n" + rrr.get(position).get(j).getName());
                     }
                 }
             }
         }
+    }
 }
 
