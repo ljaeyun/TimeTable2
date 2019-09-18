@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
                // getPassword();
                 id = 1;
                 pw="dd";//테스트용 바로 확인누르고 입장가능
-                Intent intent = new Intent(getApplicationContext(),TimeTableActivity.class);
+                //Intent intent = new Intent(getApplicationContext(),TimeTableActivity.class);
+                Intent intent = new Intent(getApplicationContext(),FirstSelect.class);
                 intent.putExtra("database",db);
                 intent.putExtra("studentId",id);
                 intent.putExtra("studentPw",pw);

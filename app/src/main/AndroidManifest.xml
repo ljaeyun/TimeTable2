@@ -21,6 +21,8 @@
         <activity android:name=".SelectionActivity" />
         <activity android:name=".ClassListActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity android:name=".FirstSelect"/>
     </application>
+
 
 </manifest>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="학년, 과정 선택 페이지"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전공개수"
+        android:textSize="17sp"
+        android:layout_marginTop="30dp"
+        />
+    <Spinner
+        android:id="@+id/selMajor"
+        android:entries="@array/전공개수"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="교양개수"
+        android:textSize="17sp"
+        android:layout_marginTop="30dp"
+        />
+    <Spinner
+        android:id="@+id/selMinor"
+        android:entries="@array/교양개수"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="17sp"
+        android:text="이수체계" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center_horizontal"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <CheckBox
+                android:id="@+id/subMajor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="부전공"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+
+        <TableRow>
+            <Spinner
+                android:id="@+id/spinnerMajor1"
+                android:layout_width="199dp"
+                android:layout_height="38dp"
+                android:entries="@array/학과"
+                />
+        </TableRow>
+        <TableRow>
+            <CheckBox
+                android:id="@+id/doubleMajor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="복수전공"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+
+        <TableRow>
+            <Spinner
+                android:id="@+id/spinnerMajor2"
+                android:layout_width="199dp"
+                android:layout_height="38dp"
+                android:entries="@array/학과"
+                />
+        </TableRow>
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/option3"
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:text="공학인증"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+
+        <TableRow>
+            <CheckBox
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="교직이수"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/option6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="군사학"
+                android:layout_gravity="center"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btn_apply"
+        android:layout_width="68dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:text="적용" />
+
+
+
+</LinearLayout>
