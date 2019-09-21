@@ -14,7 +14,7 @@ public class FirstSelect extends AppCompatActivity{
     String spw;
 
     CheckBox subMajor, doubleMajor;
-    Spinner spinnerMajor1, spinnerMajor2;
+    Spinner spinnerMajor1, spinnerMajor2, selMajorCount ,selDoubleCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +32,11 @@ public class FirstSelect extends AppCompatActivity{
         spinnerMajor2 = (Spinner)findViewById(R.id.spinnerMajor2);
         spinnerMajor2.setVisibility(View.INVISIBLE);
 
+        selMajorCount = (Spinner)findViewById(R.id.selMajorCount);
+        selMajorCount.setVisibility(View.INVISIBLE);
+
+        selDoubleCount = (Spinner)findViewById(R.id.selDoubleCount);
+        selDoubleCount.setVisibility(View.INVISIBLE);
 
         subMajor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -39,10 +44,12 @@ public class FirstSelect extends AppCompatActivity{
                 if(subMajor.isChecked() == true)    // 나중에 애니메이션효과 추가1
                 {
                     spinnerMajor1.setVisibility(View.VISIBLE);
+                    selMajorCount.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     spinnerMajor1.setVisibility(View.INVISIBLE);
+                    selMajorCount.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -53,10 +60,12 @@ public class FirstSelect extends AppCompatActivity{
                 if(doubleMajor.isChecked() == true) // 나중에 애니메이션효과 추가2
                 {
                     spinnerMajor2.setVisibility(View.VISIBLE);
+                    selDoubleCount.setVisibility(View.VISIBLE);
                 }
                 else
                 {
                     spinnerMajor2.setVisibility(View.INVISIBLE);
+                    selDoubleCount.setVisibility(View.INVISIBLE);
                 }
             }
         });
