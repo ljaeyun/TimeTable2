@@ -23,6 +23,12 @@ public class FirstSelect extends AppCompatActivity{
         setContentView(R.layout.select);
         Intent intent1 = getIntent();   // 시간표에 값 전달??
 
+        db = intent1.getIntExtra("database", 1);
+        sid = intent1.getIntExtra("studentId", 1);
+        spw = intent1.getStringExtra("studentPw");
+        syear = intent1.getIntExtra("studentYear", 1);
+        smajor = intent1.getIntExtra("studentMajor", 1);
+
         subMajor = (CheckBox)findViewById(R.id.subMajor);
         doubleMajor = (CheckBox)findViewById(R.id.doubleMajor);
 
@@ -73,8 +79,15 @@ public class FirstSelect extends AppCompatActivity{
 
     public void onClick(View view)
     {
-        Intent intent = new Intent(this, TimeTableActivity.class);
 
+        sid = 1;
+        spw="dd";//테스트용 바로 확인누르고 입장가능
+        Intent intent = new Intent(this, TimeTableActivity.class);
+        intent.putExtra("database",db);
+        intent.putExtra("studentId",sid);
+        intent.putExtra("studentPw",spw);
+        intent.putExtra("studentYear",syear);
+        intent.putExtra("studentMajor",smajor);
         startActivity(intent);
     }
 }
