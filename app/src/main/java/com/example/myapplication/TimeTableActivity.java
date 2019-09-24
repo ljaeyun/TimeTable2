@@ -23,14 +23,16 @@ import javax.security.auth.Subject;
 public class TimeTableActivity extends AppCompatActivity {
     public static Context mContext = null;
 
-    Integer sid, syear, smajor, db, freeDay = 0, position = 0;
+    Integer sid, syear, smajor, minorNum, majorNum, subMajor, subMajorNum, doubleMajor, doubleMajorNum, freeDay = 0, position = 0;
     String spw;
+    String table = "business";
     SQLiteDatabase database;
     SearchView searchview;
-    TextView text1;
     int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
+    ArrayList<ArrayList<ClassSubject>> arr;
+    ArrayList<ClassSubject> classlist;
     ArrayList<ClassSubject> pluscs = new ArrayList<>();
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
@@ -82,20 +84,19 @@ public class TimeTableActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdpater);
 
         searchview = (SearchView) findViewById(R.id.find);
-        text1 = (TextView) findViewById(R.id.inputSearch);
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
         Intent intent1 = getIntent();
-        db = intent1.getIntExtra("database", 1);
         sid = intent1.getIntExtra("studentId", 1);
         spw = intent1.getStringExtra("studentPw");
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
-
-        setmajor(smajor);
-        choosedb(db);
-
-        findClass();
+        majorNum = intent1.getIntExtra("majorNum", 0);
+        minorNum = intent1.getIntExtra("minorNum", 0);
+        subMajor = intent1.getIntExtra("subMajor", 0);
+        subMajorNum = intent1.getIntExtra("subMajorNum", 0);
+        doubleMajor = intent1.getIntExtra("doubleMajor", 0);
+        doubleMajorNum = intent1.getIntExtra("doubleMajorNum", 0);
 
         for (int i = 0; i < idArray.length; i++) {
             int jj = i / 5;
@@ -107,8 +108,22 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i] = (TextView) findViewById(idArray[i]);
         }
 
+        setmajor(smajor);
+        choosetable(smajor);
+        queryData(majorNum);
+
+        if (subMajorNum != 0) {
+            choosetable(subMajor);
+            //queryData(subMajorNum);//나중에 수정
+        }
+        if (doubleMajorNum != 0) {
+            choosetable(doubleMajor);
+            //queryData(doubleMajorNum);//나중에 수정
+        }
+
+        findClass();
+
         Button button = (Button) findViewById(R.id.button);
-        queryData(smajor);
 
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -170,7 +185,7 @@ public class TimeTableActivity extends AppCompatActivity {
                             rrr.get(position).remove(0);//일단 필수과목이 없는경우 오류를 없애기 위해
                     }
 
-                    for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
+                    for (int i = 0; i < rrr.get(position).size(); i++) {//과목 개수만큼만 출력
                         tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
                         tvArray[i * 5 + 1].setText(rrr.get(position).get(i).getName());
                         tvArray[i * 5 + 2].setText(rrr.get(position).get(i).getTimearr(0).getEsu());//이수 출력
@@ -253,12 +268,7 @@ public class TimeTableActivity extends AppCompatActivity {
         return true;
     }
 
-    private void johab(ArrayList<ClassSubject> list) {
-        ArrayList<ClassSubject> a = new ArrayList<>();
-        rrr = new ArrayList<>();//최종 조합 배열?
-
-        make(list, rrr, a, 0);//총 조합 rrr에 저장
-
+    private void johab() {
         for (int i = 0; i < rrr.get(0).size(); i++) {//과목 개수만큼만 출력
             tvArray[i * 5 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
             tvArray[i * 5 + 1].setText(rrr.get(0).get(i).getName());
@@ -271,83 +281,21 @@ public class TimeTableActivity extends AppCompatActivity {
         System.out.println("total elapsed time = " + (nEnd - nStart));
     }
 
-    private void choosedb(int db) {
-        if (db >= 0 && db <= 1)
+    private void choosetable(int major) {
+        if (major >= 0 && major <= 1)
             database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);
-        else if (db >= 2 && db <= 5)
+        else if (major >= 2 && major <= 5)
             database = openOrCreateDatabase("engineer.db", MODE_PRIVATE, null);
-        else if (db >= 6 && db <= 8)
+        else if (major >= 6 && major <= 8)
             database = openOrCreateDatabase("sw.db", MODE_PRIVATE, null);
-        else if (db >= 9 && db <= 15)
+        else if (major >= 9 && major <= 15)
             database = openOrCreateDatabase("hss.db", MODE_PRIVATE, null);
-        else if (db >= 16 && db <= 20)
+        else if (major >= 16 && major <= 20)
             database = openOrCreateDatabase("natural.db", MODE_PRIVATE, null);
-        else if (db >= 21 && db <= 28)
+        else if (major >= 21 && major <= 28)
             database = openOrCreateDatabase("ei.db", MODE_PRIVATE, null);
         else
             database = openOrCreateDatabase("kwlaw.db", MODE_PRIVATE, null);
-    }
-
-    public void timecal(ClassSubject s, Cursor c) {
-        int n = 0, m = 0;// 월: 0~9
-        String timestr = null;//시간 문자열
-        TimeArr t = new TimeArr();
-
-        if (c.getString(5) != null) {
-            if (c.getString(5).equals("화")) {//화:10~19
-                n = 10;
-            } else if (c.getString(5).equals("수")) {
-                n = 20;
-            } else if (c.getString(5).equals("목")) {
-                n = 30;
-            } else if (c.getString(5).equals("금")) {
-                n = 40;
-            } else if (c.getString(5).equals("토")) {
-                n = 50;
-            }
-            if (c.getString(7) != null) {
-                if (c.getString(7).equals("화")) {
-                    m = 10;
-                } else if (c.getString(7).equals("수")) {
-                    m = 20;
-                } else if (c.getString(7).equals("목")) {
-                    m = 30;
-                } else if (c.getString(7).equals("금")) {
-                    m = 40;
-                }
-                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7) + c.getString(8);
-            } else
-                timestr = c.getString(5) + c.getString(6);
-
-
-            String[] arr1 = c.getString(6).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
-
-            if (c.getString(8) != null) {
-                String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
-                for (int i = 0; i < arr2.length; i++) {
-                    if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
-                        t.put(m + Integer.parseInt(arr2[i]));
-                }
-            }//null 예외처리!!!!
-
-            //자른거
-            for (int i = 0; i < arr1.length; i++)
-                t.put(n + Integer.parseInt(arr1[i]));
-        } else {//인강인 경우..
-            n = 50;
-            t.put(n);
-        }
-        t.putCode(c.getString(0));//학정번호도 넣어봅시다
-        t.setEsu(c.getString(2));//이수
-        t.setCredit(Integer.parseInt(c.getString(3)));//학점
-        t.setprof(c.getString(4));//교수명도
-        t.setTimestr(timestr);
-        s.put(t);
-    }
-
-    private void queryData(int major) {
-        text1.setText("");
-        String table = "business";
 
         switch (major) {
             case 0:
@@ -453,22 +401,85 @@ public class TimeTableActivity extends AppCompatActivity {
                 table = "";
                 break;
         }
+    }
+
+    public void timecal(ClassSubject s, Cursor c) {
+        int n = 0, m = 0;// 월: 0~9
+        String timestr = null;//시간 문자열
+        TimeArr t = new TimeArr();
+
+        if (c.getString(5) != null) {
+            if (c.getString(5).equals("화")) {//화:10~19
+                n = 10;
+            } else if (c.getString(5).equals("수")) {
+                n = 20;
+            } else if (c.getString(5).equals("목")) {
+                n = 30;
+            } else if (c.getString(5).equals("금")) {
+                n = 40;
+            } else if (c.getString(5).equals("토")) {
+                n = 50;
+            }
+            if (c.getString(7) != null) {
+                if (c.getString(7).equals("화")) {
+                    m = 10;
+                } else if (c.getString(7).equals("수")) {
+                    m = 20;
+                } else if (c.getString(7).equals("목")) {
+                    m = 30;
+                } else if (c.getString(7).equals("금")) {
+                    m = 40;
+                }
+                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7) + c.getString(8);
+            } else
+                timestr = c.getString(5) + c.getString(6);
+
+
+            String[] arr1 = c.getString(6).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
+
+            if (c.getString(8) != null) {
+                String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
+                for (int i = 0; i < arr2.length; i++) {
+                    if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
+                        t.put(m + Integer.parseInt(arr2[i]));
+                }
+            }//null 예외처리!!!!
+
+            //자른거
+            for (int i = 0; i < arr1.length; i++)
+                t.put(n + Integer.parseInt(arr1[i]));
+        } else {//인강인 경우..
+            n = 50;
+            t.put(n);
+        }
+        t.putCode(c.getString(0));//학정번호도 넣어봅시다
+        t.setEsu(c.getString(2));//이수
+        t.setCredit(Integer.parseInt(c.getString(3)));//학점
+        t.setprof(c.getString(4));//교수명도
+        t.setTimestr(timestr);
+        s.put(t);
+    }
+
+    private void queryData(int major) {
         syear += 1;
         int num = 0;
         String sql1 = "select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from ";
         String sql2 = " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'";
         String sql = sql1 + table + sql2;
-        ArrayList<ClassSubject> classlist = new ArrayList<>();//클래스타입의 arraylist.....
+        classlist = new ArrayList<>();//클래스타입의 arraylist.....
 
         try {
-            Cursor c1 = database.rawQuery("select distinct 과목명 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
+            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
             //과목이름 한번만
             if (c1 != null) {
                 num = c1.getCount();
                 for (int i = 0; i < num; i++) {
                     c1.moveToNext();
-                    ClassSubject s1 = new ClassSubject(c1.getString(0));
-                    classlist.add(s1);//필수과목이름을 가진 ..
+                    if (!isExists(classlist, c1)) {//list에 존재하지 않으면
+                        ClassSubject cs1 = new ClassSubject(c1.getString(1));
+                        classlist.add(cs1);//과목이름을 가진 ..
+                        timecal(classlist.get(classlist.size() - 1), c1);//분반 추가하고
+                    }
                 }
             }
         } catch (Exception e) {
@@ -476,30 +487,7 @@ public class TimeTableActivity extends AppCompatActivity {
             Log.e("", e.getMessage());
         }
 
-        if (num != 0) {//필수과목이 있는 경우에만!
-            try {
-                Cursor c = database.rawQuery(sql, null);
-
-                if (c != null) {
-                    int count = c.getCount();
-
-                    for (int i = 0; i < count; i++) {
-                        c.moveToNext();
-                        for (int k = 0; k < num; k++) {//과목개수
-                            if (c.getString(1).equalsIgnoreCase(classlist.get(k).getName())) {//과목이름이 같은 arraylist에
-                                timecal(classlist.get(k), c);//깔끔한 함수
-                            }
-                        }//classlist에 넣는건 모든과목 다
-                    }
-
-                    johab(classlist);//필수인 과목이 없을때도 함수를 실행해서 그런것 같아요
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("", e.getMessage());
-            }
-        } else//없는 경우에는 알림
-        {
+        if (major == 0) {
             rrr = new ArrayList<>();//최종 조합 배열?
             ClassSubject cs = new ClassSubject("null");
             ArrayList<ClassSubject> arr = new ArrayList<>();
@@ -508,8 +496,84 @@ public class TimeTableActivity extends AppCompatActivity {
             arr.add(cs);
             rrr.add(arr);//빈거를 넣어준다
 
-            Toast.makeText(getApplicationContext(), syear + " 학년 필수 과목이 없습니다.", Toast.LENGTH_LONG).show();
+        } else if (classlist.size() <= major) { //필수전공의 수가 고른 전공보다 적다면
+            int num2 = major - classlist.size();
+
+            arr = new ArrayList<>();//총 조합이 여기에 저장된다
+            ArrayList<ClassSubject> list = new ArrayList<>();
+
+            try {
+                Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 이수 not like '%필' and 학정번호 like '_____" + syear + "%'", null);
+                if (c1 != null) {
+                    num = c1.getCount();
+                    for (int i = 0; i < num; i++) {
+                        c1.moveToNext();
+                        if (!isExists(list, c1)) {//list에 존재하지 않으면
+                            ClassSubject cs1 = new ClassSubject(c1.getString(1));
+                            list.add(cs1);//과목이름을 가진 ..
+                            timecal(list.get(list.size() - 1), c1);//분반 추가하고
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("", e.getMessage());
+            }
+
+            combination(list, classlist, list.size(), num2, 0);//list에서 num2개 조합을 arr에 저장한다.
+
+            ArrayList<ClassSubject> a = new ArrayList<>();
+            rrr = new ArrayList<>();//최종 조합 배열?
+            for (int i = 0; i < arr.size(); i++)
+                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
+
+            johab();
+        } else {//필수전공수보다 적게고른다면...
+            ArrayList<ClassSubject> cs = new ArrayList<>();
+            arr = new ArrayList<>();//총 조합이 여기에 저장된다
+
+            combination(classlist, cs, classlist.size(), major, 0);//classlist에서 조합을 arr에 저장한다.
+
+            ArrayList<ClassSubject> a = new ArrayList<>();
+            rrr = new ArrayList<>();//최종 조합 배열?
+            for (int i = 0; i < arr.size(); i++)
+                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
+
+            johab();
         }
         pagerAdpater.setRrr(rrr);
     }
+
+    private boolean isExists(ArrayList<ClassSubject> list, Cursor c) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getName().equalsIgnoreCase(c.getString(1))) {
+                timecal(list.get(i), c);//분반 추가하고
+                return true;//이미 있다
+            }
+        }
+        return false;//없다
+    }
+
+    private void combination(ArrayList<ClassSubject> list, ArrayList<ClassSubject> cs, int n, int r, int i) {
+//n개 과목중에서 r개를 고르는 조합
+        ArrayList<ClassSubject> a = (ArrayList<ClassSubject>) cs.clone();
+        if (r == 0) {
+            arr.add(a);
+            return;
+        } else if (n == r) {
+            for (int j = 0; j < n; j++)
+                a.add(list.get(j + i));//모든 과목을 다 고르는 경우
+            arr.add(a);//넣고
+            cs.clear();//초기화
+        } else {
+            a.add(list.get(i));
+            combination(list, a, n - 1, r - 1, i + 1);
+
+            if (a.size() != 0)
+                a.remove(a.size() - 1);
+            combination(list, a, n - 1, r, i + 1);
+        }
+    }
+
 }
+

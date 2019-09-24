@@ -293,8 +293,8 @@ public class SelectionActivity extends AppCompatActivity {
             if (checkOverlap(arr) && creditSum(arr) <= max) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
                 if (j == maxnum - 1) { //마지막과목이라면
                     //if (creditSum(arr) >= min) { //최소학접모다 크면
-                        arr.addAll(classList);
-                        rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
+                    arr.addAll(classList);
+                    rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
                     //}
                 } else
                     make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
@@ -347,8 +347,6 @@ public class SelectionActivity extends AppCompatActivity {
     }
 
     private void getTimeTable() {
-        int min_num = min / 3 + 1;//최소 학점/3 +1 = 최소 과목 수
-
         ArrayList<ClassSubject> list = new ArrayList<>();
 
         int n = 0;
@@ -361,8 +359,8 @@ public class SelectionActivity extends AppCompatActivity {
                     for (int i = 0; i < n; i++) {
                         c1.moveToNext();
                         if (!isExists(list, c1)) {//list에 존재하지 않으면
-                            ClassSubject cs = new ClassSubject(c1.getString(1));
-                            list.add(cs);//과목이름을 가진 ..
+                            ClassSubject cs1 = new ClassSubject(c1.getString(1));
+                            list.add(cs1);//과목이름을 가진 ..
                             ((TimeTableActivity) TimeTableActivity.mContext).timecal(list.get(list.size() - 1), c1);//분반 추가하고
                             list.get(list.size() - 1).setTypecode(c1.getInt(9));
                         }
@@ -374,47 +372,14 @@ public class SelectionActivity extends AppCompatActivity {
             }
         }
 
-        int credit1 = 0, credit2 = 0;//1학점 과목 개수 2학점 과목 개수
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getTimearr(0).getCredit() == 1)
-                credit1++;
-            else if (list.get(i).getTimearr(0).getCredit() == 2)
-                credit2++;
-        }
-
-        int n1 = 0, n2 = 0, n3 = 0;
-        if (max <= credit1) {
-            n1 = max;
-        } else {
-            if ((max - credit1) <= credit2 * 2) {
-                if ((max - credit1) % 2 == 0) {
-                    n1 = credit1;
-                    n2 = (max - n1) / 2;
-                } else {
-                    n1 = credit1 - 1;
-                    n2 = (max - n1 + 1) / 2;
-                }
-            } else {
-                n1 = credit1;
-                n2 = credit2;
-                n3 = (max - n1 - n2 * 2) / 3;
-            }
-        }
-
-        int max_num = n1 + n2 + n3;
-
         ArrayList<ClassSubject> cs = new ArrayList<>();
-        //for (int r = min_num; r <= max_num; r++) {
-        //그냥 몇개 과목 들을지 고릅시다..
-            arr = new ArrayList<>();//총 조합이 여기에 저장된다
-            combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
-            //일단 2개 고르는걸로.. 연산이 너무 크다
+        arr = new ArrayList<>();//총 조합이 여기에 저장된다
+        combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
 
-            ArrayList<ClassSubject> a = new ArrayList<>();
-            rrr = new ArrayList<>();//최종 조합 배열?
-            for (int i = 0; i < arr.size(); i++)
-                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
-       // }
+        ArrayList<ClassSubject> a = new ArrayList<>();
+        rrr = new ArrayList<>();//최종 조합 배열?
+        for (int i = 0; i < arr.size(); i++)
+            make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
     }
 
     public void printChecked(View view) {

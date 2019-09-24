@@ -19,51 +19,39 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     TextView text1;
-    Integer id,year, major,db;
+    Integer id, year, major;
     String pw; // 비밀번호
     EditText editTextid, editTextpw;
 
-//챱챱
-
-    private void setdb(int db)
-    {
-        this.db = db;
-    }
-
-    private Integer getId()
-    {
+    private Integer getId() {
         return id;
     }
 
-    private void setId(int id)
-    {
+    private void setId(int id) {
         this.id = id;
     }
 
-    private String getPw()
-    {
+    private String getPw() {
         return pw;
     }
 
-    private void setPw(String pw) { this.pw = pw; }
+    private void setPw(String pw) {
+        this.pw = pw;
+    }
 
-    private Integer getyear()
-    {
+    private Integer getyear() {
         return year;
     }
 
-    private void setyear(int year)
-    {
+    private void setyear(int year) {
         this.year = year;
     }
 
-    private Integer getmajor()
-    {
+    private Integer getmajor() {
         return major;
     }
 
-    private void setmajor(int major)
-    {
+    private void setmajor(int major) {
         this.major = major;
     }
 
@@ -72,21 +60,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editTextid = (EditText)findViewById(R.id.editTextId);
-        editTextpw = (EditText)findViewById(R.id.editTextPw);
+        editTextid = (EditText) findViewById(R.id.editTextId);
+        editTextpw = (EditText) findViewById(R.id.editTextPw);
 
         text1 = (TextView) findViewById(R.id.text1);
 
         Button button1 = (Button) findViewById(R.id.button1);
 
-        Spinner spinner = (Spinner)findViewById(R.id.spinnerMajor);
-        Spinner spinner2 = (Spinner)findViewById(R.id.spinnerYear);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerMajor);
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinnerYear);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//데이터베이스 열기
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               setdb(position);
-               setmajor(position);
+                setmajor(position);
             }
 
             @Override
@@ -100,9 +87,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setyear(position);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-             }
+            }
         });
 
         button1.setOnClickListener(new Button.OnClickListener() {
@@ -110,16 +98,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Integer n = getmajor();
                 //gethakbun();
-               // getPassword();
+                // getPassword();
                 id = 1;
-                pw="dd";//테스트용 바로 확인누르고 입장가능
-                //Intent intent = new Intent(getApplicationContext(),TimeTableActivity.class);
-                Intent intent = new Intent(getApplicationContext(),FirstSelect.class);
-                intent.putExtra("database",db);
-                intent.putExtra("studentId",id);
-                intent.putExtra("studentPw",pw);
-                intent.putExtra("studentYear",year);
-                intent.putExtra("studentMajor",major);
+                pw = "dd";//테스트용 바로 확인누르고 입장가능
+                Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
+                intent.putExtra("studentId", id);
+                intent.putExtra("studentPw", pw);
+                intent.putExtra("studentYear", year);
+                intent.putExtra("studentMajor", major);
                 startActivity(intent);
             }
         });
@@ -132,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gethakbun() {
-          String hakbun = "";
-          hakbun = editTextid.getText().toString();
-          setId(Integer.parseInt(hakbun));//int로 바꿔서 전달
+        String hakbun = "";
+        hakbun = editTextid.getText().toString();
+        setId(Integer.parseInt(hakbun));//int로 바꿔서 전달
     }
 
 }

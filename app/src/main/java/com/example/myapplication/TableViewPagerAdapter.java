@@ -116,7 +116,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
         if (rrr.size() > position) {//rrr이 null일때 오류
             for (int j = 0; j < rrr.get(position).size(); j++) {
                 for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
-                    if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7 || rrr.get(position).get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
+                    if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7 && rrr.get(position).get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
                     {
                         int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
                         tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
