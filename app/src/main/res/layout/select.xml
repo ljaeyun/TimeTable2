@@ -16,19 +16,19 @@
         />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="전공개수"
-        android:textSize="17sp"
-        android:layout_marginTop="30dp"
-        />
-    <Spinner
-        android:id="@+id/MajorNum"
-        android:entries="@array/전공개수"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="전공개수"-->
+    <!--android:textSize="17sp"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--/>-->
+    <!--<Spinner-->
+    <!--android:id="@+id/MajorNum"-->
+    <!--android:entries="@array/전공개수"-->
+    <!--android:layout_width="200dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--/>-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,14 +78,14 @@
                 android:entries="@array/학과"
                 />
         </TableRow>
-        <TableRow>
-            <Spinner
-                android:id="@+id/subMajorNum"
-                android:entries="@array/전공개수"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                />
-        </TableRow>
+        <!--<TableRow>-->
+        <!--<Spinner-->
+        <!--android:id="@+id/subMajorNum"-->
+        <!--android:entries="@array/전공개수"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+        <!--</TableRow>-->
         <TableRow>
             <CheckBox
                 android:id="@+id/doubleMajor"
@@ -107,14 +107,14 @@
                 android:entries="@array/학과" />
         </TableRow>
 
-        <TableRow>
-            <Spinner
-                android:id="@+id/doubleMajorNum"
-                android:entries="@array/전공개수"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                />
-        </TableRow>
+        <!--<TableRow>-->
+        <!--<Spinner-->
+        <!--android:id="@+id/doubleMajorNum"-->
+        <!--android:entries="@array/전공개수"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+        <!--</TableRow>-->
 
         <TableRow>
 
