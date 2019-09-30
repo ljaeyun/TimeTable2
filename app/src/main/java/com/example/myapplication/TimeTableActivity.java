@@ -125,12 +125,23 @@ public class TimeTableActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button);
 
+        Button buttont = (Button) findViewById(R.id.testbutton);
+
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
                 intent.putParcelableArrayListExtra("now_list", rrr.get(position));
                 startActivityForResult(intent, 100);
+            }
+        });
+
+        buttont.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public  void onClick(View v)
+            {
+                Intent intentt = new Intent(getApplicationContext(), major_select.class);
+                startActivity(intentt);
             }
         });
 

@@ -149,6 +149,7 @@ public class FirstSelect extends AppCompatActivity {
 
     public void onClick(View view) {
         Intent intent = new Intent(this, TimeTableActivity.class);
+        //Intent intent = new Intent(this, major_select.class);
         intent.putExtra("studentId", sid);
         intent.putExtra("studentPw", spw);
         intent.putExtra("studentYear", syear);
