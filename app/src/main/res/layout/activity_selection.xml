@@ -43,92 +43,6 @@
     android:orientation="vertical"
 
     >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
-        android:text="이수체계" />
-
-    <TableLayout
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:background="#DCDCD3"
-        android:layout_gravity="center_horizontal"
-        >
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <CheckBox
-                android:id="@+id/option1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="부전공" />
-
-            <Spinner
-                android:id="@+id/spinnerMajor2"
-                android:layout_width="199dp"
-                android:layout_height="38dp"
-                android:entries="@array/학과"
-                app:layout_constraintBottom_toBottomOf="@+id/major"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/major"
-                app:layout_constraintTop_toTopOf="@+id/major" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <CheckBox
-                android:id="@+id/option2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="복수전공    " />
-
-            <Spinner
-                android:id="@+id/spinnerMajor3"
-                android:layout_width="199dp"
-                android:layout_height="38dp"
-                android:entries="@array/학과"
-                app:layout_constraintBottom_toBottomOf="@+id/major"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/major"
-                app:layout_constraintTop_toTopOf="@+id/major" />
-        </TableRow>
-
-        <TableRow>
-
-            <CheckBox
-                android:id="@+id/option3"
-                android:layout_width="116dp"
-                android:layout_height="wrap_content"
-                android:text="공학인증    " />
-
-            <CheckBox
-                android:id="@+id/option4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="교직이수" />
-        </TableRow>
-
-        <TableRow>
-
-            <CheckBox
-                android:id="@+id/option5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SCSC" />
-
-            <CheckBox
-                android:id="@+id/option6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="군사학" />
-        </TableRow>
-
-    </TableLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -181,54 +95,6 @@
         </TableRow>
 
     </TableLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="110dp"
-        android:text="학점 범위" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#DCDCD3"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="29dp"
-            android:gravity="center"
-            android:text="최소" />
-
-        <EditText
-            android:id="@+id/credits_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:inputType="number"
-            android:text="0"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:gravity="center"
-            android:text="~    최대" />
-
-        <EditText
-            android:id="@+id/credits_max"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="30dp"
-            android:inputType="number"
-            android:text="0"
-            android:textSize="20dp" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -317,13 +183,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="110dp"
         android:layout_marginTop="20dp"
-        android:text="꼭 넣어야 할 강의" />
+        android:text="꼭 넣어야 할 강의"
+        android:visibility="invisible" />
 
     <SearchView
         android:id="@+id/findclass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp" />
+        android:layout_marginLeft="75dp"
+        android:visibility="invisible" />
 
     <TableLayout
         android:id="@+id/classTable"
@@ -332,7 +200,8 @@
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
         android:layout_weight="15"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <TableRow
             android:layout_width="match_parent"

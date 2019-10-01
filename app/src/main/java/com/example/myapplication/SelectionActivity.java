@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -21,11 +20,9 @@ public class SelectionActivity extends AppCompatActivity {
     SearchView searchview;
     SQLiteDatabase database;
     TableLayout tableLayout;
-    EditText credits_min, credits_max;
-    Integer min, max, creditsum;
+    Integer min, max, creditsum, minorNum;
     TextView text2;
     TextView t1, t2;
-    String className = "";
     Integer freeDay;
     ArrayList<Integer> nowtimearr;
     ArrayList<Integer> subjectarr = new ArrayList<>();
@@ -41,17 +38,14 @@ public class SelectionActivity extends AppCompatActivity {
 
         Intent intent1 = getIntent();
         classList = intent1.getParcelableArrayListExtra("now_list");//전달받은 과목 리스트
+        minorNum = intent1.getIntExtra("minorNum", 0);//교양개수
+
         nowtimearr = new ArrayList<>();
         for (int i = 0; i < classList.size(); i++) {
             for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++)
                 nowtimearr.add(classList.get(i).getTimearr(0).print(j));
         }
         creditsum = creditSum(classList);//추가하기 전 현재 학점 합
-
-        credits_max = (EditText) findViewById(R.id.credits_max);
-        credits_min = (EditText) findViewById(R.id.credits_min);
-        max = Integer.parseInt(credits_max.getText().toString());//최대 학점
-        min = Integer.parseInt(credits_min.getText().toString());//최소 학점
 
         min = 17;
         max = 21;//일단 초기화
@@ -67,26 +61,6 @@ public class SelectionActivity extends AppCompatActivity {
         t2 = (TextView) findViewById(R.id.select2);
 
         makedb();
-
-
-//        tableLayout = (TableLayout) findViewById(R.id.classTable);
-//        tableLayout.setOnClickListener(new Button.OnClickListener(){//넣을과목 검색하고 추가할 과목 고름
-//            @Override
-//            public void onClick(View v) {
-//                switch (v.getId()){
-//                    case R.id.select1:
-//                        Toast.makeText(getApplicationContext(), 1 + "kk", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case R.id.select2:
-//                        Toast.makeText(getApplicationContext(), 2 + "kk", Toast.LENGTH_SHORT).show();
-//                        break;
-//                        default:
-//                            Toast.makeText(getApplicationContext(), 3 + "kk", Toast.LENGTH_SHORT).show();
-//break;
-//                }
-//            }
-//        });
-//
 
         findViewById(R.id.sci_tec).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -192,7 +166,8 @@ public class SelectionActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "교양영역을 1개이상 선택해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                getTimeTable();
+                if (minorNum != 0)
+                    getTimeTable();
 
                 Intent intent = new Intent();
                 intent.putExtra("Day", freeDay);//공강요일 넘김
@@ -374,7 +349,7 @@ public class SelectionActivity extends AppCompatActivity {
 
         ArrayList<ClassSubject> cs = new ArrayList<>();
         arr = new ArrayList<>();//총 조합이 여기에 저장된다
-        combination(list, cs, list.size(), 2, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
+        combination(list, cs, list.size(), minorNum, 0);//전체에서 r개 과목을 고른다 과 조합이 arr에 저장
 
         ArrayList<ClassSubject> a = new ArrayList<>();
         rrr = new ArrayList<>();//최종 조합 배열?
