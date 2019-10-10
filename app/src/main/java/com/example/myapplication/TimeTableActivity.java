@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +24,10 @@ public class TimeTableActivity extends AppCompatActivity {
 
     Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, freeDay = 0, position = 0;
     String spw;
-    String table = "business";
-    SQLiteDatabase database;
     SearchView searchview;
     int[] idArray = new int[30];//강의 목록 출력
     TextView[] tvArray = new TextView[30];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
-    ArrayList<ArrayList<ClassSubject>> arr;
     ArrayList<ClassSubject> classlist;
     ArrayList<ClassSubject> pluscs = new ArrayList<>();
     private ViewPager viewPager;
@@ -39,39 +35,6 @@ public class TimeTableActivity extends AppCompatActivity {
     TableLayout tableLayout;
     long nStart = 0;
     long nEnd = 0;
-
-
-    private Integer getId() {
-        return sid;
-    }
-
-    private void setId(int sid) {
-        this.sid = sid;
-    }
-
-    private String getPw() {
-        return spw;
-    }
-
-    private void setPw(String spw) {
-        this.spw = spw;
-    }
-
-    private Integer getyear() {
-        return syear;
-    }
-
-    private void setyear(int syear) {
-        this.syear = syear;
-    }
-
-    private Integer getmajor() {
-        return smajor;
-    }
-
-    private void setmajor(int smajor) {
-        this.smajor = smajor;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,14 +69,11 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i] = (TextView) findViewById(idArray[i]);
         }
 
-        setmajor(smajor);
         queryData(classlist);
 
         findClass();
 
         Button button = (Button) findViewById(R.id.button);
-
-        Button buttont = (Button) findViewById(R.id.testbutton);
 
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -122,14 +82,6 @@ public class TimeTableActivity extends AppCompatActivity {
                 intent.putParcelableArrayListExtra("now_list", rrr.get(position));//null일때 예외처리필요함
                 intent.putExtra("minorNum", minorNum);//교양개수 넘김
                 startActivityForResult(intent, 100);
-            }
-        });
-
-        buttont.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intentt = new Intent(getApplicationContext(), major_select.class);
-//                startActivity(intentt);
             }
         });
 
@@ -143,15 +95,13 @@ public class TimeTableActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 clearText();//이전꺼 지우고
                 position = i;//현재페이지
-                if (rrr.size() > i) {//조합개수 나중에 페이지개수 조절로..
-                    for (int j = 0; j < rrr.get(i).size(); j++) {//과목 개수만큼만 출력
-                        tvArray[j * 5 + 0].setText(rrr.get(i).get(j).getTimearr(0).getCode());
-                        tvArray[j * 5 + 1].setText(rrr.get(i).get(j).getName());
-                        tvArray[j * 5 + 2].setText(rrr.get(i).get(j).getTimearr(0).getEsu());//이수 출력
-                        tvArray[j * 5 + 3].setText(rrr.get(i).get(j).getTimearr(0).getProf());//교수명 출력
-                        tvArray[j * 5 + 4].setText(rrr.get(i).get(j).getTimearr(0).getTimestr());
-                    }//i번째 조합 출력
-                }
+                for (int j = 0; j < rrr.get(i).size(); j++) {//과목 개수만큼만 출력
+                    tvArray[j * 5 + 0].setText(rrr.get(i).get(j).getTimearr(0).getCode());
+                    tvArray[j * 5 + 1].setText(rrr.get(i).get(j).getName());
+                    tvArray[j * 5 + 2].setText(rrr.get(i).get(j).getTimearr(0).getEsu());//이수 출력
+                    tvArray[j * 5 + 3].setText(rrr.get(i).get(j).getTimearr(0).getProf());//교수명 출력
+                    tvArray[j * 5 + 4].setText(rrr.get(i).get(j).getTimearr(0).getTimestr());
+                }//i번째 조합 출력
             }
 
             @Override
@@ -177,12 +127,14 @@ public class TimeTableActivity extends AppCompatActivity {
                     if (pluscs != null) {
                         for (int i = 0; i < pluscs.size(); i++) {
                             rrr.get(position).add(pluscs.get(i));//현재 페이지에 추가
-                            if (!checkOverlap(rrr.get(position)))
+                            if (!checkOverlap(rrr.get(position)))//겹치면
                                 rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
                         }
                         if (rrr.get(position).get(0).getName().equals("null"))
                             rrr.get(position).remove(0);//일단 필수과목이 없는경우 오류를 없애기 위해
                     }
+
+                    pagerAdpater.setRrr(rrr);//시간표 업데이트
 
                     for (int i = 0; i < rrr.get(position).size(); i++) {//과목 개수만큼만 출력
                         tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
@@ -203,7 +155,6 @@ public class TimeTableActivity extends AppCompatActivity {
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                int num = 0;
                 Intent intent = new Intent(getApplicationContext(), ClassListActivity.class);
                 intent.putExtra("classname", s);//검색할 과목
                 startActivityForResult(intent, 200);
@@ -275,102 +226,26 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 5 + 3].setText(rrr.get(0).get(i).getTimearr(0).getProf());//교수명 출력
             tvArray[i * 5 + 4].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());
         }//처음에 조합첫번째꺼 출력
-
-        nEnd = System.nanoTime();
-        System.out.println("total elapsed time = " + (nEnd - nStart));
-    }
-
-    public void timecal(ClassSubject s, Cursor c) {
-        int n = 0, m = 0;// 월: 0~9
-        String timestr = null;//시간 문자열
-        TimeArr t = new TimeArr();
-
-        if (c.getString(5) != null) {
-            if (c.getString(5).equals("화")) {//화:10~19
-                n = 10;
-            } else if (c.getString(5).equals("수")) {
-                n = 20;
-            } else if (c.getString(5).equals("목")) {
-                n = 30;
-            } else if (c.getString(5).equals("금")) {
-                n = 40;
-            } else if (c.getString(5).equals("토")) {
-                n = 50;
-            }
-            if (c.getString(7) != null) {
-                if (c.getString(7).equals("화")) {
-                    m = 10;
-                } else if (c.getString(7).equals("수")) {
-                    m = 20;
-                } else if (c.getString(7).equals("목")) {
-                    m = 30;
-                } else if (c.getString(7).equals("금")) {
-                    m = 40;
-                }
-                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7) + c.getString(8);
-            } else
-                timestr = c.getString(5) + c.getString(6);
-
-
-            String[] arr1 = c.getString(6).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
-
-            if (c.getString(8) != null) {
-                String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
-                for (int i = 0; i < arr2.length; i++) {
-                    if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
-                        t.put(m + Integer.parseInt(arr2[i]));
-                }
-            }//null 예외처리!!!!
-
-            //자른거
-            for (int i = 0; i < arr1.length; i++)
-                t.put(n + Integer.parseInt(arr1[i]));
-        } else {//인강인 경우..
-            n = 50;
-            t.put(n);
-        }
-        t.putCode(c.getString(0));//학정번호도 넣어봅시다
-        t.setEsu(c.getString(2));//이수
-        t.setCredit(Integer.parseInt(c.getString(3)));//학점
-        t.setprof(c.getString(4));//교수명도
-        t.setTimestr(timestr);
-        s.put(t);
     }
 
     private void queryData(ArrayList<ClassSubject> classlist) {
-//        syear += 1;
-//        int num = 0;
-//        String sql1 = "select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from ";
-//        String sql2 = " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'";
-//        String sql = sql1 + table + sql2;
-//        classlist = new ArrayList<>();//클래스타입의 arraylist.....
-//
-//        try {
-//            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 이수 like '%필' and 학정번호 like '_____" + syear + "%'", null);
-//            //과목이름 한번만
-//            if (c1 != null) {
-//                num = c1.getCount();
-//                for (int i = 0; i < num; i++) {
-//                    c1.moveToNext();
-//                    if (!isExists(classlist, c1)) {//list에 존재하지 않으면
-//                        ClassSubject cs1 = new ClassSubject(c1.getString(1));
-//                        classlist.add(cs1);//과목이름을 가진 ..
-//                        timecal(classlist.get(classlist.size() - 1), c1);//분반 추가하고
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Log.e("", e.getMessage());
-//        }
         rrr = new ArrayList<>();//최종 조합 배열?
 
         if (classlist.size() != 0) {
             ArrayList<ClassSubject> a = new ArrayList<>();
             make(classlist, rrr, a, 0);
-            johab();
-
-        } else {
+            if (rrr.size() != 0)
+                johab();
+            else {//조합되는 시간표가 없을때
+                rrr = new ArrayList<>();//최종 조합 배열?
+                ClassSubject cs = new ClassSubject("null");
+                ArrayList<ClassSubject> arr = new ArrayList<>();
+                TimeArr timeArr = new TimeArr();
+                cs.put(timeArr);
+                arr.add(cs);
+                rrr.add(arr);//빈거를 넣어준다
+            }
+        } else {//전공선택을 하나도 안했을때
             rrr = new ArrayList<>();//최종 조합 배열?
             ClassSubject cs = new ClassSubject("null");
             ArrayList<ClassSubject> arr = new ArrayList<>();
@@ -380,71 +255,10 @@ public class TimeTableActivity extends AppCompatActivity {
             rrr.add(arr);//빈거를 넣어준다
         }
 
-//        if (major == 0) {
-//            rrr = new ArrayList<>();//최종 조합 배열?
-//            ClassSubject cs = new ClassSubject("null");
-//            ArrayList<ClassSubject> arr = new ArrayList<>();
-//            TimeArr timeArr = new TimeArr();
-//            cs.put(timeArr);
-//            arr.add(cs);
-//            rrr.add(arr);//빈거를 넣어준다
-//
-//        } else if (classlist.size() <= major) { //필수전공의 수가 고른 전공보다 적다면
-//            int num2 = major - classlist.size();
-//
-//            arr = new ArrayList<>();//총 조합이 여기에 저장된다
-//            ArrayList<ClassSubject> list = new ArrayList<>();
-//
-//            try {
-//                Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 이수 not like '%필' and 학정번호 like '_____" + syear + "%'", null);
-//                if (c1 != null) {
-//                    num = c1.getCount();
-//                    for (int i = 0; i < num; i++) {
-//                        c1.moveToNext();
-//                        if (!isExists(list, c1)) {//list에 존재하지 않으면
-//                            ClassSubject cs1 = new ClassSubject(c1.getString(1));
-//                            list.add(cs1);//과목이름을 가진 ..
-//                            timecal(list.get(list.size() - 1), c1);//분반 추가하고
-//                        }
-//                    }
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                Log.e("", e.getMessage());
-//            }
-//
-//            combination(list, classlist, list.size(), num2, 0);//list에서 num2개 조합을 arr에 저장한다.
-//
-//            ArrayList<ClassSubject> a = new ArrayList<>();
-//            rrr = new ArrayList<>();//최종 조합 배열?
-//            for (int i = 0; i < arr.size(); i++)
-//                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
-//
-//            johab();
-//        } else {//필수전공수보다 적게고른다면...
-//            ArrayList<ClassSubject> cs = new ArrayList<>();
-//            arr = new ArrayList<>();//총 조합이 여기에 저장된다
-//
-//            combination(classlist, cs, classlist.size(), major, 0);//classlist에서 조합을 arr에 저장한다.
-//
-//            ArrayList<ClassSubject> a = new ArrayList<>();
-//            rrr = new ArrayList<>();//최종 조합 배열?
-//            for (int i = 0; i < arr.size(); i++)
-//                make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
-//
-//            johab();
-//        }
         pagerAdpater.setRrr(rrr);
-    }
 
-    private boolean isExists(ArrayList<ClassSubject> list, Cursor c) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getName().equalsIgnoreCase(c.getString(1))) {
-                timecal(list.get(i), c);//분반 추가하고
-                return true;//이미 있다
-            }
-        }
-        return false;//없다
+        nEnd = System.nanoTime();
+        System.out.println("total elapsed time = " + (nEnd - nStart));
     }
 }
 

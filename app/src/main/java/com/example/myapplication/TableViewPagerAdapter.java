@@ -25,10 +25,6 @@ public class TableViewPagerAdapter extends PagerAdapter {
     TextView[] tvArray2 = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
 
-    public TableViewPagerAdapter() {
-
-    }
-
     public TableViewPagerAdapter(Context context) {
         mContext = context;
     }
@@ -69,11 +65,19 @@ public class TableViewPagerAdapter extends PagerAdapter {
         }
 
         if (rrr != null) {//필수과목이 있는 경우에만
-            drawTable();
+            drawTable(rrr.get(position));
         }
 
         container.addView(view);
         return view;
+    }
+
+    @Override
+
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
+
     }
 
     public void setPage(int page) {
@@ -95,10 +99,6 @@ public class TableViewPagerAdapter extends PagerAdapter {
         return (view == (View) object);
     }
 
-    public int getPosition() {
-        return this.position;
-    }
-
     public void setRrr(ArrayList<ArrayList<ClassSubject>> rrr) {
         this.rrr = rrr;
         setPage(rrr.size());//페이지 수
@@ -112,19 +112,18 @@ public class TableViewPagerAdapter extends PagerAdapter {
         return n;
     }
 
-    public void drawTable() {
-        if (rrr.size() > position) {//rrr이 null일때 오류
-            for (int j = 0; j < rrr.get(position).size(); j++) {
-                for (int i = 0; i < rrr.get(position).get(j).getTimearr(0).size(); i++) {
-                    if ((rrr.get(position).get(j).getTimearr(0).print(i) % 10) < 7 && rrr.get(position).get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
-                    {
-                        int t = changeint(rrr.get(position).get(j).getTimearr(0).print(i));
-                        tvArray2[t].setText(rrr.get(position).get(j).getTimearr(0).getProf());
-                        tvArray2[t].append("\n" + rrr.get(position).get(j).getName());
-                    }
+    public void drawTable(ArrayList<ClassSubject> classlist) {
+        for (int j = 0; j < classlist.size(); j++) {
+            for (int i = 0; i < classlist.get(j).getTimearr(0).size(); i++) {
+                if ((classlist.get(j).getTimearr(0).print(i) % 10) < 7 && classlist.get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
+                {
+                    int t = changeint(classlist.get(j).getTimearr(0).print(i));
+                    tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
+                    tvArray2[t].append("\n" + classlist.get(j).getName());
                 }
             }
         }
+
     }
 }
 

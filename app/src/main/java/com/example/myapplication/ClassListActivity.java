@@ -57,7 +57,7 @@ public class ClassListActivity extends Activity {
         arr = new ArrayList<>();
 
         try {
-            c = database.rawQuery("select 학정번호, 과목명, 이수, 학점, 담당교수, 요일1,시간1,요일2,시간2 from allclass where 과목명 like '%" + classname + "%'", null);//일단 한 테이블에 모든 교양넣었음
+            c = database.rawQuery("select 학정번호, 과목명, 이수, 학점, 담당교수, 요일1,시간1,요일2,시간2 from allsubject where 과목명 like '%" + classname + "%'", null);//일단 한 테이블에 모든 교양넣었음
             if (c != null) {
                 count = c.getCount();//개수
                 if (count != 0) {
@@ -70,11 +70,14 @@ public class ClassListActivity extends Activity {
                         for (int j = 0; j < 5; j++) {
                             text[i][j] = new TextView(this);
                             if (j == 4) {//시간 출력
-                                if (c.getString(7) != null)
-                                    text[i][j].setText(c.getString(5) + c.getString(6) + c.getString(7) + c.getString(8));
-                                else
-                                    text[i][j].setText(c.getString(5) + c.getString(6));
-                            } else if(j==3)
+                                if (c.getString(5) != null) {
+                                    if (c.getString(7) != null)
+                                        text[i][j].setText(c.getString(5) + c.getString(6) + c.getString(7) + c.getString(8));
+                                    else
+                                        text[i][j].setText(c.getString(5) + c.getString(6));
+                                } else
+                                    text[i][j].setText(" ");
+                            } else if (j == 3)
                                 text[i][j].setText(c.getString(4));
                             else
                                 text[i][j].setText(c.getString(j));
@@ -101,7 +104,7 @@ public class ClassListActivity extends Activity {
                                             text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
                                         c.moveToPosition(num);
                                         cs = new ClassSubject(c.getString(1));
-                                        ((TimeTableActivity) TimeTableActivity.mContext).timecal(cs, c);
+                                        ((major_select) major_select.mContext).timecal(cs, c);
                                         arr.add(cs); //배열에 넣는다
                                     }
                                     //finish();//바로 닫히면서 추가하게 할지 추가버튼을 만들지
