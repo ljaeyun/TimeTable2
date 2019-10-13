@@ -39,9 +39,13 @@ public class SelectionActivity extends AppCompatActivity {
         minorNum = intent1.getIntExtra("minorNum", 0);//교양개수
 
         nowtimearr = new ArrayList<>();
-        for (int i = 0; i < classList.size(); i++) {
-            for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++)
-                nowtimearr.add(classList.get(i).getTimearr(0).print(j));
+        if (classList.get(0).getName().equalsIgnoreCase("null")) {//빈거 받아왔으면
+            classList.remove(0);//null은 지워줌
+        } else {
+            for (int i = 0; i < classList.size(); i++) {
+                for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++)
+                    nowtimearr.add(classList.get(i).getTimearr(0).print(j));
+            }
         }
         creditsum = creditSum(classList);//추가하기 전 현재 학점 합
 
@@ -54,8 +58,6 @@ public class SelectionActivity extends AppCompatActivity {
         Button button_close = (Button) findViewById(R.id.button_close);
         Button button_apply = (Button) findViewById(R.id.button_apply);
         searchview = (SearchView) findViewById(R.id.findclass);
-
-        //makedb();
 
         findViewById(R.id.sci_tec).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -195,16 +197,15 @@ public class SelectionActivity extends AppCompatActivity {
         {
             ClassSubject cs = new ClassSubject(list.get(j).getName());
             cs.setTimearr(list.get(j).getTimearr(i));//i번째 분반 시간표만 갖는 ClassSubject
+            cs.setTypecode(list.get(j).getTypecode());
 
             ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
 
             arr.add(cs);//ClassSubject를 넣어야지
-            if (checkOverlap(arr) && creditSum(arr) <= max) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
+            if (checkOverlap(arr) && creditSum(arr) <= max && eliminate(arr.get(arr.size() - 1))) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
                 if (j == maxnum - 1) { //마지막과목이라면
-                    //if (creditSum(arr) >= min) { //최소학접모다 크면
                     arr.addAll(classList);
                     rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
-                    //}
                 } else
                     make(list, rrr, arr, j + 1);//그다음 과목으로 넘어갑니다
             } else//겹친다면
@@ -217,7 +218,21 @@ public class SelectionActivity extends AppCompatActivity {
         arr.addAll(classList);//이미 있는 과목이랑도 비교
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getTypecode().equals(cs.getTypecode()) && arr.get(i).getTimearr(0).getCode().substring(5, 6).equalsIgnoreCase(cs.getTimearr(0).getCode().substring(5, 6)))
-                return false;
+                return false;//같은 영역 같은 난이도면 false
+        }
+        return true;
+    }
+
+    private boolean over3(ArrayList<ClassSubject> a) {
+        int[] n = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        for (int i = 0; i < a.size(); i++) {
+            n[a.get(i).getTypecode()]++;
+        }
+
+        for (int i = 0; i < 8; i++) {
+            if (n[i] > 3)
+                return false;//3개 넘어가는거 있으면 false
         }
         return true;
     }
@@ -226,12 +241,14 @@ public class SelectionActivity extends AppCompatActivity {
 //n개 과목중에서 r개를 고르는 조합
         ArrayList<ClassSubject> a = (ArrayList<ClassSubject>) cs.clone();
         if (r == 0) {
-            arr.add(a);
+            if (over3(a))
+                arr.add(a);
             return;
         } else if (n == r) {
             for (int j = 0; j < n; j++)
                 a.add(list.get(j + i));//모든 과목을 다 고르는 경우
-            arr.add(a);//넣고
+            if (over3(a))
+                arr.add(a);//넣고
             cs.clear();//초기화
         } else {
             if (isavailable(a, list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지
@@ -259,7 +276,7 @@ public class SelectionActivity extends AppCompatActivity {
         ArrayList<ClassSubject> list = new ArrayList<>();
 
         int n = 0;
-        for (int s = 0; s < subjectarr.size(); s++) {
+        for (int s = 0; s < subjectarr.size(); s++) {//교양영역에 맞는거
             try {
                 Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2,typecode from allsubject where typecode like " + subjectarr.get(s), null);
                 if (c1 != null) {
@@ -291,7 +308,7 @@ public class SelectionActivity extends AppCompatActivity {
             make(arr.get(i), rrr, a, 0);//i번째 과목 조합의... 가능한 분반 조합
     }
 
-    public void printChecked(View view) {
+    private void printChecked(View view) {
         final CheckBox cb1 = (CheckBox) findViewById(R.id.mon);
         final CheckBox cb2 = (CheckBox) findViewById(R.id.tue);
         final CheckBox cb3 = (CheckBox) findViewById(R.id.wen);
@@ -339,7 +356,7 @@ public class SelectionActivity extends AppCompatActivity {
         freeDay = (ArrayList<Integer>) result.clone();
     }
 
-    public void printSubjectChecked(View view) {
+    private void printSubjectChecked(View view) {
         final CheckBox cb1 = (CheckBox) findViewById(R.id.sci_tec);
         final CheckBox cb2 = (CheckBox) findViewById(R.id.expression);
         final CheckBox cb3 = (CheckBox) findViewById(R.id.human);
@@ -367,7 +384,7 @@ public class SelectionActivity extends AppCompatActivity {
         subjectarr = (ArrayList<Integer>) result.clone();
     }
 
-    public boolean freeAvailable(int free) {
+    private boolean freeAvailable(int free) {
         ArrayList<Integer> arr = new ArrayList<>();
         for (int i = 0; i < classList.size(); i++) {
             for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++) {
@@ -379,5 +396,18 @@ public class SelectionActivity extends AppCompatActivity {
                 return false;
         }
         return true;
+    }
+
+    private boolean eliminate(ClassSubject cs) {
+        for (int i = 0; i < freeDay.size(); i++) {
+            for (int j = 0; j < cs.getTimearr(0).size(); j++) {
+                if (freeDay.get(i) == cs.getTimearr(0).print(j) / 10)
+                    return false;//제거할 시간arr과 겹치면 false
+            }
+        }//공강 제거
+
+        //제외할 시간 제거
+
+        return true;//안겹치면
     }
 }

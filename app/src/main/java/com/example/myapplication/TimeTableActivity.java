@@ -22,7 +22,7 @@ import javax.security.auth.Subject;
 public class TimeTableActivity extends AppCompatActivity {
     public static Context mContext = null;
 
-    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, freeDay = 0, position = 0;
+    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, position = 0;
     String spw;
     SearchView searchview;
     int[] idArray = new int[30];//강의 목록 출력
@@ -120,7 +120,7 @@ public class TimeTableActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 100://추가버튼
                     //freeDay = intent.getIntExtra("Day", 1);
-                    Toast.makeText(getApplicationContext(), freeDay + "kk", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "kk", Toast.LENGTH_SHORT).show();
                     break;
                 case 200://과목검색 searchview
                     pluscs = intent.getParcelableArrayListExtra("plus");
@@ -133,6 +133,7 @@ public class TimeTableActivity extends AppCompatActivity {
                         if (rrr.get(position).get(0).getName().equals("null"))
                             rrr.get(position).remove(0);//일단 필수과목이 없는경우 오류를 없애기 위해
                     }
+                    //순서대로 추가 선택한 과목끼리 겹치면 앞에꺼만 나
 
                     pagerAdpater.setRrr(rrr);//시간표 업데이트
 
