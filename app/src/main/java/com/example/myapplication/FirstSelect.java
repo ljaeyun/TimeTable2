@@ -12,10 +12,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 
 public class FirstSelect extends AppCompatActivity {
-    Integer sid, syear, smajor, minorNum, subMajor = 0, doubleMajor = 0;
+    Integer sid, syear, smajor, minorNum, subMajor = -1, doubleMajor = -1;
     String spw;
+    ArrayList<ClassSubject> classlist;
+
     SQLiteDatabase database;
 
     CheckBox chksubMajor, chkdoubleMajor;
@@ -32,6 +36,7 @@ public class FirstSelect extends AppCompatActivity {
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
         makedb();//교양 db생성
+        classlist = new ArrayList<>();
 
         selMinorSpinner = (Spinner) findViewById(R.id.MinorNum);
 
@@ -59,11 +64,25 @@ public class FirstSelect extends AppCompatActivity {
         chksubMajor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean arg1) {
-                if (chksubMajor.isChecked() == true)    // 나중에 애니메이션효과 추가1
+                if (chksubMajor.isChecked())    // 나중에 애니메이션효과 추가1
                 {
                     spinnerMajor1.setVisibility(View.VISIBLE);
+                    subMajor = 0;
+                    spinnerMajor1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            subMajor = position;//부전공
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
                 } else {
                     spinnerMajor1.setVisibility(View.INVISIBLE);
+                    subMajor = -1;
                 }
             }
         });
@@ -71,36 +90,25 @@ public class FirstSelect extends AppCompatActivity {
         chkdoubleMajor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (chkdoubleMajor.isChecked() == true) // 나중에 애니메이션효과 추가2
+                if (chkdoubleMajor.isChecked()) // 나중에 애니메이션효과 추가2
                 {
                     spinnerMajor2.setVisibility(View.VISIBLE);
+                    doubleMajor = 0;
+                    spinnerMajor2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            doubleMajor = position;//복수전공
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                 } else {
                     spinnerMajor2.setVisibility(View.INVISIBLE);
+                    doubleMajor = -1;
                 }
-            }
-        });
-
-        spinnerMajor1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subMajor = position;//부전공
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinnerMajor2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                doubleMajor = position;//복수전공
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -181,6 +189,7 @@ public class FirstSelect extends AppCompatActivity {
         intent.putExtra("minorNum", minorNum);
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
+        intent.putParcelableArrayListExtra("classlist", classlist);
 
         startActivity(intent);
     }

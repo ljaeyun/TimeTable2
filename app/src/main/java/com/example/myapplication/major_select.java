@@ -32,13 +32,13 @@ public class major_select extends AppCompatActivity {
 
     SQLiteDatabase database;
     String table = "business";
-    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor;
+    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, isMajor = 0;
     String spw;
     Cursor c;
     ClassSubject cs;
     ArrayList<ClassSubject> classlist;
-    ArrayList<Integer> selected[] = new ArrayList[4];
-    int num = 0, level = 1;
+    ArrayList<Integer> selected[] = new ArrayList[5];
+    int num = 0, level = 0;
     TableRow tr[];
     TextView text[][];
     TableLayout.LayoutParams rowLayout;
@@ -49,23 +49,31 @@ public class major_select extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.major_select);
 
+        classlist = new ArrayList<>();
+        selected[0] = new ArrayList<>();
+        selected[1] = new ArrayList<>();
+        selected[2] = new ArrayList<>();
+        selected[3] = new ArrayList<>();
+        selected[4] = new ArrayList<>();
+
         Intent intent1 = getIntent();
+        isMajor = intent1.getIntExtra("isMajor", 0);//전공인지 부전공인지 복수전공인지
         sid = intent1.getIntExtra("studentId", 1);
         spw = intent1.getStringExtra("studentPw");
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);//전공
 
         minorNum = intent1.getIntExtra("minorNum", 0);
-        subMajor = intent1.getIntExtra("subMajor", 0);//부전공
-        doubleMajor = intent1.getIntExtra("doubleMajor", 0);//복수전공
+        subMajor = intent1.getIntExtra("subMajor", -1);//부전공
+        doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
+        classlist = intent1.getParcelableArrayListExtra("classlist");
 
-        choosetable(smajor);//전공 db열고 table선택
-
-        classlist = new ArrayList<>();
-        selected[0] = new ArrayList<>();
-        selected[1] = new ArrayList<>();
-        selected[2] = new ArrayList<>();
-        selected[3] = new ArrayList<>();
+        if (isMajor == 0)
+            choosetable(smajor);//전공 db열고 table선택
+        else if (isMajor == 1)
+            choosetable(subMajor);
+        else
+            choosetable(doubleMajor);
 
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -97,7 +105,7 @@ public class major_select extends AppCompatActivity {
     }
 
     private void changeLevel(int pos) {
-        level = pos + 1;
+        level = pos;
     }
 
     private void choosetable(int major) {
@@ -279,8 +287,12 @@ public class major_select extends AppCompatActivity {
     }
 
     private void findClasses(String classname) {
+        Cursor c1;
         try {
-            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 학정번호 like '_____" + level + "%'", null);
+            if (level != 0)
+                c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 학정번호 like '_____" + level + "%'", null);
+            else
+                c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from common", null);
             if (c1 != null) {
                 int num = c1.getCount();//개수
                 if (num != 0) {
@@ -301,10 +313,12 @@ public class major_select extends AppCompatActivity {
     protected void showList() {
         num = 0;
         t.removeAllViews();//싹 지우고 출력
-        //탭을 다시 선택하면 눌렀던게 없어진다
 
         try {
-            c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 학정번호 like '_____" + level + "%'", null);
+            if (level != 0)
+                c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 학정번호 like '_____" + level + "%'", null);
+            else
+                c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
@@ -323,8 +337,8 @@ public class major_select extends AppCompatActivity {
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
 
-                            for (int l = 0; l < selected[level - 1].size(); l++) {
-                                if (selected[level - 1].get(l).equals(i))//선택된과목이면
+                            for (int l = 0; l < selected[level].size(); l++) {
+                                if (selected[level].get(l).equals(i))//선택된과목이면
                                     text[i][j].setBackgroundResource(R.drawable.select_cell);
                             }
                             text[i][j].setTag(i);
@@ -337,9 +351,9 @@ public class major_select extends AppCompatActivity {
                                         for (int k = 0; k < 3; k++)
                                             text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
                                         c.moveToPosition(num);
-                                        for (int l = 0; l < selected[level - 1].size(); l++) {
-                                            if (selected[level - 1].get(l).equals(num))
-                                                selected[level - 1].remove(l);
+                                        for (int l = 0; l < selected[level].size(); l++) {
+                                            if (selected[level].get(l).equals(num))
+                                                selected[level].remove(l);
                                         }
                                         for (int l = 0; l < classlist.size(); l++) {
                                             if (classlist.get(l).getName().equals(c.getString(0)))
@@ -349,7 +363,7 @@ public class major_select extends AppCompatActivity {
                                         for (int k = 0; k < 3; k++)
                                             text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
                                         c.moveToPosition(num);
-                                        selected[level - 1].add(num);
+                                        selected[level].add(num);
                                         cs = new ClassSubject(c.getString(0));//그 과목명으로
                                         findClasses(c.getString(0));//분반저장
                                         classlist.add(cs); //배열에 넣는다
@@ -366,11 +380,20 @@ public class major_select extends AppCompatActivity {
             e.printStackTrace();
             Log.e("", e.getMessage());
         }
+
     }
 
     public void onClick(View view) {
         Intent intent = new Intent(this, TimeTableActivity.class);
-
+        if (subMajor != -1 && isMajor == 0) {
+            intent = new Intent(this, major_select.class);
+            isMajor = 1;
+        }
+        if (doubleMajor != -1 && isMajor == 0) {
+            intent = new Intent(this, major_select.class);
+            isMajor = 2;
+        }
+        intent.putExtra("isMajor", isMajor);
         intent.putExtra("studentId", sid);
         intent.putExtra("studentPw", spw);
         intent.putExtra("studentYear", syear);
