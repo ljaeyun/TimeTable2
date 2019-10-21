@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.location.Location;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
@@ -26,6 +27,9 @@ import android.widget.Toast;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+
+import static android.support.constraint.ConstraintSet.WRAP_CONTENT;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class major_select extends AppCompatActivity {
     public static Context mContext = null;
@@ -78,6 +82,7 @@ public class major_select extends AppCompatActivity {
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         t = (TableLayout) findViewById(R.id.result_table);
+
         TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -322,8 +327,34 @@ public class major_select extends AppCompatActivity {
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
+
+                    TableRow tbrow0 = new TableRow(this);
+                    TextView tv0 = new TextView(this);
+                    tv0.setText(" 과목명 ");
+                    tv0.setTextSize(25);
+                    tv0.setTextColor(Color.BLACK);
+                    tv0.setBackgroundColor(124-224-134);
+                    tv0.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv0);
+                    TextView tv1 = new TextView(this);
+                    tv1.setText(" 이 수 ");
+                    tv1.setTextSize(25);
+                    tv1.setTextColor(Color.BLACK);
+                    tv1.setBackgroundColor(124-224-134);
+                    tv1.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv1);
+                    TextView tv2 = new TextView(this);
+                    tv2.setText(" 학 점 ");
+                    tv2.setTextSize(25);
+                    tv2.setBackgroundColor(124-224-134);
+                    tv2.setTextColor(Color.BLACK);
+                    tv2.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv2);
+                    t.addView(tbrow0);
+
                     tr = new TableRow[count];
                     text = new TextView[count][3];
+
 
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
@@ -332,10 +363,24 @@ public class major_select extends AppCompatActivity {
                             text[i][j] = new TextView(this);
                             text[i][j].setText(c.getString(j));
 
-                            text[i][j].setTextSize(15);
+                            text[i][j].setTextSize(20);
                             text[i][j].setTextColor(Color.BLACK);
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
+
+                            if(j == 0)
+                            {
+                                text[i][j].setWidth(640);
+                            }
+                            if(j == 1)
+                            {
+                                text[i][j].setWidth(150);
+                            }
+                            if(j == 2)
+                            {
+                                text[i][j].setWidth(150);
+                            }
+
 
                             for (int l = 0; l < selected[level].size(); l++) {
                                 if (selected[level].get(l).equals(i))//선택된과목이면

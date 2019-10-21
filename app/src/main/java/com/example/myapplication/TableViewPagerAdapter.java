@@ -120,6 +120,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
                     tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
                     tvArray2[t].append("\n" + classlist.get(j).getName());
+                    tvArray2[t].setTextSize(10);
                 }
             }
         }

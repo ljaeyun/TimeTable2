@@ -7,14 +7,13 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5">
+        android:layout_height="60dp"
+        >
 
         <SearchView
             android:id="@+id/find"
             android:layout_width="219dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="75dp">
 
         </SearchView>
@@ -23,7 +22,7 @@
             android:id="@+id/button"
             android:layout_width="50dp"
             android:layout_height="56dp"
-            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="7dp"
             android:text="추가" />
@@ -31,6 +30,11 @@
     </LinearLayout>
 
 
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +44,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="600dp"
             android:layout_marginLeft="5dp"
             android:layout_weight="5"
             android:layout_marginTop="10dp"
@@ -124,11 +128,11 @@
                 </TableRow>
 
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="60dip"
-                    android:layout_weight="1"
-                    android:scrollbars="none">
+                <!--<ScrollView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="60dip"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:scrollbars="none">-->
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -469,10 +473,10 @@
                     </LinearLayout>
 
 
-                </ScrollView>
+                <!--</ScrollView>-->
             </TableLayout>
         </LinearLayout>
     </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>
