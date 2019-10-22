@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,8 +15,8 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-
 public class FirstSelect extends AppCompatActivity {
+    public static Context mContext = null;
     Integer sid, syear, smajor, minorNum, subMajor = -1, doubleMajor = -1;
     String spw;
     ArrayList<ClassSubject> classlist;
@@ -111,6 +112,7 @@ public class FirstSelect extends AppCompatActivity {
                 }
             }
         });
+        mContext = this;
     }
 
     public boolean isTableExists(String tableName) {

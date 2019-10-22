@@ -36,6 +36,9 @@ public class ClassListActivity extends Activity {
     Cursor c;
     TableRow tr[];
     TextView text[][];
+    TableLayout t;
+    TableLayout.LayoutParams rowLayout;
+    TableRow tableRow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,18 +49,17 @@ public class ClassListActivity extends Activity {
         Intent intent1 = getIntent();
         classname = intent1.getStringExtra("classname");
         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.MATCH_PARENT,
-                        100);
-        //ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,100);
-        LinearLayout ll = new LinearLayout(this);
-        TableLayout.LayoutParams rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        TableLayout t = (TableLayout) findViewById(R.id.result_table);
-        TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
+
+
+        rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        t = (TableLayout) findViewById(R.id.result_table);
+        tableRow = (TableRow) findViewById(R.id.tablerow);
         arr = new ArrayList<>();
 
+        makedb();
+
         try {
-            c = database.rawQuery("select 학정번호, 과목명, 이수, 학점, 담당교수, 요일1,시간1,요일2,시간2 from allsubject where 과목명 like '%" + classname + "%'", null);//일단 한 테이블에 모든 교양넣었음
+            c = database.rawQuery("select 학정번호, 과목명, 이수, 학점, 담당교수, 요일1,시간1,요일2,시간2,typecode from allclass where 과목명 like '%" + classname + "%'", null);
             if (c != null) {
                 count = c.getCount();//개수
                 if (count != 0) {
@@ -89,7 +91,7 @@ public class ClassListActivity extends Activity {
 
                             text[i][j].setOnClickListener(new Button.OnClickListener() {
                                 @Override
-                                public void onClick(View v) {//여러개 선택하면 어떡하징..
+                                public void onClick(View v) {
                                     num = (Integer) v.getTag();//선택된 번호
                                     if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
                                         for (int k = 0; k < 5; k++)
@@ -105,6 +107,7 @@ public class ClassListActivity extends Activity {
                                         c.moveToPosition(num);
                                         cs = new ClassSubject(c.getString(1));
                                         ((major_select) major_select.mContext).timecal(cs, c);
+                                        cs.setTypecode(c.getInt(9));
                                         arr.add(cs); //배열에 넣는다
                                     }
                                     //finish();//바로 닫히면서 추가하게 할지 추가버튼을 만들지
@@ -124,7 +127,6 @@ public class ClassListActivity extends Activity {
                     t.addView(textView);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("", e.getMessage());
@@ -140,5 +142,94 @@ public class ClassListActivity extends Activity {
                 finish();//닫기
             }
         });
+    }
+
+    private void makedb() {
+
+        if (!((FirstSelect) FirstSelect.mContext).isTableExists("allclass")) {//모든 전공+교양 allclass
+            database.execSQL("create table allclass as select * from allsubject");
+
+            database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test1 as select * from business");
+            database.execSQL("create table test2 as select * from itrade");
+            database.execSQL("create table test3 as select * from common");
+            query(1, 3, "biz");
+
+            database = openOrCreateDatabase("engineer.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test4 as select * from archi");
+            database.execSQL("create table test5 as select * from arching");
+            database.execSQL("create table test6 as select * from chemng");
+            database.execSQL("create table test7 as select * from env");
+            database.execSQL("create table test8 as select * from common");
+            query(4, 8, "engineer");
+
+            database = openOrCreateDatabase("sw.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test9 as select * from cie");
+            database.execSQL("create table test10 as select * from software");
+            database.execSQL("create table test11 as select * from ic");
+            database.execSQL("create table test12 as select * from common");
+            query(9, 12, "sw");
+
+            database = openOrCreateDatabase("hss.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test13 as select * from kor");
+            database.execSQL("create table test14 as select * from ci");
+            database.execSQL("create table test15 as select * from media");
+            database.execSQL("create table test16 as select * from mediacomm");
+            database.execSQL("create table test17 as select * from psy");
+            database.execSQL("create table test18 as select * from engind");
+            database.execSQL("create table test19 as select * from eng");
+            database.execSQL("create table test20 as select * from common");
+            query(13, 20, "hss");
+
+            database = openOrCreateDatabase("natural.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test21 as select * from sports");
+            database.execSQL("create table test22 as select * from math");
+            database.execSQL("create table test23 as select * from ep");
+            database.execSQL("create table test24 as select * from infocontents");
+            database.execSQL("create table test25 as select * from chemi");
+            database.execSQL("create table test26 as select * from common");
+            query(21, 26, "natural");
+
+            database = openOrCreateDatabase("ei.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test27 as select * from robot");
+            database.execSQL("create table test28 as select * from electric");
+            database.execSQL("create table test29 as select * from ee");
+            database.execSQL("create table test30 as select * from radiowave");
+            database.execSQL("create table test31 as select * from snme");
+            database.execSQL("create table test32 as select * from elcomm");
+            database.execSQL("create table test33 as select * from ce");
+            database.execSQL("create table test34 as select * from cs");
+            database.execSQL("create table test35 as select * from common");
+            query(27, 35, "ei");
+
+            database = openOrCreateDatabase("kwlaw.db", MODE_PRIVATE, null);
+
+            database.execSQL("create table test36 as select * from intern");
+            database.execSQL("create table test37 as select * from law");
+            database.execSQL("create table test38 as select * from asset");
+            database.execSQL("create table test39 as select * from pa");
+            database.execSQL("create table test40 as select * from common");
+            query(36, 40, "kwlaw");
+        }
+    }
+
+    private void query(int a, int b, String dbname) {
+        for (int i = a; i <= b; i++)
+            database.execSQL("alter table test" + i + " add column typecode integer default 0");
+
+        database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
+        database.execSQL("ATTACH DATABASE '/data/data/com.example.myapplication/databases/" + dbname + ".db' as dbdb");
+
+        for (int i = a; i <= b; i++)
+            database.execSQL("insert into allclass select * from dbdb.test" + i);//모두 넣는다
+
+        for (int i = a; i <= b; i++)
+            database.execSQL("drop table test" + i);//모두 지운다
     }
 }

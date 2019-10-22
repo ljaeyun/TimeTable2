@@ -233,6 +233,12 @@ public class major_select extends AppCompatActivity {
                 table = "";
                 break;
         }
+
+        TextView textView = (TextView) findViewById(R.id.major_text);
+        String[] major_text = getResources().getStringArray(R.array.학과);
+        String[] arr1 = major_text[major].split(" ");//단과대 빼고 학과만
+
+        textView.setText(arr1[1] + " ");
     }
 
     public void timecal(ClassSubject s, Cursor c) {
@@ -262,7 +268,10 @@ public class major_select extends AppCompatActivity {
                 } else if (c.getString(7).equals("금")) {
                     m = 40;
                 }
-                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7) + c.getString(8);
+                String[] arr = c.getString(8).split("\\n");//줄바꿈제거..
+                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7);
+                for (int i = 0; i < arr.length; i++)
+                    timestr += arr[i];
             } else
                 timestr = c.getString(5) + c.getString(6);
 
@@ -271,14 +280,20 @@ public class major_select extends AppCompatActivity {
             if (c.getString(8) != null) {
                 String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
                 for (int i = 0; i < arr2.length; i++) {
-                    if (arr2[i].equals("") == false)//공백으로 자르고나면 ""남음...
+                    if (!arr2[i].equals(""))//공백으로 자르고나면 ""남음...
                         t.put(m + Integer.parseInt(arr2[i]));
                 }
             }//null 예외처리!!!!
 
             //자른거
-            for (int i = 0; i < arr1.length; i++)
-                t.put(n + Integer.parseInt(arr1[i]));
+            for (int i = 0; i < arr1.length; i++) {
+                try {
+                    if (Integer.parseInt(arr1[i]) <= 9) //10교시부터는 안넣음
+                        t.put(n + Integer.parseInt(arr1[i]));
+                } catch (Exception e) {//이상한거 나오면
+                    t.put(50);
+                }
+            }
         } else {//인강인 경우..
             n = 50;
             t.put(n);
@@ -303,8 +318,9 @@ public class major_select extends AppCompatActivity {
                 if (num != 0) {
                     for (int i = 0; i < num; i++) {
                         c1.moveToNext();
-                        if (c1.getString(1).equalsIgnoreCase(classname)) {
+                        if (c1.getString(1).equalsIgnoreCase(classname)) {//이름같은거 찾아서
                             timecal(cs, c1);//분반을 저장한다
+                            cs.setTypecode(0);
                         }
                     }
                 }

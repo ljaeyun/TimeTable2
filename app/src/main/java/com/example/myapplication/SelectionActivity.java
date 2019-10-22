@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +58,11 @@ public class SelectionActivity extends AppCompatActivity {
         max -= creditsum;
         min -= creditsum;//더 작으면 오류!
 
+        final EditText name_text = (EditText) findViewById(R.id.name_text);
+        final TableLayout nametable = (TableLayout) findViewById(R.id.nameTag);
         Button button_close = (Button) findViewById(R.id.button_close);
         Button button_apply = (Button) findViewById(R.id.button_apply);
+        Button add_button = (Button) findViewById(R.id.add_button);
         searchview = (SearchView) findViewById(R.id.findclass);
 
         findViewById(R.id.sci_tec).setOnClickListener(new Button.OnClickListener() {
@@ -166,6 +172,13 @@ public class SelectionActivity extends AppCompatActivity {
                 //intent.putExtra("Day", freeDay);//공강요일 넘김
                 setResult(RESULT_OK, intent);
                 finish();//닫기
+            }
+        });
+
+        add_button.setOnClickListener(new Button.OnClickListener() {//제거할이름들 추가
+            @Override
+            public void onClick(View v) {
+                //textView.setText(name_text.getText().toString());
             }
         });
     }

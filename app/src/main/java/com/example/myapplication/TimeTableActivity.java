@@ -73,13 +73,29 @@ public class TimeTableActivity extends AppCompatActivity {
 
         findClass();
 
+        for (int i = 0; i < tvArray.length; i++) {
+            tvArray[i].setTag(i);
+            tvArray[i].setOnClickListener(new TextView.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index = (Integer) v.getTag();
+                    if (index < rrr.get(position).size() * 5) {//과목 선택하면
+                        Intent intent = new Intent(getApplicationContext(), RemoveClass.class);
+                        intent.putExtra("index", index / 5);//지울 과목
+                        intent.putExtra("classname", rrr.get(position).get(index / 5).getName());//지울 과목 이름
+                        startActivityForResult(intent, 300);
+                    }
+                }
+            });
+        }
+
         Button button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
-                intent.putParcelableArrayListExtra("now_list", rrr.get(position));//null일때 예외처리필요함
+                intent.putParcelableArrayListExtra("now_list", rrr.get(position));
                 intent.putExtra("minorNum", minorNum);//교양개수 넘김
                 startActivityForResult(intent, 100);
             }
@@ -137,6 +153,22 @@ public class TimeTableActivity extends AppCompatActivity {
 
                     pagerAdpater.setRrr(rrr);//시간표 업데이트
 
+                    for (int i = 0; i < rrr.get(position).size(); i++) {//과목 개수만큼만 출력
+                        tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
+                        tvArray[i * 5 + 1].setText(rrr.get(position).get(i).getName());
+                        tvArray[i * 5 + 2].setText(rrr.get(position).get(i).getTimearr(0).getEsu());//이수 출력
+                        tvArray[i * 5 + 3].setText(rrr.get(position).get(i).getTimearr(0).getProf());//교수명 출력
+                        tvArray[i * 5 + 4].setText(rrr.get(position).get(i).getTimearr(0).getTimestr());
+                    }//다시 출력
+                    break;
+                case 300://과목 삭제
+                    int yes = intent.getIntExtra("yes", 0);
+                    int index = intent.getIntExtra("index", 0);
+                    if (yes == 0) {
+                        rrr.get(position).remove(index);
+                    }
+                    pagerAdpater.setRrr(rrr);//시간표 업데이트
+                    clearText();
                     for (int i = 0; i < rrr.get(position).size(); i++) {//과목 개수만큼만 출력
                         tvArray[i * 5 + 0].setText(rrr.get(position).get(i).getTimearr(0).getCode());
                         tvArray[i * 5 + 1].setText(rrr.get(position).get(i).getName());
@@ -210,9 +242,12 @@ public class TimeTableActivity extends AppCompatActivity {
         ArrayList<Integer> chk = new ArrayList<>();//임시로 모든 시간을 저장한다 순서대로
         for (int i = 0; i < rrr.size(); i++) {
             for (int k = 0; k < rrr.get(i).getTimearr(0).size(); k++) {//i번째 과목의 시간
-                if (find(chk, rrr.get(i).getTimearr(0).print(k)))//겹치는지 확인하고
-                    chk.add(rrr.get(i).getTimearr(0).print(k));//없으면 집어넣는다.
-                else
+                if (find(chk, rrr.get(i).getTimearr(0).print(k))) {//겹치는지 확인하고
+                    if (rrr.get(i).getTimearr(0).print(k) < 50)
+                        chk.add(rrr.get(i).getTimearr(0).print(k));//없으면 집어넣는다.
+                    else {
+                    }
+                } else
                     return false;//겹치는거 나오면
             }
         }
