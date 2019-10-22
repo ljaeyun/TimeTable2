@@ -22,7 +22,8 @@ public class TableViewPagerAdapter extends PagerAdapter {
     private int position;
     private int page = 1;
     int[] tableArray = new int[35];//시간표에 출력
-    TextView[] tvArray2 = new TextView[35];
+
+    AutoResizeTextView tvArray2[] = new AutoResizeTextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
 
     public TableViewPagerAdapter(Context context) {
@@ -61,7 +62,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
             }
         }
         for (int i = 0; i < tvArray2.length; i++) {
-            tvArray2[i] = (TextView) view.findViewById(tableArray[i]);
+            tvArray2[i] = (AutoResizeTextView) view.findViewById(tableArray[i]);
         }
 
         if (rrr != null) {//필수과목이 있는 경우에만
@@ -120,7 +121,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
                     tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
                     tvArray2[t].append("\n" + classlist.get(j).getName());
-                    tvArray2[t].setTextSize(10);
+
                 }
             }
         }

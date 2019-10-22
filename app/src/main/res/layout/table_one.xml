@@ -40,7 +40,7 @@
         android:layout_width="370dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:stretchColumns="1,2,3,4,5,6"
+
         android:shrinkColumns="*"
         android:layout_weight="70"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="" />
 
             <TextView
@@ -120,7 +120,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -132,7 +132,7 @@
 
                 />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -142,7 +142,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -162,7 +162,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -190,18 +190,18 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/cell_shape"
-                
+
                 android:text=""
                 android:textStyle="bold"
                 />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -211,7 +211,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -221,7 +221,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -231,7 +231,7 @@
                 android:textStyle="bold"
                 />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -259,7 +259,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -269,7 +269,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -279,7 +279,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -289,7 +289,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -299,7 +299,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -327,7 +327,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -337,7 +337,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -347,7 +347,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -357,7 +357,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -367,7 +367,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -396,7 +396,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -406,7 +406,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -416,7 +416,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -426,7 +426,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -436,7 +436,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -464,7 +464,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -474,7 +474,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -484,7 +484,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -494,7 +494,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -504,7 +504,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -532,7 +532,7 @@
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/monday6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -542,7 +542,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/tuesday6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -552,7 +552,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/wednesday6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -562,7 +562,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/thursday6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -572,7 +572,7 @@
                 android:text=""
                 android:textStyle="bold" />
 
-            <TextView
+            <com.example.myapplication.AutoResizeTextView
                 android:id="@+id/friday6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
