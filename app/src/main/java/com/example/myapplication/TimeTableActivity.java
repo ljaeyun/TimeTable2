@@ -140,16 +140,18 @@ public class TimeTableActivity extends AppCompatActivity {
                     break;
                 case 200://과목검색 searchview
                     pluscs = intent.getParcelableArrayListExtra("plus");
-                    if (pluscs != null) {
+                    if (pluscs != null) {//받아온 과목이 있다
                         for (int i = 0; i < pluscs.size(); i++) {
-                            rrr.get(position).add(pluscs.get(i));//현재 페이지에 추가
-                            if (!checkOverlap(rrr.get(position)))//겹치면
-                                rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
+                            if (((major_select) major_select.mContext).checkCredit(rrr.get(position), pluscs.get(i))) {//학점초과 안되면
+                                rrr.get(position).add(pluscs.get(i));//현재 페이지에 추가
+                                if (!checkOverlap(rrr.get(position)))//겹치면
+                                    rrr.get(position).remove(rrr.get(position).size() - 1);//추가하지 않는다
+                            }
+                            if (rrr.get(position).get(0).getName().equals("null"))
+                                rrr.get(position).remove(0);//일단 아무과목이 없는경우 오류를 없애기 위해
                         }
-                        if (rrr.get(position).get(0).getName().equals("null"))
-                            rrr.get(position).remove(0);//일단 필수과목이 없는경우 오류를 없애기 위해
                     }
-                    //순서대로 추가 선택한 과목끼리 겹치면 앞에꺼만 나
+                    //순서대로 추가 선택한 과목끼리 겹치면 앞에꺼만 나오게
 
                     pagerAdpater.setRrr(rrr);//시간표 업데이트
 

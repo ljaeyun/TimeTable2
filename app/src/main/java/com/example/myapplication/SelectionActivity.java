@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SearchView;
-import android.widget.TableLayout;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +19,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class SelectionActivity extends AppCompatActivity {
-    SearchView searchview;
     SQLiteDatabase database;
-    TableLayout tableLayout;
     Integer min, max, creditsum, minorNum;
     ArrayList<Integer> freeDay = new ArrayList<>();
+    ArrayList<String> namearr = new ArrayList<>();
     ArrayList<Integer> nowtimearr;
     ArrayList<Integer> subjectarr = new ArrayList<>();
     ArrayList<ClassSubject> classList;
@@ -59,11 +57,11 @@ public class SelectionActivity extends AppCompatActivity {
         min -= creditsum;//더 작으면 오류!
 
         final EditText name_text = (EditText) findViewById(R.id.name_text);
-        final TableLayout nametable = (TableLayout) findViewById(R.id.nameTag);
+        final TableRow tableRow = (TableRow) findViewById(R.id.tablerow2);
+
         Button button_close = (Button) findViewById(R.id.button_close);
         Button button_apply = (Button) findViewById(R.id.button_apply);
         Button add_button = (Button) findViewById(R.id.add_button);
-        searchview = (SearchView) findViewById(R.id.findclass);
 
         findViewById(R.id.sci_tec).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -178,9 +176,36 @@ public class SelectionActivity extends AppCompatActivity {
         add_button.setOnClickListener(new Button.OnClickListener() {//제거할이름들 추가
             @Override
             public void onClick(View v) {
-                //textView.setText(name_text.getText().toString());
+                if (namearr.size() < 3) {
+                    final LinearLayout linearLayout = new LinearLayout(v.getContext());
+                    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    param.gravity = Gravity.CENTER;
+
+                    final TextView textView = new TextView(v.getContext());
+                    textView.setText(name_text.getText().toString());
+                    linearLayout.addView(textView, param);
+
+                    Button button = new Button(v.getContext());
+                    button.setText("x");
+                    button.setTextSize(10);
+                    param = new LinearLayout.LayoutParams(90, 90);
+                    param.setMargins(20, 0, 30, 0);
+                    linearLayout.addView(button, param);
+                    tableRow.addView(linearLayout);
+
+                    button.setOnClickListener(new Button.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            tableRow.removeView(linearLayout);
+                            namearr.remove(textView.getText());
+                        }
+                    });
+                    namearr.add(name_text.getText().toString());
+                    name_text.setText("");
+                }
             }
         });
+
     }
 
     private int creditSum(ArrayList<ClassSubject> arr) {
@@ -264,7 +289,7 @@ public class SelectionActivity extends AppCompatActivity {
                 arr.add(a);//넣고
             cs.clear();//초기화
         } else {
-            if (isavailable(a, list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지
+            if (isavailable(a, list.get(i)) && eliminateName(list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지
                 a.add(list.get(i));
                 combination(list, a, n - 1, r - 1, i + 1);
 
@@ -409,6 +434,14 @@ public class SelectionActivity extends AppCompatActivity {
                 return false;
         }
         return true;
+    }
+
+    private boolean eliminateName(ClassSubject cs) {
+        for (int i = 0; i < namearr.size(); i++) {
+            if (cs.getName().contains(namearr.get(i)))
+                return false;//문자열 포함했으면
+        }
+        return true;//안포함하면
     }
 
     private boolean eliminate(ClassSubject cs) {

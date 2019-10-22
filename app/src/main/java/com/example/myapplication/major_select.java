@@ -349,20 +349,20 @@ public class major_select extends AppCompatActivity {
                     tv0.setText(" 과목명 ");
                     tv0.setTextSize(25);
                     tv0.setTextColor(Color.BLACK);
-                    tv0.setBackgroundColor(124-224-134);
+                    tv0.setBackgroundColor(124 - 224 - 134);
                     tv0.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv0);
                     TextView tv1 = new TextView(this);
                     tv1.setText(" 이 수 ");
                     tv1.setTextSize(25);
                     tv1.setTextColor(Color.BLACK);
-                    tv1.setBackgroundColor(124-224-134);
+                    tv1.setBackgroundColor(124 - 224 - 134);
                     tv1.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv1);
                     TextView tv2 = new TextView(this);
                     tv2.setText(" 학 점 ");
                     tv2.setTextSize(25);
-                    tv2.setBackgroundColor(124-224-134);
+                    tv2.setBackgroundColor(124 - 224 - 134);
                     tv2.setTextColor(Color.BLACK);
                     tv2.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv2);
@@ -384,16 +384,13 @@ public class major_select extends AppCompatActivity {
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
 
-                            if(j == 0)
-                            {
+                            if (j == 0) {
                                 text[i][j].setWidth(640);
                             }
-                            if(j == 1)
-                            {
+                            if (j == 1) {
                                 text[i][j].setWidth(150);
                             }
-                            if(j == 2)
-                            {
+                            if (j == 2) {
                                 text[i][j].setWidth(150);
                             }
 
@@ -421,13 +418,15 @@ public class major_select extends AppCompatActivity {
                                                 classlist.remove(l);//배열에서 찾아서 지운다
                                         }
                                     } else {//처음 누르면
-                                        for (int k = 0; k < 3; k++)
-                                            text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
                                         c.moveToPosition(num);
                                         selected[level].add(num);
                                         cs = new ClassSubject(c.getString(0));//그 과목명으로
                                         findClasses(c.getString(0));//분반저장
-                                        classlist.add(cs); //배열에 넣는다
+                                        if (checkCredit(classlist, cs)) {
+                                            classlist.add(cs); //배열에 넣는다
+                                            for (int k = 0; k < 3; k++)
+                                                text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                        }
                                     }
                                 }
                             });
@@ -442,6 +441,19 @@ public class major_select extends AppCompatActivity {
             Log.e("", e.getMessage());
         }
 
+    }
+
+    public boolean checkCredit(ArrayList<ClassSubject> list, ClassSubject cs) {
+        int sum = 0;
+        for (int i = 0; i < list.size(); i++) {
+            sum += list.get(i).getTimearr(0).getCredit();
+        }
+        sum += cs.getTimearr(0).getCredit();
+
+        if (sum > 18)//일단
+            return false;
+        else
+            return true;
     }
 
     public void onClick(View view) {
