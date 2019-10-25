@@ -8,26 +8,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class SelectionActivity extends AppCompatActivity {
     SQLiteDatabase database;
-    Integer min, max, creditsum, minorNum;
+    Integer minorNum, smajor, sid;
     ArrayList<Integer> freeDay = new ArrayList<>();
-    ArrayList<String> namearr = new ArrayList<>();
-    ArrayList<Integer> nowtimearr;
-    ArrayList<Integer> subjectarr = new ArrayList<>();
+    ArrayList<String> namearr = new ArrayList<>();//제외할 검색어
+    ArrayList<String> profarr = new ArrayList<>();//제외할 교수
+    ArrayList<Integer> timearr = new ArrayList<>();//제외할 시간
+    ArrayList<Integer> nowtimearr = new ArrayList<>();//시간이 겹치는지 확인할 배열
+    ArrayList<Integer> subjectarr = new ArrayList<>();//선택한 과목영역
     ArrayList<ClassSubject> classList;
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
     ArrayList<ArrayList<ClassSubject>> arr;
+    int[] idArray = new int[50];
+    TextView[] timeTextarr = new TextView[50];
+    Spinner selMinorSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,31 +47,79 @@ public class SelectionActivity extends AppCompatActivity {
 
         Intent intent1 = getIntent();
         classList = intent1.getParcelableArrayListExtra("now_list");//전달받은 과목 리스트
-        minorNum = intent1.getIntExtra("minorNum", 0);//교양개수
+        sid = intent1.getIntExtra("studentId", 1);
+        smajor = intent1.getIntExtra("studentMajor", 1);
 
-        nowtimearr = new ArrayList<>();
-        if (classList.get(0).getName().equalsIgnoreCase("null")) {//빈거 받아왔으면
-            classList.remove(0);//null은 지워줌
-        } else {
-            for (int i = 0; i < classList.size(); i++) {
-                for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++)
-                    nowtimearr.add(classList.get(i).getTimearr(0).print(j));
+        if (classList.size() != 0) {
+            if (classList.get(0).getName().equalsIgnoreCase("null")) {//빈거 받아왔으면
+                classList.remove(0);//null은 지워줌
+            } else {
+                for (int i = 0; i < classList.size(); i++) {
+                    for (int j = 0; j < classList.get(i).getTimearr(0).size(); j++)
+                        nowtimearr.add(classList.get(i).getTimearr(0).print(j));
+                }
             }
         }
-        creditsum = creditSum(classList);//추가하기 전 현재 학점 합
-
-        min = 17;
-        max = 21;//일단 초기화
-
-        max -= creditsum;
-        min -= creditsum;//더 작으면 오류!
 
         final EditText name_text = (EditText) findViewById(R.id.name_text);
-        final TableRow tableRow = (TableRow) findViewById(R.id.tablerow2);
+        final EditText prof_text = (EditText) findViewById(R.id.prof_text);
+        final TableRow nametableRow = (TableRow) findViewById(R.id.nametablerow);
+        final TableRow proftableRow = (TableRow) findViewById(R.id.proftablerow);
+
+        TextView classcount = (TextView) findViewById(R.id.classcount);
+        int num = 7 - classList.size();
+        classcount.setText(7 - num + "");
+        Integer[] items = new Integer[num + 1];
+        for (int i = 0; i <= num; i++)
+            items[i] = i;
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, items);
+        selMinorSpinner = (Spinner) findViewById(R.id.minorNum);
+        selMinorSpinner.setAdapter(adapter);
+        selMinorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                minorNum = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         Button button_close = (Button) findViewById(R.id.button_close);
         Button button_apply = (Button) findViewById(R.id.button_apply);
         Button add_button = (Button) findViewById(R.id.add_button);
+        Button add_button2 = (Button) findViewById(R.id.add_button2);
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++)
+                timearr.add(i * 10 + 7 + j);//789교시
+        }
+
+        for (int i = 0; i < idArray.length; i++) {
+            idArray[i] = getResources().getIdentifier("time" + i, "id", "com.example.myapplication");
+        }
+
+        for (int i = 0; i < timeTextarr.length; i++) {//제외할 시간 선택
+            timeTextarr[i] = (TextView) findViewById(idArray[i]);
+            if (timearr.contains(i))
+                timeTextarr[i].setBackgroundResource(R.drawable.select_cell);//789교시
+            timeTextarr[i].setTag(i);
+            timeTextarr[i].setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {//선택하면
+                    int i = (Integer) v.getTag();
+                    if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
+                        timeTextarr[i].setBackgroundResource(R.drawable.cell_shape);
+                        timearr.remove((Object) i);
+                    } else {
+                        timeTextarr[i].setBackgroundResource(R.drawable.select_cell);
+                        timearr.add(i);
+                    }
+                }
+            });
+        }
 
         findViewById(R.id.sci_tec).setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -153,30 +211,33 @@ public class SelectionActivity extends AppCompatActivity {
         button_apply.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {//적용버튼 추가
-                // Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);//다른 화면을 열어줄 계획
-                // startActivityForResult(intent, 100);
-                if (subjectarr.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "교양영역을 1개이상 선택해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (subjectarr.size() > 3) {
-                    Toast.makeText(getApplicationContext(), "교양영역을 3개 이하로 선택해주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (minorNum != 0)
+                if (minorNum != 0) {
+                    if (subjectarr.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "교양영역을 1개이상 선택해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (subjectarr.size() > 3) {
+                        Toast.makeText(getApplicationContext(), "교양영역을 3개 이하로 선택해주세요", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     getTimeTable();
-
-                Intent intent = new Intent();
-                //intent.putExtra("Day", freeDay);//공강요일 넘김
-                setResult(RESULT_OK, intent);
-                finish();//닫기
+                } else {
+                    rrr = new ArrayList<>();//최종 조합 배열?
+                    rrr.add(classList);
+                }
+                Intent intent = new Intent(getApplicationContext(), FinalTimeTableActivity.class);
+                intent.putExtra("final_list", rrr);
+                intent.putExtra("studentId", sid);
+                intent.putExtra("studentMajor", smajor);
+                startActivity(intent);
+                //finish();//닫기
             }
         });
 
         add_button.setOnClickListener(new Button.OnClickListener() {//제거할이름들 추가
             @Override
-            public void onClick(View v) {
-                if (namearr.size() < 3) {
+            public void onClick(View v) {//제외할 검색어 추가
+                if (namearr.size() < 3 && !name_text.getText().toString().equalsIgnoreCase("")) {
                     final LinearLayout linearLayout = new LinearLayout(v.getContext());
                     LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     param.gravity = Gravity.CENTER;
@@ -191,12 +252,12 @@ public class SelectionActivity extends AppCompatActivity {
                     param = new LinearLayout.LayoutParams(90, 90);
                     param.setMargins(20, 0, 30, 0);
                     linearLayout.addView(button, param);
-                    tableRow.addView(linearLayout);
+                    nametableRow.addView(linearLayout);
 
                     button.setOnClickListener(new Button.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            tableRow.removeView(linearLayout);
+                            nametableRow.removeView(linearLayout);
                             namearr.remove(textView.getText());
                         }
                     });
@@ -206,13 +267,39 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
-    }
+        add_button2.setOnClickListener(new Button.OnClickListener() {//제거할이름들 추가
+            @Override
+            public void onClick(View v) {//제외할 교수명 추가
+                if (profarr.size() < 3 && !prof_text.getText().toString().equalsIgnoreCase("")) {
+                    final LinearLayout linearLayout = new LinearLayout(v.getContext());
+                    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    param.gravity = Gravity.CENTER;
 
-    private int creditSum(ArrayList<ClassSubject> arr) {
-        int sum = 0;
-        for (int i = 0; i < arr.size(); i++)
-            sum += arr.get(i).getTimearr(0).getCredit();
-        return sum;//학점의 합 반환
+                    final TextView textView = new TextView(v.getContext());
+                    textView.setText(prof_text.getText().toString());
+                    linearLayout.addView(textView, param);
+
+                    Button button = new Button(v.getContext());
+                    button.setText("x");
+                    button.setTextSize(10);
+                    param = new LinearLayout.LayoutParams(90, 90);
+                    param.setMargins(20, 0, 30, 0);
+                    linearLayout.addView(button, param);
+                    proftableRow.addView(linearLayout);
+
+                    button.setOnClickListener(new Button.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            proftableRow.removeView(linearLayout);
+                            profarr.remove(textView.getText());
+                        }
+                    });
+                    profarr.add(prof_text.getText().toString());
+                    prof_text.setText("");
+                }
+            }
+        });
+
     }
 
     public boolean checkOverlap(ArrayList<ClassSubject> rrr) {//중복검사
@@ -240,7 +327,7 @@ public class SelectionActivity extends AppCompatActivity {
             ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
 
             arr.add(cs);//ClassSubject를 넣어야지
-            if (checkOverlap(arr) && creditSum(arr) <= max && eliminate(arr.get(arr.size() - 1))) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
+            if (checkOverlap(arr) && eliminate(arr.get(arr.size() - 1)) && eliminateProf(arr.get(arr.size() - 1))) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
                 if (j == maxnum - 1) { //마지막과목이라면
                     arr.addAll(classList);
                     rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.
@@ -289,7 +376,7 @@ public class SelectionActivity extends AppCompatActivity {
                 arr.add(a);//넣고
             cs.clear();//초기화
         } else {
-            if (isavailable(a, list.get(i)) && eliminateName(list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지
+            if (isavailable(a, list.get(i)) && eliminateName(list.get(i)) && samename(list.get(i))) {//a에 있는거 영역이랑 난이도 겹치는게 있는지, 강의명, 이름 안겹치는지
                 a.add(list.get(i));
                 combination(list, a, n - 1, r - 1, i + 1);
 
@@ -392,6 +479,12 @@ public class SelectionActivity extends AppCompatActivity {
 
         freeDay.clear();
         freeDay = (ArrayList<Integer>) result.clone();
+
+        for (int i = 0; i < 50; i++) {
+            timeTextarr[i].setBackgroundResource(R.drawable.cell_shape);
+            if (timearr.contains(i) || freeDay.contains(i / 10))
+                timeTextarr[i].setBackgroundResource(R.drawable.select_cell);
+        }
     }
 
     private void printSubjectChecked(View view) {
@@ -441,7 +534,16 @@ public class SelectionActivity extends AppCompatActivity {
             if (cs.getName().contains(namearr.get(i)))
                 return false;//문자열 포함했으면
         }
+
         return true;//안포함하면
+    }
+
+    private boolean eliminateProf(ClassSubject cs) {
+        for (int i = 0; i < profarr.size(); i++) {
+            if (cs.getTimearr(0).getProf().contains(profarr.get(i)))
+                return false;//교수이름 포함했으면
+        }
+        return true;
     }
 
     private boolean eliminate(ClassSubject cs) {
@@ -452,8 +554,20 @@ public class SelectionActivity extends AppCompatActivity {
             }
         }//공강 제거
 
-        //제외할 시간 제거
-
+        for (int i = 0; i < timearr.size(); i++) {
+            for (int j = 0; j < cs.getTimearr(0).size(); j++) {
+                if (timearr.get(i) == cs.getTimearr(0).print(j))
+                    return false;
+            }
+        }
         return true;//안겹치면
+    }
+
+    public boolean samename(ClassSubject cs) {
+        for (int i = 0; i < classList.size(); i++) {
+            if (classList.get(i).getName().equalsIgnoreCase(cs.getName()))
+                return false;//이름 겹친다
+        }
+        return true;
     }
 }

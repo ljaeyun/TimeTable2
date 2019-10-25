@@ -17,14 +17,14 @@ import java.util.ArrayList;
 
 public class FirstSelect extends AppCompatActivity {
     public static Context mContext = null;
-    Integer sid, syear, smajor, minorNum, subMajor = -1, doubleMajor = -1;
+    Integer sid, syear, smajor, subMajor = -1, doubleMajor = -1;
     String spw;
     ArrayList<ClassSubject> classlist;
 
     SQLiteDatabase database;
 
     CheckBox chksubMajor, chkdoubleMajor;
-    Spinner spinnerMajor1, spinnerMajor2, selMinorSpinner;
+    Spinner spinnerMajor1, spinnerMajor2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +38,6 @@ public class FirstSelect extends AppCompatActivity {
         smajor = intent1.getIntExtra("studentMajor", 1);
         makedb();//교양 db생성
         classlist = new ArrayList<>();
-
-        selMinorSpinner = (Spinner) findViewById(R.id.MinorNum);
-
-        selMinorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                minorNum = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         chksubMajor = (CheckBox) findViewById(R.id.subMajor);
         chkdoubleMajor = (CheckBox) findViewById(R.id.doubleMajor);
@@ -188,7 +174,6 @@ public class FirstSelect extends AppCompatActivity {
         intent.putExtra("studentYear", syear);
         intent.putExtra("studentMajor", smajor);
 
-        intent.putExtra("minorNum", minorNum);
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
         intent.putParcelableArrayListExtra("classlist", classlist);

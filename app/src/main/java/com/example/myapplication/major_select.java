@@ -36,7 +36,7 @@ public class major_select extends AppCompatActivity {
 
     SQLiteDatabase database;
     String table = "business";
-    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, isMajor = 0;
+    Integer sid, syear, smajor, subMajor, doubleMajor, isMajor = 0;
     String spw;
     Cursor c;
     ClassSubject cs;
@@ -67,7 +67,6 @@ public class major_select extends AppCompatActivity {
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);//전공
 
-        minorNum = intent1.getIntExtra("minorNum", 0);
         subMajor = intent1.getIntExtra("subMajor", -1);//부전공
         doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
         classlist = intent1.getParcelableArrayListExtra("classlist");
@@ -82,8 +81,6 @@ public class major_select extends AppCompatActivity {
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         t = (TableLayout) findViewById(R.id.result_table);
-
-        TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -105,6 +102,21 @@ public class major_select extends AppCompatActivity {
             }
         });
 
+//        ClassSubject cs = new ClassSubject("컴퓨팅사고");
+//        TimeArr timeArr = new TimeArr();
+//        cs.put(timeArr);
+//        classlist.add(cs);
+//
+//        ClassSubject cs1 = new ClassSubject("마케팅");
+//        TimeArr timeArr1 = new TimeArr();
+//        cs.put(timeArr1);
+//        classlist.add(cs1);
+//
+//        ClassSubject cs2 = new ClassSubject("경영과학");
+//        TimeArr timeArr2 = new TimeArr();
+//        cs.put(timeArr2);
+//        classlist.add(cs2);
+
         showList();
         mContext = this;
     }
@@ -113,7 +125,7 @@ public class major_select extends AppCompatActivity {
         level = pos;
     }
 
-    private void choosetable(int major) {
+    public void choosetable(int major) {
         if (major >= 0 && major <= 1)
             database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);
         else if (major >= 2 && major <= 5)
@@ -301,7 +313,8 @@ public class major_select extends AppCompatActivity {
         t.putCode(c.getString(0));//학정번호도 넣어봅시다
         t.setEsu(c.getString(2));//이수
         t.setCredit(Integer.parseInt(c.getString(3)));//학점
-        t.setprof(c.getString(4));//교수명도
+        if (c.getString(4) != null)
+            t.setprof(c.getString(4));//교수명도
         t.setTimestr(timestr);
         s.put(t);
     }
@@ -371,7 +384,6 @@ public class major_select extends AppCompatActivity {
                     tr = new TableRow[count];
                     text = new TextView[count][3];
 
-
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
@@ -430,9 +442,9 @@ public class major_select extends AppCompatActivity {
                                     }
                                 }
                             });
-                            tr[i].addView(text[i][j]);
+                            tr[i].addView(text[i][j]);//칸추가
                         }
-                        t.addView(tr[i], rowLayout);
+                        t.addView(tr[i], rowLayout);//행추가
                     }
                 }
             }
@@ -444,14 +456,19 @@ public class major_select extends AppCompatActivity {
     }
 
     public boolean checkCredit(ArrayList<ClassSubject> list, ClassSubject cs) {
+        int Max = 19;
         int sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getTimearr(0).getCredit();
         }
-        sum += cs.getTimearr(0).getCredit();
+        sum += cs.getTimearr(0).getCredit();//넣을 과목
 
-        if (sum > 18)//일단
-            return false;
+        if (Integer.parseInt(sid.toString().substring(2, 4)) <= 16) {
+            Max = 21;
+        }
+
+        if (sum > Max)//일단
+            return false;//못넣게
         else
             return true;
     }
@@ -472,7 +489,6 @@ public class major_select extends AppCompatActivity {
         intent.putExtra("studentYear", syear);
         intent.putExtra("studentMajor", smajor);
 
-        intent.putExtra("minorNum", minorNum);
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
         intent.putParcelableArrayListExtra("classlist", classlist);

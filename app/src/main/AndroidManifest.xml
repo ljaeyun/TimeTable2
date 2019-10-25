@@ -25,6 +25,9 @@
         <activity android:name=".major_select"/>
         <activity android:name=".RemoveClass"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity android:name=".Progress" />
+        <activity android:name=".FinalTimeTableActivity" />
+
     </application>
 
 

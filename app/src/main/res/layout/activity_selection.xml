@@ -45,6 +45,43 @@
 
             >
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="현재 강의 개수 : "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/classcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="   교양 개수 선택"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/minorNum"
+                    android:layout_width="77dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,10 +90,12 @@
                 android:text="원하는 공강 요일" />
 
             <TableLayout
-                android:layout_width="290dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="#DCDCD3">
+                android:layout_marginTop="5dp"
+                android:background="#DCDCD3"
+                android:visibility="visible">
 
                 <TableRow android:layout_width="match_parent">
 
@@ -92,6 +131,7 @@
                         android:id="@+id/fri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:text="금" />
                 </TableRow>
 
@@ -101,7 +141,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
                 android:text="교양 영역 선택 (1개 이상 3개 이하)" />
 
@@ -109,7 +149,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:background="#DCDCD3">
+                android:layout_marginTop="5dp"
+                android:background="#DCDCD3"
+                android:visibility="visible">
 
                 <TableRow android:layout_width="match_parent">
 
@@ -117,21 +159,21 @@
                         android:id="@+id/sci_tec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="7dp"
                         android:text="과학과 기술" />
 
                     <CheckBox
                         android:id="@+id/expression"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="7dp"
                         android:text="언어와 표현" />
 
                     <CheckBox
                         android:id="@+id/human"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
                         android:text="인간과 철학" />
 
                 </TableRow>
@@ -142,7 +184,7 @@
                         android:id="@+id/social"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="7dp"
                         android:text="사회와 경제" />
 
                     <CheckBox
@@ -158,21 +200,21 @@
                         android:id="@+id/arts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="7dp"
                         android:text="예술과 체육" />
 
                     <CheckBox
                         android:id="@+id/e_learning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="7dp"
                         android:text="서울권역 e-러닝" />
 
                     <CheckBox
                         android:id="@+id/english"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="5dp"
                         android:text="실용영어" />
 
                 </TableRow>
@@ -191,7 +233,8 @@
                 android:id="@+id/nameTag"
                 android:layout_width="281dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -217,287 +260,625 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/tablerow2"
-                    android:layout_width="match_parent"/>
+                    android:id="@+id/nametablerow"
+                    android:layout_width="match_parent" />
 
             </TableLayout>
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="20dp"
+                android:text="제외할 교수명" />
+
             <TableLayout
-                android:id="@+id/classTable"
-                android:layout_width="370dp"
+                android:id="@+id/profTag"
+                android:layout_width="281dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="15"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/prof_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="9"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text" />
+
+                    <Button
+                        android:id="@+id/add_button2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:text="+" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/proftablerow"
+                    android:layout_width="match_parent" />
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="20dp"
+                android:text="제외할 시간" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:background="#DCDCD3">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTableBack">
 
                     <TextView
-                        android:layout_width="52dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="#DCDCD3"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="No." />
+                        android:layout_width="25dp"
+                        android:layout_height="match_parent"
+                        android:text="" />
 
                     <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="#DCDCD3"
+                        android:layout_width="48dp"
+                        android:layout_height="25dp"
                         android:gravity="center"
-                        android:padding="3dp"
-                        android:text="강의명" />
+                        android:text="월"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="118dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:background="#DCDCD3"
+                        android:layout_width="48dp"
+                        android:layout_height="25dp"
                         android:gravity="center"
-                        android:padding="3dp"
-                        android:text="교수명" />
+                        android:text="화"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:text="수"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:text="목"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="25dp"
+                        android:gravity="center"
+                        android:text="금"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time0"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time10"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time20"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time30"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time40"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time1"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time11"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time21"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time31"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time41"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time2"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time12"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time22"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time32"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time42"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="3"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time13"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time23"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time33"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time43"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="4"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time4"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time14"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time24"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time34"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time44"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="5"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time5"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time15"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time25"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time35"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time45"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="6"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time6"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time16"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time26"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time36"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time46"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="7"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time7"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time17"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time27"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time37"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time47"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="8"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time8"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time18"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time28"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time38"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time48"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTableBack">
+
+                    <TextView
+                        android:layout_width="25dp"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:text="9"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time9"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time19"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time29"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time39"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
+
+                    <TextView
+                        android:id="@+id/time49"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/cell_shape" />
 
                 </TableRow>
 
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/select1"
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="1" />
-
-                        <TextView
-                            android:id="@+id/cn1"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/select2"
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="2" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/select3"
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="3" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/select4"
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="4" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="5" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="6" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="52dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="7" />
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                        <TextView
-                            android:layout_width="118dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginBottom="1dp"
-                            android:gravity="center"
-                            android:padding="3dp" />
-
-                    </TableRow>
-                </LinearLayout>
-
             </TableLayout>
+
         </LinearLayout>
     </ScrollView>
 

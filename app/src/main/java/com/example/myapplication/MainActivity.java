@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Integer n = getmajor();
                 //gethakbun();
                 // getPassword();
-                id = 1;
+                id = 2016000000;
                 pw = "dd";//테스트용 바로 확인누르고 입장가능
                 Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
                 intent.putExtra("studentId", id);

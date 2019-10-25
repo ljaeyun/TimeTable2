@@ -6,129 +6,129 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
-        >
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/progress_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="5dp"
+            android:text="추가" />
 
         <SearchView
             android:id="@+id/find"
             android:layout_width="219dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="75dp">
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
 
         </SearchView>
 
         <Button
             android:id="@+id/button"
             android:layout_width="50dp"
-            android:layout_height="56dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            android:layout_gravity="center|end"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginRight="5dp"
             android:text="추가" />
 
     </LinearLayout>
 
 
     <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    android:scrollbars="none">
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="9.5"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="5"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="vertical"
-            >
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical"
-            android:layout_weight="3">
+            android:layout_weight="9.5"
+            android:orientation="vertical">
 
-            <TableLayout
-                android:layout_width="350dp"
-                android:layout_height="0dip"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_weight="15"
+                android:layout_weight="5"
                 android:orientation="vertical">
 
-                <TableRow
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorTableBack">
+                    android:layout_height="match_parent" />
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="학정번호"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="3"
+                android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="과목명"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
+                <TableLayout
+                    android:layout_width="350dp"
+                    android:layout_height="0dip"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="15"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="이수"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorTableBack">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="교수"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:text="학정번호"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:text="시간"
-                        android:textColor="#ffffff"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:text="과목명"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="이수"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="시간"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold" />
 
 
-                </TableRow>
+                    </TableRow>
 
 
-                <!--<ScrollView-->
+                    <!--<ScrollView-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="60dip"-->
                     <!--android:layout_weight="1"-->
@@ -138,6 +138,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
 
                         <TableRow
                             android:layout_width="match_parent"
@@ -175,15 +176,6 @@
 
                             <TextView
                                 android:id="@+id/lec0_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec0_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_weight="3"
@@ -236,15 +228,6 @@
                                 android:gravity="center"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/lec1_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
                         </TableRow>
 
                         <TableRow
@@ -283,15 +266,6 @@
 
                             <TextView
                                 android:id="@+id/lec2_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/lec2_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_weight="3"
@@ -344,15 +318,6 @@
                                 android:gravity="center"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/lec3_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
                         </TableRow>
 
                         <TableRow
@@ -391,17 +356,6 @@
 
                             <TextView
                                 android:id="@+id/lec4_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_weight="3"
-                                android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
-
-                                />
-
-                            <TextView
-                                android:id="@+id/lec4_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_weight="3"
@@ -458,8 +412,44 @@
 
                                 />
 
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark">
+
+
                             <TextView
-                                android:id="@+id/lec5_4"
+                                android:id="@+id/lec6_0"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_weight="3"
+                                android:background="@drawable/cell_shape"
+                                android:gravity="center"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lec6_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_weight="3"
+                                android:background="@drawable/cell_shape"
+                                android:gravity="center"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lec6_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_weight="3"
+                                android:background="@drawable/cell_shape"
+                                android:gravity="center"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/lec6_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_weight="3"
@@ -473,10 +463,10 @@
                     </LinearLayout>
 
 
-                <!--</ScrollView>-->
-            </TableLayout>
+                    <!--</ScrollView>-->
+                </TableLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

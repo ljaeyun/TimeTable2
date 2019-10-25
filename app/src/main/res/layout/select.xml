@@ -29,19 +29,6 @@
     <!--android:layout_width="200dp"-->
     <!--android:layout_height="wrap_content"-->
     <!--/>-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="교양개수"
-        android:textSize="17sp"
-        android:layout_marginTop="30dp"
-        />
-    <Spinner
-        android:id="@+id/MinorNum"
-        android:entries="@array/교양개수"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        />
 
     <TextView
         android:layout_width="wrap_content"
