@@ -273,7 +273,7 @@ public class TimeTableActivity extends AppCompatActivity {
             tvArray[i * 4 + 0].setText(rrr.get(0).get(i).getTimearr(0).getCode());
             tvArray[i * 4 + 1].setText(rrr.get(0).get(i).getName());
             tvArray[i * 4 + 2].setText(rrr.get(0).get(i).getTimearr(0).getEsu());//이수 출력
-            tvArray[i * 4 + 3].setText(rrr.get(position).get(i).getTimearr(0).getTimestr());//시간 출력
+            tvArray[i * 4 + 3].setText(rrr.get(0).get(i).getTimearr(0).getTimestr());//시간 출력
         }//처음에 조합첫번째꺼 출력
     }
 
