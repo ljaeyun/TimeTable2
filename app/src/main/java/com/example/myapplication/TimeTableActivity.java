@@ -115,6 +115,7 @@ public class TimeTableActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int i) {
+                pagerAdpater.setRrr(rrr);//시간표 업데이트
                 clearText();//이전꺼 지우고
                 position = i;//현재페이지
                 for (int j = 0; j < rrr.get(i).size(); j++) {//과목 개수만큼만 출력

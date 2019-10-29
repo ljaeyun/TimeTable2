@@ -1,10 +1,16 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +28,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
     private int position;
     private int page = 1;
     int[] tableArray = new int[35];//시간표에 출력
+    //int[] colors = new int[]{Color.rgb(241, 154, 150), Color.rgb(255, 184, 121), Color.rgb(255, 232, 167), Color.argb(66, 159, 215, 149), Color.argb(66, 105, 182, 227), Color.argb(66, 0, 74, 139), Color.argb(66, 139, 108, 79)};
 
     AutoResizeTextView tvArray2[] = new AutoResizeTextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
@@ -114,6 +121,8 @@ public class TableViewPagerAdapter extends PagerAdapter {
     }
 
     public void drawTable(ArrayList<ClassSubject> classlist) {
+        for (int i = 0; i < 5; i++)
+            tvArray2[i*7].setText("      ");
         for (int j = 0; j < classlist.size(); j++) {
             for (int i = 0; i < classlist.get(j).getTimearr(0).size(); i++) {
                 if ((classlist.get(j).getTimearr(0).print(i) % 10) < 7 && classlist.get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
@@ -121,10 +130,54 @@ public class TableViewPagerAdapter extends PagerAdapter {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
                     tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
                     tvArray2[t].append("\n" + classlist.get(j).getName());
-
+                    tvArray2[t].setBackgroundResource(R.drawable.cell);
+                    isSeries(classlist.get(j), t, j);
                 }
             }
         }
+
+    }
+
+    public boolean contains(ClassSubject cs, int t) {
+        for (int i = 0; i < cs.getTimearr(0).size(); i++) {
+            if (changeint(cs.getTimearr(0).print(i)) == t)
+                return true;//있다!
+        }
+        return false;
+    }
+
+    public void isSeries(ClassSubject cs, int t, int j) {
+        if (cs.getTimearr(0).size() < 3) {
+            if (contains(cs, t - 1)) { //위에 연강존재
+                tvArray2[t].setBackgroundResource(R.drawable.cell_top);
+                tvArray2[t].setText("");
+            } else if (contains(cs, t + 1)) {//아래에
+                tvArray2[t].setBackgroundResource(R.drawable.cell_bottom);
+                tvArray2[t].setText(cs.getTimearr(0).getProf());
+                tvArray2[t].append("\n" + cs.getName());
+            } else {//연강 안존재함
+                tvArray2[t].setBackgroundResource(R.drawable.cell);
+                tvArray2[t].setText(cs.getTimearr(0).getProf());
+                tvArray2[t].append("\n" + cs.getName());
+            }
+        } else {
+            if (contains(cs, t - 1) && contains(cs, t + 1)) {//둘다!
+                tvArray2[t].setBackgroundResource(R.drawable.cell_middle);
+                tvArray2[t].setText("");
+            } else {
+                if (contains(cs, t - 1)) {//위에 연강존재
+                    tvArray2[t].setBackgroundResource(R.drawable.cell_top);
+                    tvArray2[t].setText("");
+                }
+                if (contains(cs, t + 1)) {//아래에
+                    tvArray2[t].setBackgroundResource(R.drawable.cell_bottom);
+                    tvArray2[t].setText(cs.getTimearr(0).getProf());
+                    tvArray2[t].append("\n" + cs.getName());
+                }
+            }
+
+        }
+
 
     }
 }

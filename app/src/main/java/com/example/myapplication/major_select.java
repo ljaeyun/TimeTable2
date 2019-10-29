@@ -102,21 +102,6 @@ public class major_select extends AppCompatActivity {
             }
         });
 
-//        ClassSubject cs = new ClassSubject("컴퓨팅사고");
-//        TimeArr timeArr = new TimeArr();
-//        cs.put(timeArr);
-//        classlist.add(cs);
-//
-//        ClassSubject cs1 = new ClassSubject("마케팅");
-//        TimeArr timeArr1 = new TimeArr();
-//        cs.put(timeArr1);
-//        classlist.add(cs1);
-//
-//        ClassSubject cs2 = new ClassSubject("경영과학");
-//        TimeArr timeArr2 = new TimeArr();
-//        cs.put(timeArr2);
-//        classlist.add(cs2);
-
         showList();
         mContext = this;
     }

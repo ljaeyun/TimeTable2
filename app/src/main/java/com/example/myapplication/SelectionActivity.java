@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,6 +26,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class SelectionActivity extends AppCompatActivity {
+    public static Context mContext = null;
     SQLiteDatabase database;
     Integer minorNum, smajor, sid;
     ArrayList<Integer> freeDay = new ArrayList<>();
@@ -244,13 +247,16 @@ public class SelectionActivity extends AppCompatActivity {
 
                     final TextView textView = new TextView(v.getContext());
                     textView.setText(name_text.getText().toString());
+                    textView.setTextSize(18);
                     linearLayout.addView(textView, param);
 
                     Button button = new Button(v.getContext());
-                    button.setText("x");
+                    button.setText("X");
+                    button.setTypeface(null, Typeface.BOLD);
+                    button.setBackgroundResource(R.drawable.round_button);
                     button.setTextSize(10);
-                    param = new LinearLayout.LayoutParams(90, 90);
-                    param.setMargins(20, 0, 30, 0);
+                    param = new LinearLayout.LayoutParams(80, 80);
+                    param.setMargins(20, 0, 30, 5);
                     linearLayout.addView(button, param);
                     nametableRow.addView(linearLayout);
 
@@ -277,13 +283,15 @@ public class SelectionActivity extends AppCompatActivity {
 
                     final TextView textView = new TextView(v.getContext());
                     textView.setText(prof_text.getText().toString());
+                    textView.setTextSize(18);
                     linearLayout.addView(textView, param);
 
                     Button button = new Button(v.getContext());
-                    button.setText("x");
+                    button.setText("X");
+                    button.setBackgroundResource(R.drawable.round_button);
                     button.setTextSize(10);
-                    param = new LinearLayout.LayoutParams(90, 90);
-                    param.setMargins(20, 0, 30, 0);
+                    param = new LinearLayout.LayoutParams(80, 80);
+                    param.setMargins(20, 0, 30, 5);
                     linearLayout.addView(button, param);
                     proftableRow.addView(linearLayout);
 
@@ -299,6 +307,7 @@ public class SelectionActivity extends AppCompatActivity {
                 }
             }
         });
+        mContext = this;
 
     }
 
@@ -387,7 +396,7 @@ public class SelectionActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isExists(ArrayList<ClassSubject> list, Cursor c) {
+    public boolean isExists(ArrayList<ClassSubject> list, Cursor c) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getName().equalsIgnoreCase(c.getString(1))) {
                 ((major_select) major_select.mContext).timecal(list.get(i), c);//분반 추가하고

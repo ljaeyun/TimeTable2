@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:background="#DCDCD3"
+                android:background="#EFEEE2"
                 android:visibility="visible">
 
                 <TableRow android:layout_width="match_parent">
@@ -150,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:background="#DCDCD3"
+                android:background="#EFEEE2"
                 android:visibility="visible">
 
                 <TableRow android:layout_width="match_parent">
@@ -234,6 +234,8 @@
                 android:layout_width="281dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:visibility="visible">
 
                 <TableRow
@@ -242,20 +244,23 @@
 
                     <EditText
                         android:id="@+id/name_text"
-                        android:layout_width="183dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="9"
+                        android:layout_span="6"
                         android:layout_weight="1"
-                        android:ems="10"
+                        android:ems="8"
                         android:inputType="text" />
 
                     <Button
                         android:id="@+id/add_button"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="15dp"
-                        android:text="+" />
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/round_button"
+                        android:text="+"
+                        android:textSize="18sp" />
 
                 </TableRow>
 
@@ -278,28 +283,33 @@
                 android:layout_width="281dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:visibility="visible">
 
                 <TableRow
-                    android:layout_width="wrap_content"
+                    android:layout_width="241dp"
                     android:layout_height="match_parent">
 
                     <EditText
                         android:id="@+id/prof_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="9"
+                        android:layout_span="6"
                         android:layout_weight="1"
                         android:ems="10"
                         android:inputType="text" />
 
                     <Button
                         android:id="@+id/add_button2"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="15dp"
-                        android:text="+" />
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/round_button"
+                        android:text="+"
+                        android:textSize="18sp" />
 
                 </TableRow>
 
