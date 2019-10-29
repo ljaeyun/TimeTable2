@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -51,6 +52,8 @@ public class ClassListActivity extends Activity {
         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
 
 
+
+
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         t = (TableLayout) findViewById(R.id.result_table);
         tableRow = (TableRow) findViewById(R.id.tablerow);
@@ -66,6 +69,52 @@ public class ClassListActivity extends Activity {
                     tr = new TableRow[count];
                     text = new TextView[count][5];
 
+
+                    TableRow tbrow0 = new TableRow(this);
+                    TextView tv0 = new TextView(this);
+                    tv0.setText("학정번호");
+                    tv0.setTextSize(15);
+                    tv0.setTextColor(Color.BLACK);
+                    tv0.setBackgroundColor(124 - 224 - 134);
+                    tv0.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv0);
+
+                    TextView tv1 = new TextView(this);
+                    tv1.setText("과목명");
+                    tv1.setTextSize(15);
+                    tv1.setTextColor(Color.BLACK);
+                    tv1.setBackgroundColor(124 - 224 - 134);
+                    tv1.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv1);
+
+                    TextView tv2 = new TextView(this);
+                    tv2.setText("이수");
+                    tv2.setTextSize(15);
+                    tv2.setBackgroundColor(124 - 224 - 134);
+                    tv2.setTextColor(Color.BLACK);
+                    tv2.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv2);
+
+                    TextView tv3 = new TextView(this);
+                    tv3.setText("교수");
+                    tv3.setTextSize(15);
+                    tv3.setBackgroundColor(124 - 224 - 134);
+                    tv3.setTextColor(Color.BLACK);
+                    tv3.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv3);
+
+                    TextView tv4 = new TextView(this);
+                    tv4.setText("시간");
+                    tv4.setTextSize(15);
+                    tv4.setBackgroundColor(124 - 224 - 134);
+                    tv4.setTextColor(Color.BLACK);
+                    tv4.setGravity(Gravity.CENTER);
+                    tbrow0.addView(tv4);
+
+                    t.addView(tbrow0);
+
+
+
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
@@ -73,8 +122,9 @@ public class ClassListActivity extends Activity {
                             text[i][j] = new TextView(this);
                             if (j == 4) {//시간 출력
                                 if (c.getString(5) != null) {
-                                    if (c.getString(7) != null)
+                                    if (c.getString(7) != null) {
                                         text[i][j].setText(c.getString(5) + c.getString(6) + c.getString(7) + c.getString(8));
+                                    }
                                     else
                                         text[i][j].setText(c.getString(5) + c.getString(6));
                                 } else
@@ -115,6 +165,7 @@ public class ClassListActivity extends Activity {
                             });
 
                             tr[i].addView(text[i][j]);
+
                         }
                         t.addView(tr[i], rowLayout);
                     }

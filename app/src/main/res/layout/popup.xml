@@ -22,8 +22,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_gravity="right"
+            android:layout_marginRight="15dp"
             android:text="X"
             tools:ignore="MissingConstraints" />
+
 
         <TableRow
             android:id="@+id/tablerow"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorTableBack">
 
+            <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +78,7 @@
                 android:text="시간"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
-
+            -->
 
         </TableRow>
 
@@ -84,7 +87,9 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_weight="15"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:layout_marginLeft="10dp"
+            >
 
             <TableLayout
                 android:id="@+id/result_table"

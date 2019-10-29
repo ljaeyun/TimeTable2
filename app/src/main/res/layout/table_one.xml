@@ -237,7 +237,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/cell_shape"
-                
+
                 android:text=""
                 android:textStyle="bold" />
 
@@ -265,7 +265,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/cell_shape"
-                
+
                 android:text=""
                 android:textStyle="bold" />
 
@@ -333,7 +333,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@drawable/cell_shape"
-                
+
                 android:text=""
                 android:textStyle="bold" />
 

@@ -40,6 +40,7 @@ public class SelectionActivity extends AppCompatActivity {
     ArrayList<ArrayList<ClassSubject>> arr;
     int[] idArray = new int[50];
     TextView[] timeTextarr = new TextView[50];
+    //AutoResizeTextView timeTextarr[] = new AutoResizeTextView[50];
     Spinner selMinorSpinner;
 
     @Override
