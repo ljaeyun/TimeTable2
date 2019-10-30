@@ -28,6 +28,7 @@ public class TimeTableActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
     TableLayout tableLayout;
+    TableLayout tableLayout2;
     long nStart = 0;
     long nEnd = 0;
 
@@ -43,6 +44,8 @@ public class TimeTableActivity extends AppCompatActivity {
 
         searchview = (SearchView) findViewById(R.id.find);
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+
+        tableLayout2 = (TableLayout) findViewById(R.id.table2);
 
         Intent intent1 = getIntent();
         sid = intent1.getIntExtra("studentId", 1);
@@ -93,6 +96,7 @@ public class TimeTableActivity extends AppCompatActivity {
                 intent.putExtra("studentId", sid);
                 intent.putExtra("studentMajor", smajor);
                 intent.putParcelableArrayListExtra("now_list", rrr.get(position));
+                tableLayout2.invalidate();
                 startActivity(intent);
             }
         });

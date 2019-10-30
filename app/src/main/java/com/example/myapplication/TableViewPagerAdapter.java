@@ -31,7 +31,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
     int[] tableArray = new int[35];//시간표에 출력
     //int[] colors = new int[]{Color.rgb(241, 154, 150), Color.rgb(255, 184, 121), Color.rgb(255, 232, 167), Color.argb(66, 159, 215, 149), Color.argb(66, 105, 182, 227), Color.argb(66, 0, 74, 139), Color.argb(66, 139, 108, 79)};
 
-    AutoResizeTextView tvArray2[] = new AutoResizeTextView[35];
+    TextView tvArray2[] = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
 
     public TableViewPagerAdapter(Context context) {
@@ -71,7 +71,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
             }
         }
         for (int i = 0; i < tvArray2.length; i++) {
-            tvArray2[i] = (AutoResizeTextView) view.findViewById(tableArray[i]);
+            tvArray2[i] = (TextView) view.findViewById(tableArray[i]);
         }
 
         if (rrr != null) {//필수과목이 있는 경우에만
@@ -79,6 +79,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
         }
 
         container.addView(view);
+
         return view;
     }
 
