@@ -1,42 +1,31 @@
 package com.example.myapplication;
 
-import android.app.ListActivity;
 import android.content.Context;
-import android.location.Location;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
-import static android.support.constraint.ConstraintSet.WRAP_CONTENT;
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-
-public class major_select extends AppCompatActivity {
+public class Learned_Sub_Select extends AppCompatActivity {
     public static Context mContext = null;
 
     SQLiteDatabase database;
     String table = "business";
-    Integer sid, syear, smajor, subMajor, doubleMajor, isMajor = 0;
+    Integer sid, syear, smajor, minorNum, subMajor, doubleMajor, isMajor = 0;
     String spw;
     Cursor c;
     ClassSubject cs;
@@ -49,7 +38,7 @@ public class major_select extends AppCompatActivity {
     TableLayout t;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.major_select);
 
@@ -67,6 +56,7 @@ public class major_select extends AppCompatActivity {
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);//전공
 
+        minorNum = intent1.getIntExtra("minorNum", 0);
         subMajor = intent1.getIntExtra("subMajor", -1);//부전공
         doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
         classlist = intent1.getParcelableArrayListExtra("classlist");
@@ -81,6 +71,8 @@ public class major_select extends AppCompatActivity {
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         t = (TableLayout) findViewById(R.id.result_table);
+
+        TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -110,7 +102,7 @@ public class major_select extends AppCompatActivity {
         level = pos;
     }
 
-    public void choosetable(int major) {
+    private void choosetable(int major) {
         if (major >= 0 && major <= 1)
             database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);
         else if (major >= 2 && major <= 5)
@@ -298,8 +290,7 @@ public class major_select extends AppCompatActivity {
         t.putCode(c.getString(0));//학정번호도 넣어봅시다
         t.setEsu(c.getString(2));//이수
         t.setCredit(Integer.parseInt(c.getString(3)));//학점
-        if (c.getString(4) != null)
-            t.setprof(c.getString(4));//교수명도
+        t.setprof(c.getString(4));//교수명도
         t.setTimestr(timestr);
         s.put(t);
     }
@@ -340,7 +331,7 @@ public class major_select extends AppCompatActivity {
                 c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
             if (c != null) {
                 int count = c.getCount();//개수
-                    if (count != 0) {
+                if (count != 0) {
 
                     TableRow tbrow0 = new TableRow(this);
                     TextView tv0 = new TextView(this);
@@ -369,68 +360,72 @@ public class major_select extends AppCompatActivity {
                     tr = new TableRow[count];
                     text = new TextView[count][3];
 
+
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
-                        for (int j = 0; j < 3; j++) {
-                            text[i][j] = new TextView(this);
-                            text[i][j].setText(c.getString(j));
+                        if (checkSelect(classlist, c.getString(0))) { //선택한 과목 제외 출력
+                            for (int j = 0; j < 3; j++) {
+                                text[i][j] = new TextView(this);
+                                text[i][j].setText(c.getString(j));
 
-                            text[i][j].setTextSize(20);
-                            text[i][j].setTextColor(Color.BLACK);
-                            text[i][j].setGravity(Gravity.CENTER);
-                            text[i][j].setBackgroundResource(R.drawable.cell_shape);
+                                text[i][j].setTextSize(20);
+                                text[i][j].setTextColor(Color.BLACK);
+                                text[i][j].setGravity(Gravity.CENTER);
+                                text[i][j].setBackgroundResource(R.drawable.cell_shape);
 
-                            if (j == 0) {
-                                text[i][j].setWidth(640);
-                            }
-                            if (j == 1) {
-                                text[i][j].setWidth(150);
-                            }
-                            if (j == 2) {
-                                text[i][j].setWidth(150);
-                            }
+                                if (j == 0) {
+                                    text[i][j].setWidth(640);
+                                }
+                                if (j == 1) {
+                                    text[i][j].setWidth(150);
+                                }
+                                if (j == 2) {
+                                    text[i][j].setWidth(150);
+                                }
 
+                                for (int l = 0; l < selected[level].size(); l++) {
+                                    if (selected[level].get(l).equals(i))//선택된과목이면
+                                        text[i][j].setBackgroundResource(R.drawable.select_cell);
+                                }
+                                text[i][j].setTag(i);
 
-                            for (int l = 0; l < selected[level].size(); l++) {
-                                if (selected[level].get(l).equals(i))//선택된과목이면
-                                    text[i][j].setBackgroundResource(R.drawable.select_cell);
-                            }
-                            text[i][j].setTag(i);
-
-                            text[i][j].setOnClickListener(new Button.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    num = (Integer) v.getTag();//선택된 번호
-                                    if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
-                                        for (int k = 0; k < 3; k++)
-                                            text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
-                                        c.moveToPosition(num);
-                                        for (int l = 0; l < selected[level].size(); l++) {
-                                            if (selected[level].get(l).equals(num))
-                                                selected[level].remove(l);
-                                        }
-                                        for (int l = 0; l < classlist.size(); l++) {
-                                            if (classlist.get(l).getName().equals(c.getString(0)))
-                                                classlist.remove(l);//배열에서 찾아서 지운다
-                                        }
-                                    } else {
-                                        c.moveToPosition(num);
-                                        selected[level].add(num);
-                                        cs = new ClassSubject(c.getString(0));//그 과목명으로
-                                        findClasses(c.getString(0));//분반저장
-                                        if (checkCredit(classlist, cs)) {
-                                            classlist.add(cs); //배열에 넣는다
+                                text[i][j].setOnClickListener(new Button.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        num = (Integer) v.getTag();//선택된 번호
+                                        if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
                                             for (int k = 0; k < 3; k++)
-                                                text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                                text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
+                                            c.moveToPosition(num);
+                                            for (int l = 0; l < selected[level].size(); l++) {
+                                                if (selected[level].get(l).equals(num))
+                                                    selected[level].remove(l);
+                                            }
+                                            for (int l = 0; l < classlist.size(); l++) {
+                                                if (classlist.get(l).getName().equals(c.getString(0)))
+                                                    classlist.remove(l);//배열에서 찾아서 지운다
+                                            }
+                                        } else {//처음 누르면
+                                            c.moveToPosition(num);
+                                            selected[level].add(num);
+                                            cs = new ClassSubject(c.getString(0));//그 과목명으로
+                                            findClasses(c.getString(0));//분반저장
+                                            if (checkCredit(classlist, cs)) {
+                                                classlist.add(cs); //배열에 넣는다
+                                                for (int k = 0; k < 3; k++)
+                                                    text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                            }
                                         }
                                     }
-                                }
-                            });
-                            tr[i].addView(text[i][j]);//칸추가
+                                });
+                                tr[i].addView(text[i][j]);
+                            }
+                            t.addView(tr[i], rowLayout);
                         }
-                        t.addView(tr[i], rowLayout);//행추가
                     }
+                    if( t.getChildCount()==1) //출력할 과목이 없다면
+                        t.removeView(tbrow0);
                 }
             }
         } catch (Exception e) {
@@ -440,40 +435,37 @@ public class major_select extends AppCompatActivity {
 
     }
 
+    public boolean checkSelect(ArrayList<ClassSubject> classlist, String s) {
+        for (int i = 0; i < classlist.size(); i++) {
+            if ( classlist.get(i).getName().equalsIgnoreCase(s) ) // 선택한 과목이랑 이름이 겹치면
+                return false;
+        }
+        return true;  // 안겹치면
+    }
+
     public boolean checkCredit(ArrayList<ClassSubject> list, ClassSubject cs) {
-        int Max = 19;
         int sum = 0;
         for (int i = 0; i < list.size(); i++) {
             sum += list.get(i).getTimearr(0).getCredit();
         }
-        sum += cs.getTimearr(0).getCredit();//넣을 과목
+        sum += cs.getTimearr(0).getCredit();
 
-        if (Integer.parseInt(sid.toString().substring(2, 4)) <= 16) {
-            Max = 21;
-        }
-
-        if (sum > Max)//일단
-            return false;//못넣게
+        if (sum > 18)//일단
+            return false;
         else
             return true;
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(this, Learned_Sub_Select.class);
-        if (subMajor != -1 && isMajor == 0) {
-            intent = new Intent(this, major_select.class);
-            isMajor = 1;
-        }
-        if (doubleMajor != -1 && isMajor == 0) {
-            intent = new Intent(this, major_select.class);
-            isMajor = 2;
-        }
+        Intent intent = new Intent(this, TimeTableActivity.class);
+
         intent.putExtra("isMajor", isMajor);
         intent.putExtra("studentId", sid);
         intent.putExtra("studentPw", spw);
         intent.putExtra("studentYear", syear);
         intent.putExtra("studentMajor", smajor);
 
+        intent.putExtra("minorNum", minorNum);
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
         intent.putParcelableArrayListExtra("classlist", classlist);
@@ -481,4 +473,3 @@ public class major_select extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
