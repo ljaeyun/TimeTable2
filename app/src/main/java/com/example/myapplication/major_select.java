@@ -24,12 +24,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
-
-import static android.support.constraint.ConstraintSet.WRAP_CONTENT;
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class major_select extends AppCompatActivity {
     public static Context mContext = null;
@@ -40,7 +36,7 @@ public class major_select extends AppCompatActivity {
     String spw;
     Cursor c;
     ClassSubject cs;
-    ArrayList<ClassSubject> classlist;
+    ArrayList<ClassSubject> classlist, ex_classlist;
     ArrayList<Integer> selected[] = new ArrayList[5];
     int num = 0, level = 0;
     TableRow tr[];
@@ -70,14 +66,17 @@ public class major_select extends AppCompatActivity {
         subMajor = intent1.getIntExtra("subMajor", -1);//부전공
         doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
         classlist = intent1.getParcelableArrayListExtra("classlist");
+        ex_classlist = new ArrayList<>();//들은거
 
         if (isMajor == 0)
             choosetable(smajor);//전공 db열고 table선택
-        else if (isMajor == 1)
+        else if (isMajor == 1) {
             choosetable(subMajor);
-        else
+            isMajor = 3;
+        } else {
             choosetable(doubleMajor);
-
+            isMajor = 3;
+        }
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         t = (TableLayout) findViewById(R.id.result_table);
@@ -340,7 +339,7 @@ public class major_select extends AppCompatActivity {
                 c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
             if (c != null) {
                 int count = c.getCount();//개수
-                    if (count != 0) {
+                if (count != 0) {
 
                     TableRow tbrow0 = new TableRow(this);
                     TextView tv0 = new TextView(this);
@@ -410,20 +409,22 @@ public class major_select extends AppCompatActivity {
                                             if (selected[level].get(l).equals(num))
                                                 selected[level].remove(l);
                                         }
-                                        for (int l = 0; l < classlist.size(); l++) {
-                                            if (classlist.get(l).getName().equals(c.getString(0)))
-                                                classlist.remove(l);//배열에서 찾아서 지운다
+                                        for (int l = 0; l < ex_classlist.size(); l++) {
+                                            if (ex_classlist.get(l).getName().equals(c.getString(0)))
+                                                ex_classlist.remove(l);//배열에서 찾아서 지운다
                                         }
                                     } else {
                                         c.moveToPosition(num);
                                         selected[level].add(num);
                                         cs = new ClassSubject(c.getString(0));//그 과목명으로
-                                        findClasses(c.getString(0));//분반저장
-                                        if (checkCredit(classlist, cs)) {
-                                            classlist.add(cs); //배열에 넣는다
-                                            for (int k = 0; k < 3; k++)
-                                                text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
-                                        }
+                                        TimeArr t = new TimeArr();
+                                        t.setEsu(c.getString(1));//이수
+                                        t.setCredit(Integer.parseInt(c.getString(2)));//학점
+                                        cs.put(t);
+                                        ex_classlist.add(cs); //배열에 넣는다
+
+                                        for (int k = 0; k < 3; k++)
+                                            text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
                                     }
                                 }
                             });
@@ -459,15 +460,18 @@ public class major_select extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent intent = new Intent(this, Learned_Sub_Select.class);
+        Intent intent = new Intent(this, Learned_Sub_Select.class);//전공선택하러
         if (subMajor != -1 && isMajor == 0) {
-            intent = new Intent(this, major_select.class);
+            intent = new Intent(this, major_select.class);//부전공과목고르러
             isMajor = 1;
         }
         if (doubleMajor != -1 && isMajor == 0) {
-            intent = new Intent(this, major_select.class);
+            intent = new Intent(this, major_select.class);//복수전공과목고르러
             isMajor = 2;
         }
+        if (isMajor == 3)
+            isMajor = 0;//이제 전공과목 들을거 선택하러
+
         intent.putExtra("isMajor", isMajor);
         intent.putExtra("studentId", sid);
         intent.putExtra("studentPw", spw);
@@ -476,6 +480,7 @@ public class major_select extends AppCompatActivity {
 
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
+        intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);//들은거
         intent.putParcelableArrayListExtra("classlist", classlist);
 
         startActivity(intent);

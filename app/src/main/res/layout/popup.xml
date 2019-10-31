@@ -27,61 +27,6 @@
             tools:ignore="MissingConstraints" />
 
 
-        <TableRow
-            android:id="@+id/tablerow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTableBack">
-
-            <!--
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="학정번호"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="과목명"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="이수"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="교수"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:text="시간"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-            -->
-
-        </TableRow>
-
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"

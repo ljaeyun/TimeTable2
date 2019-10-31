@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class FinalTimeTableActivity extends AppCompatActivity {
     Integer sid, syear, smajor, subMajor, doubleMajor, position = 0;
+    ArrayList<ClassSubject> ex_classlist;
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
     int[] idArray = new int[28];//강의 목록 출력
@@ -37,6 +38,7 @@ public class FinalTimeTableActivity extends AppCompatActivity {
         sid = intent1.getIntExtra("studentId", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
         rrr = (ArrayList<ArrayList<ClassSubject>>) intent1.getSerializableExtra("final_list");//모든 조합 받아와서
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");
 
         for (int i = 0; i < idArray.length; i++) {
             int jj = i / 4;
@@ -78,6 +80,10 @@ public class FinalTimeTableActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Progress.class);
                 intent.putExtra("studentId", sid);
                 intent.putExtra("studentMajor", smajor);
+                intent.putExtra("studentYear", syear);
+                intent.putExtra("doubleMajor", doubleMajor);
+                intent.putExtra("subMajor", subMajor);
+                intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
                 startActivity(intent);
             }
         });
@@ -96,7 +102,7 @@ public class FinalTimeTableActivity extends AppCompatActivity {
                     tvArray[j * 4 + 0].setText(rrr.get(i).get(j).getTimearr(0).getCode());
                     tvArray[j * 4 + 1].setText(rrr.get(i).get(j).getName());
                     tvArray[j * 4 + 2].setText(rrr.get(i).get(j).getTimearr(0).getEsu());//이수 출력
-                    tvArray[i * 4 + 3].setText(rrr.get(i).get(i).getTimearr(0).getTimestr());//시간 출력
+                    tvArray[j * 4 + 3].setText(rrr.get(i).get(j).getTimearr(0).getTimestr());//시간 출력
                 }//i번째 조합 출력
             }
 

@@ -28,14 +28,14 @@ import java.util.ArrayList;
 public class SelectionActivity extends AppCompatActivity {
     public static Context mContext = null;
     SQLiteDatabase database;
-    Integer minorNum, smajor, sid;
+    Integer sid, syear, smajor, subMajor, doubleMajor, minorNum;
     ArrayList<Integer> freeDay = new ArrayList<>();
     ArrayList<String> namearr = new ArrayList<>();//제외할 검색어
     ArrayList<String> profarr = new ArrayList<>();//제외할 교수
     ArrayList<Integer> timearr = new ArrayList<>();//제외할 시간
     ArrayList<Integer> nowtimearr = new ArrayList<>();//시간이 겹치는지 확인할 배열
     ArrayList<Integer> subjectarr = new ArrayList<>();//선택한 과목영역
-    ArrayList<ClassSubject> classList;
+    ArrayList<ClassSubject> classList,ex_classlist;
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
     ArrayList<ArrayList<ClassSubject>> arr;
     int[] idArray = new int[50];
@@ -53,6 +53,10 @@ public class SelectionActivity extends AppCompatActivity {
         classList = intent1.getParcelableArrayListExtra("now_list");//전달받은 과목 리스트
         sid = intent1.getIntExtra("studentId", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
+        syear = intent1.getIntExtra("studentYear", 1);
+        subMajor = intent1.getIntExtra("subMajor", -1);
+        doubleMajor = intent1.getIntExtra("doubleMajor", -1);
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");
 
         if (classList.size() != 0) {
             if (classList.get(0).getName().equalsIgnoreCase("null")) {//빈거 받아왔으면
@@ -233,6 +237,10 @@ public class SelectionActivity extends AppCompatActivity {
                 intent.putExtra("final_list", rrr);
                 intent.putExtra("studentId", sid);
                 intent.putExtra("studentMajor", smajor);
+                intent.putExtra("studentYear", syear);
+                intent.putExtra("doubleMajor", doubleMajor);
+                intent.putExtra("subMajor", subMajor);
+                intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
                 startActivity(intent);
                 //finish();//닫기
             }
@@ -289,6 +297,7 @@ public class SelectionActivity extends AppCompatActivity {
 
                     Button button = new Button(v.getContext());
                     button.setText("X");
+                    button.setTypeface(null, Typeface.BOLD);
                     button.setBackgroundResource(R.drawable.round_button);
                     button.setTextSize(10);
                     param = new LinearLayout.LayoutParams(80, 80);
@@ -337,7 +346,7 @@ public class SelectionActivity extends AppCompatActivity {
             ArrayList<ClassSubject> arr = (ArrayList<ClassSubject>) a.clone();//왜복사하는지 모르겠음
 
             arr.add(cs);//ClassSubject를 넣어야지
-            if (checkOverlap(arr) && eliminate(arr.get(arr.size() - 1)) && eliminateProf(arr.get(arr.size() - 1))) {//학점의 합이 최대 학점을 넘지 않고 시간이 겹치지 않는다면
+            if (checkOverlap(arr) && eliminate(arr.get(arr.size() - 1)) && eliminateProf(arr.get(arr.size() - 1))) {//제외할거 제외하고 시간이 겹치지 않는다면
                 if (j == maxnum - 1) { //마지막과목이라면
                     arr.addAll(classList);
                     rrr.add(arr);//끝까지 다봤으면 rrr에 넣습니다.

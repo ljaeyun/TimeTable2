@@ -29,7 +29,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
     private int position;
     private int page = 1;
     int[] tableArray = new int[35];//시간표에 출력
-    //int[] colors = new int[]{Color.rgb(241, 154, 150), Color.rgb(255, 184, 121), Color.rgb(255, 232, 167), Color.argb(66, 159, 215, 149), Color.argb(66, 105, 182, 227), Color.argb(66, 0, 74, 139), Color.argb(66, 139, 108, 79)};
+    int[] colors = new int[]{Color.argb(66,255, 158, 158), Color.argb(66,255, 224, 157), Color.argb(66,254, 253, 148), Color.argb(66, 161, 255, 161), Color.argb(66, 160, 250, 250), Color.argb(66, 168, 173, 255), Color.argb(66, 224, 140, 255)};
 
     TextView tvArray2[] = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
@@ -116,7 +116,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public int changeint(int t) {//아직 6교시칸밖에 없어서 변환
+    private int changeint(int t) {//아직 6교시칸밖에 없어서 변환
         int n = 0;
         n = t / 10;
         n = n * 7 + (t % 10);
@@ -124,24 +124,23 @@ public class TableViewPagerAdapter extends PagerAdapter {
     }
 
     public void drawTable(ArrayList<ClassSubject> classlist) {
-        for (int i = 0; i < 5; i++)
-            tvArray2[i*7].setText("      ");
         for (int j = 0; j < classlist.size(); j++) {
             for (int i = 0; i < classlist.get(j).getTimearr(0).size(); i++) {
                 if ((classlist.get(j).getTimearr(0).print(i) % 10) < 7 && classlist.get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
                 {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
+                    tvArray2[t].setBackgroundColor(Color.argb(66,255,0,0));
                     tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
                     tvArray2[t].append("\n" + classlist.get(j).getName());
-                    tvArray2[t].setBackgroundResource(R.drawable.cell);
                     isSeries(classlist.get(j), t, j);
+                    tvArray2[t].setBackgroundColor(colors[j]);//여러색 설정
                 }
             }
         }
 
     }
 
-    public boolean contains(ClassSubject cs, int t) {
+    private boolean contains(ClassSubject cs, int t) {
         for (int i = 0; i < cs.getTimearr(0).size(); i++) {
             if (changeint(cs.getTimearr(0).print(i)) == t)
                 return true;//있다!
@@ -149,31 +148,25 @@ public class TableViewPagerAdapter extends PagerAdapter {
         return false;
     }
 
-    public void isSeries(ClassSubject cs, int t, int j) {
+    private void isSeries(ClassSubject cs, int t, int j) {
         if (cs.getTimearr(0).size() < 3) {
             if (contains(cs, t - 1)) { //위에 연강존재
-                tvArray2[t].setBackgroundResource(R.drawable.cell_top);
                 tvArray2[t].setText("");
             } else if (contains(cs, t + 1)) {//아래에
-                tvArray2[t].setBackgroundResource(R.drawable.cell_bottom);
                 tvArray2[t].setText(cs.getTimearr(0).getProf());
                 tvArray2[t].append("\n" + cs.getName());
             } else {//연강 안존재함
-                tvArray2[t].setBackgroundResource(R.drawable.cell);
                 tvArray2[t].setText(cs.getTimearr(0).getProf());
                 tvArray2[t].append("\n" + cs.getName());
             }
         } else {
             if (contains(cs, t - 1) && contains(cs, t + 1)) {//둘다!
-                tvArray2[t].setBackgroundResource(R.drawable.cell_middle);
                 tvArray2[t].setText("");
             } else {
                 if (contains(cs, t - 1)) {//위에 연강존재
-                    tvArray2[t].setBackgroundResource(R.drawable.cell_top);
                     tvArray2[t].setText("");
                 }
                 if (contains(cs, t + 1)) {//아래에
-                    tvArray2[t].setBackgroundResource(R.drawable.cell_bottom);
                     tvArray2[t].setText(cs.getTimearr(0).getProf());
                     tvArray2[t].append("\n" + cs.getName());
                 }

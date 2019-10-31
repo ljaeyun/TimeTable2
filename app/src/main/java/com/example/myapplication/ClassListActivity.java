@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,7 +40,6 @@ public class ClassListActivity extends Activity {
     TextView text[][];
     TableLayout t;
     TableLayout.LayoutParams rowLayout;
-    TableRow tableRow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,13 +50,14 @@ public class ClassListActivity extends Activity {
         Intent intent1 = getIntent();
         classname = intent1.getStringExtra("classname");
         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.linearLayout2);
 
-
-
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        param.setMargins(0, 15, 0, 50);
+        param.gravity = Gravity.CENTER;
 
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         t = (TableLayout) findViewById(R.id.result_table);
-        tableRow = (TableRow) findViewById(R.id.tablerow);
         arr = new ArrayList<>();
 
         makedb();
@@ -113,8 +114,6 @@ public class ClassListActivity extends Activity {
 
                     t.addView(tbrow0);
 
-
-
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
@@ -124,8 +123,7 @@ public class ClassListActivity extends Activity {
                                 if (c.getString(5) != null) {
                                     if (c.getString(7) != null) {
                                         text[i][j].setText(c.getString(5) + c.getString(6) + c.getString(7) + c.getString(8));
-                                    }
-                                    else
+                                    } else
                                         text[i][j].setText(c.getString(5) + c.getString(6));
                                 } else
                                     text[i][j].setText(" ");
@@ -170,12 +168,14 @@ public class ClassListActivity extends Activity {
                         t.addView(tr[i], rowLayout);
                     }
                 } else {//검색한 과목이 없을때
-                    tableRow.setVisibility(View.GONE);
+                    ScrollView sc = (ScrollView) findViewById(R.id.scrollview);
+                    sc.setVisibility(View.GONE);//scrollview도 없애고
                     TextView textView = new TextView(this);
-                    textView.setText("없습니다");//나중에 수정
+                    textView.setText("해당하는 과목이 없습니다");//나중에 수정
                     textView.setTextSize(20);
                     textView.setTextColor(Color.BLACK);
-                    t.addView(textView);
+                    ll.addView(textView, param);
+
                 }
             }
         } catch (Exception e) {

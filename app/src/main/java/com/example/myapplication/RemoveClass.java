@@ -32,8 +32,6 @@ public class RemoveClass extends Activity {
         index = intent1.getIntExtra("index", 0);
         str = intent1.getStringExtra("classname");
 
-        TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
-        tableRow.setVisibility(View.GONE);//표도 없애고
         Button b = (Button) findViewById(R.id.button_close2);
         b.setVisibility(View.GONE);//닫기버튼도 없애고
         ScrollView sc = (ScrollView) findViewById(R.id.scrollview);

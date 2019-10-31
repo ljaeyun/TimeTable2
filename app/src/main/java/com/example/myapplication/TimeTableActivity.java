@@ -23,7 +23,7 @@ public class TimeTableActivity extends AppCompatActivity {
     int[] idArray = new int[28];//강의 목록 출력
     TextView[] tvArray = new TextView[28];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
-    ArrayList<ClassSubject> classlist;
+    ArrayList<ClassSubject> classlist,ex_classlist;
     ArrayList<ClassSubject> pluscs = new ArrayList<>();
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
@@ -52,9 +52,10 @@ public class TimeTableActivity extends AppCompatActivity {
         spw = intent1.getStringExtra("studentPw");
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
-        subMajor = intent1.getIntExtra("subMajor", 0);
-        doubleMajor = intent1.getIntExtra("doubleMajor", 0);
+        subMajor = intent1.getIntExtra("subMajor", -1);
+        doubleMajor = intent1.getIntExtra("doubleMajor", -1);
         classlist = intent1.getParcelableArrayListExtra("classlist");
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");
 
         for (int i = 0; i < idArray.length; i++) {
             int jj = i / 4;
@@ -95,7 +96,11 @@ public class TimeTableActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SelectionActivity.class);
                 intent.putExtra("studentId", sid);
                 intent.putExtra("studentMajor", smajor);
+                intent.putExtra("studentYear", syear);
+                intent.putExtra("doubleMajor", doubleMajor);
+                intent.putExtra("subMajor", subMajor);
                 intent.putParcelableArrayListExtra("now_list", rrr.get(position));
+                intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
                 tableLayout2.invalidate();
                 startActivity(intent);
             }
@@ -105,8 +110,12 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Progress.class);
+                intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
                 intent.putExtra("studentId", sid);
                 intent.putExtra("studentMajor", smajor);
+                intent.putExtra("studentYear", syear);
+                intent.putExtra("doubletMajor", doubleMajor);
+                intent.putExtra("subMajor", subMajor);
                 startActivity(intent);
             }
         });
@@ -193,7 +202,7 @@ public class TimeTableActivity extends AppCompatActivity {
     }
 
     private void findClass() {//과목검색함수
-        //searchview.setSubmitButtonEnabled(true);//확인버튼 활성화
+//        searchview.setSubmitButtonEnabled(true);//확인버튼 활성화
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

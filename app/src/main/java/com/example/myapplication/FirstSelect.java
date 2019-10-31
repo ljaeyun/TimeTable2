@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class FirstSelect extends AppCompatActivity {
     public static Context mContext = null;
     Integer sid, syear, smajor, subMajor = -1, doubleMajor = -1;
-    String spw;
     ArrayList<ClassSubject> classlist;
 
     SQLiteDatabase database;
@@ -33,7 +32,6 @@ public class FirstSelect extends AppCompatActivity {
         Intent intent1 = getIntent();
 
         sid = intent1.getIntExtra("studentId", 1);
-        spw = intent1.getStringExtra("studentPw");
         syear = intent1.getIntExtra("studentYear", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
         makedb();//교양 db생성
@@ -43,10 +41,10 @@ public class FirstSelect extends AppCompatActivity {
         chkdoubleMajor = (CheckBox) findViewById(R.id.doubleMajor);
 
         spinnerMajor1 = (Spinner) findViewById(R.id.spinnerMajor1);
-        spinnerMajor1.setVisibility(View.INVISIBLE);
+        spinnerMajor1.setVisibility(View.GONE);
 
         spinnerMajor2 = (Spinner) findViewById(R.id.spinnerMajor2);
-        spinnerMajor2.setVisibility(View.INVISIBLE);
+        spinnerMajor2.setVisibility(View.GONE);
 
         rotc = (CheckBox) findViewById(R.id.option6);
         rotc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -54,10 +52,10 @@ public class FirstSelect extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (rotc.isChecked()) {// 나중에 애니메이션효과 추가2
                     if (syear == 2 || syear == 3) {
-                        syear += 1;
+                        int year = syear+1;
                         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
                         try {
-                            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from 군사학 where 학정번호 like '_____" + syear + "%'", null);
+                            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from 군사학 where 학정번호 like '_____" + year + "%'", null);
                             if (c1 != null) {
                                 int num = c1.getCount();
                                 for (int i = 0; i < num; i++) {
@@ -203,7 +201,6 @@ public class FirstSelect extends AppCompatActivity {
         Intent intent = new Intent(this, major_select.class);
 
         intent.putExtra("studentId", sid);
-        intent.putExtra("studentPw", spw);
         intent.putExtra("studentYear", syear);
         intent.putExtra("studentMajor", smajor);
 

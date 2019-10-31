@@ -29,7 +29,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
     String spw;
     Cursor c;
     ClassSubject cs;
-    ArrayList<ClassSubject> classlist;
+    ArrayList<ClassSubject> classlist,ex_classlist;
     ArrayList<Integer> selected[] = new ArrayList[5];
     int num = 0, level = 0;
     TableRow tr[];
@@ -43,6 +43,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
         setContentView(R.layout.major_select);
 
         classlist = new ArrayList<>();
+        ex_classlist = new ArrayList<>();
         selected[0] = new ArrayList<>();
         selected[1] = new ArrayList<>();
         selected[2] = new ArrayList<>();
@@ -60,6 +61,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
         subMajor = intent1.getIntExtra("subMajor", -1);//부전공
         doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
         classlist = intent1.getParcelableArrayListExtra("classlist");
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");//들은거
 
         if (isMajor == 0)
             choosetable(smajor);//전공 db열고 table선택
@@ -72,7 +74,6 @@ public class Learned_Sub_Select extends AppCompatActivity {
 
         t = (TableLayout) findViewById(R.id.result_table);
 
-        TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -231,71 +232,6 @@ public class Learned_Sub_Select extends AppCompatActivity {
         textView2.setText("전공 선택 페이지");
     }
 
-    public void timecal(ClassSubject s, Cursor c) {
-        int n = 0, m = 0;// 월: 0~9
-        String timestr = null;//시간 문자열
-        TimeArr t = new TimeArr();
-
-        if (c.getString(5) != null) {
-            if (c.getString(5).equals("화")) {//화:10~19
-                n = 10;
-            } else if (c.getString(5).equals("수")) {
-                n = 20;
-            } else if (c.getString(5).equals("목")) {
-                n = 30;
-            } else if (c.getString(5).equals("금")) {
-                n = 40;
-            } else if (c.getString(5).equals("토")) {
-                n = 50;
-            }
-            if (c.getString(7) != null) {
-                if (c.getString(7).equals("화")) {
-                    m = 10;
-                } else if (c.getString(7).equals("수")) {
-                    m = 20;
-                } else if (c.getString(7).equals("목")) {
-                    m = 30;
-                } else if (c.getString(7).equals("금")) {
-                    m = 40;
-                }
-                String[] arr = c.getString(8).split("\\n");//줄바꿈제거..
-                timestr = c.getString(5) + c.getString(6) + ' ' + c.getString(7);
-                for (int i = 0; i < arr.length; i++)
-                    timestr += arr[i];
-            } else
-                timestr = c.getString(5) + c.getString(6);
-
-            String[] arr1 = c.getString(6).split("\\.|,|\\n");//시간1 .이나,으로 구분하고
-
-            if (c.getString(8) != null) {
-                String[] arr2 = c.getString(8).split("\\.|,|\\n");//시간2 .이나,으로 구분하고 + 공백도 가끔있음
-                for (int i = 0; i < arr2.length; i++) {
-                    if (!arr2[i].equals(""))//공백으로 자르고나면 ""남음...
-                        t.put(m + Integer.parseInt(arr2[i]));
-                }
-            }//null 예외처리!!!!
-
-            //자른거
-            for (int i = 0; i < arr1.length; i++) {
-                try {
-                    if (Integer.parseInt(arr1[i]) <= 9) //10교시부터는 안넣음
-                        t.put(n + Integer.parseInt(arr1[i]));
-                } catch (Exception e) {//이상한거 나오면
-                    t.put(50);
-                }
-            }
-        } else {//인강인 경우..
-            n = 50;
-            t.put(n);
-        }
-        t.putCode(c.getString(0));//학정번호도 넣어봅시다
-        t.setEsu(c.getString(2));//이수
-        t.setCredit(Integer.parseInt(c.getString(3)));//학점
-        t.setprof(c.getString(4));//교수명도
-        t.setTimestr(timestr);
-        s.put(t);
-    }
-
     private void findClasses(String classname) {
         Cursor c1;
         try {
@@ -309,7 +245,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     for (int i = 0; i < num; i++) {
                         c1.moveToNext();
                         if (c1.getString(1).equalsIgnoreCase(classname)) {//이름같은거 찾아서
-                            timecal(cs, c1);//분반을 저장한다
+                            ((major_select)major_select.mContext).timecal(cs, c1);//분반을 저장한다
                             cs.setTypecode(0);
                         }
                     }
@@ -365,7 +301,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
-                        if (checkSelect(classlist, c.getString(0))) { //선택한 과목 제외 출력
+                        if (checkSelect(ex_classlist, c.getString(0))) { //선택한 과목 제외 출력
                             for (int j = 0; j < 3; j++) {
                                 text[i][j] = new TextView(this);
                                 text[i][j].setText(c.getString(j));
@@ -412,7 +348,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                             selected[level].add(num);
                                             cs = new ClassSubject(c.getString(0));//그 과목명으로
                                             findClasses(c.getString(0));//분반저장
-                                            if (checkCredit(classlist, cs)) {
+                                            if (((major_select)major_select.mContext).checkCredit(classlist, cs)) {
                                                 classlist.add(cs); //배열에 넣는다
                                                 for (int k = 0; k < 3; k++)
                                                     text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
@@ -444,22 +380,16 @@ public class Learned_Sub_Select extends AppCompatActivity {
         return true;  // 안겹치면
     }
 
-    public boolean checkCredit(ArrayList<ClassSubject> list, ClassSubject cs) {
-        int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            sum += list.get(i).getTimearr(0).getCredit();
-        }
-        sum += cs.getTimearr(0).getCredit();
-
-        if (sum > 18)//일단
-            return false;
-        else
-            return true;
-    }
-
     public void onClick(View view) {
-        Intent intent = new Intent(this, TimeTableActivity.class);
-
+        Intent intent = new Intent(this, TimeTableActivity.class);//시간표 생성
+        if (subMajor != -1 && isMajor == 0) {
+            intent = new Intent(this, Learned_Sub_Select.class);//부전공과목고르러
+            isMajor = 1;
+        }
+        if (doubleMajor != -1 && isMajor == 0) {
+            intent = new Intent(this, Learned_Sub_Select.class);//복수전공과목고르러
+            isMajor = 2;
+        }
         intent.putExtra("isMajor", isMajor);
         intent.putExtra("studentId", sid);
         intent.putExtra("studentPw", spw);
@@ -469,6 +399,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
         intent.putExtra("minorNum", minorNum);
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
+        intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
         intent.putParcelableArrayListExtra("classlist", classlist);
 
         startActivity(intent);

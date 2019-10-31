@@ -18,10 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    TextView text1;
     Integer id, year, major;
-    String pw; // 비밀번호
-    EditText editTextid, editTextpw;
+    EditText editTextid;
 
     private Integer getId() {
         return id;
@@ -29,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setId(int id) {
         this.id = id;
-    }
-
-    private String getPw() {
-        return pw;
-    }
-
-    private void setPw(String pw) {
-        this.pw = pw;
     }
 
     private Integer getyear() {
@@ -61,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         editTextid = (EditText) findViewById(R.id.editTextId);
-        editTextpw = (EditText) findViewById(R.id.editTextPw);
-
-        text1 = (TextView) findViewById(R.id.text1);
 
         Button button1 = (Button) findViewById(R.id.button1);
 
@@ -100,21 +87,13 @@ public class MainActivity extends AppCompatActivity {
                 //gethakbun();
                 // getPassword();
                 id = 2016000000;
-                pw = "dd";//테스트용 바로 확인누르고 입장가능
                 Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
                 intent.putExtra("studentId", id);
-                intent.putExtra("studentPw", pw);
                 intent.putExtra("studentYear", year);
                 intent.putExtra("studentMajor", major);
                 startActivity(intent);
             }
         });
-    }
-
-    private void getPassword() {
-        String password = "";
-        password = editTextpw.getText().toString();
-        setPw(password);
     }
 
     private void gethakbun() {

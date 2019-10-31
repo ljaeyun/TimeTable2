@@ -11,13 +11,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Progress extends AppCompatActivity {
-    Integer sid, smajor;
+    Integer sid, syear, smajor, subMajor, doubleMajor;
     SQLiteDatabase database;
+    ArrayList<ClassSubject> ex_classlist;
     String table = "business";
     Cursor c;
     TableRow tr[];
@@ -33,14 +37,23 @@ public class Progress extends AppCompatActivity {
         Intent intent1 = getIntent();
         sid = intent1.getIntExtra("studentId", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
+        syear = intent1.getIntExtra("studentYear", 1);
+        subMajor = intent1.getIntExtra("subMajor", -1);
+        doubleMajor = intent1.getIntExtra("doubleMajor", -1);
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");//들은거
 
 
         TextView textView1 = (TextView) findViewById(R.id.myid);
         TextView textView2 = (TextView) findViewById(R.id.mymajor);
         TextView textView3 = (TextView) findViewById(R.id.mycredit);
         TextView textView4 = (TextView) findViewById(R.id.majorcredit);
-        TextView textView5 = (TextView) findViewById(R.id.myallcredit);
         TextView textView6 = (TextView) findViewById(R.id.allcredit);
+        TextView textView7 = (TextView) findViewById(R.id.subMajor);
+        TextView textView8 = (TextView) findViewById(R.id.mysubmajor);
+        TextView textView9 = (TextView) findViewById(R.id.myyear);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.subll);
+        if (subMajor == -1 && doubleMajor == -1)
+            ll.setVisibility(View.GONE);
 
         Button close_button = (Button) findViewById(R.id.button_close3);
         close_button.setOnClickListener(new Button.OnClickListener() {
@@ -56,6 +69,20 @@ public class Progress extends AppCompatActivity {
         String[] major_text = getResources().getStringArray(R.array.학과);
         String[] arr1 = major_text[smajor].split(" ");//단과대 빼고 학과만
         textView2.setText(arr1[1] + " ");
+
+        if (subMajor != -1) {
+            String[] submajor_text = getResources().getStringArray(R.array.학과);
+            String[] arr2 = submajor_text[subMajor].split(" ");//단과대 빼고 학과만
+            textView8.setText(arr2[1] + " ");
+        }
+        if (doubleMajor != -1) {
+            textView7.setText("  복수전공");
+            String[] doublemajor_text = getResources().getStringArray(R.array.학과);
+            String[] arr3 = doublemajor_text[doubleMajor].split(" ");//단과대 빼고 학과만
+            textView8.setText(arr3[1] + " ");
+        }
+
+        textView9.setText(syear+1+"");
 
         choosetable(smajor);//db다시
         if (smajor >= 3 && smajor <= 5)
@@ -78,7 +105,7 @@ public class Progress extends AppCompatActivity {
         database = openOrCreateDatabase("credit.db", MODE_PRIVATE, null);
 
         try {
-            c = database.rawQuery("select 전공, 졸업 from 졸업이수 where 학번 = '" + id + "' and 학과 = '" + table+"'", null);
+            c = database.rawQuery("select 전공, 졸업 from 졸업이수 where 학번 = '" + id + "' and 학과 = '" + table + "'", null);
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
@@ -95,15 +122,19 @@ public class Progress extends AppCompatActivity {
         }
         database.close();
 
-        textView3.setText("55");//나중에 받아온다
-        textView5.setText("135");//나중에 받아온다
+        int sum = 0;
+        for (int i = 0; i < ex_classlist.size(); i++) {
+            sum += ex_classlist.get(i).getTimearr(0).getCredit();
+        }
+
+        textView3.setText(sum + "");//들은 전공학점
 
         choosetable(smajor);//db다시
         t = (TableLayout) findViewById(R.id.pilsu);
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         try {
-            c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 이수 like '%필'", null);
+            c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 이수 like '%필' union select distinct 과목명, 이수, 학점 from common where 이수 like '%필'", null);
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
@@ -112,30 +143,33 @@ public class Progress extends AppCompatActivity {
 
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
-                        tr[i] = new TableRow(this);
-                        for (int j = 0; j < 3; j++) {
-                            text[i][j] = new TextView(this);
-                            text[i][j].setText(c.getString(j));
+                        if (((Learned_Sub_Select) Learned_Sub_Select.mContext).checkSelect(ex_classlist, c.getString(0))) { //선택한 과목 제외 출력
+                            tr[i] = new TableRow(this);
+                            for (int j = 0; j < 3; j++) {
+                                text[i][j] = new TextView(this);
+                                text[i][j].setText(c.getString(j));
 
-                            text[i][j].setTextSize(15);
-                            text[i][j].setTextColor(Color.BLACK);
-                            text[i][j].setGravity(Gravity.CENTER);
-                            text[i][j].setBackgroundResource(R.drawable.cell_shape);
+                                text[i][j].setTextSize(15);
+                                text[i][j].setTextColor(Color.BLACK);
+                                text[i][j].setGravity(Gravity.CENTER);
+                                text[i][j].setBackgroundResource(R.drawable.cell_shape);
 
-                            if (j == 0) {
-                                text[i][j].setWidth(650);
-                            }
-                            if (j == 1) {
-                                text[i][j].setWidth(150);
-                            }
-                            if (j == 2) {
-                                text[i][j].setWidth(150);
-                            }
+                                if (j == 0) {
+                                    text[i][j].setWidth(650);
+                                }
+                                if (j == 1) {
+                                    text[i][j].setWidth(160);
+                                }
+                                if (j == 2) {
+                                    text[i][j].setWidth(160);
+                                }
 
-                            tr[i].addView(text[i][j]);
+                                tr[i].addView(text[i][j]);
+                            }
+                            t.addView(tr[i], rowLayout);
                         }
-                        t.addView(tr[i], rowLayout);
                     }
+
                 }
             }
         } catch (Exception e) {
