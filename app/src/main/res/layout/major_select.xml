@@ -21,10 +21,11 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/select_page_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="전공 선택 페이지"
+            android:text="이미 수강한 과목 선택"
             android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -105,27 +106,25 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="15"
-        android:scrollbars="none"
         android:layout_alignParentLeft="true"
-        >
+        android:layout_weight="15"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical"
-            >
-        <TableLayout
-            android:id="@+id/result_table"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="15"
-            android:orientation="vertical"
-            android:layout_centerHorizontal="true"
-            >
+            android:orientation="vertical">
 
-        </TableLayout>
+            <TableLayout
+                android:id="@+id/result_table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="15"
+                android:orientation="vertical">
+
+            </TableLayout>
 
         </RelativeLayout>
     </ScrollView>

@@ -73,7 +73,6 @@ public class Learned_Sub_Select extends AppCompatActivity {
         t = (TableLayout) findViewById(R.id.result_table);
 
         TableRow tableRow = (TableRow) findViewById(R.id.tablerow);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -224,10 +223,12 @@ public class Learned_Sub_Select extends AppCompatActivity {
         }
 
         TextView textView = (TextView) findViewById(R.id.major_text);
+        TextView textView2 = (TextView) findViewById(R.id.select_page_text);
         String[] major_text = getResources().getStringArray(R.array.학과);
         String[] arr1 = major_text[major].split(" ");//단과대 빼고 학과만
 
         textView.setText(arr1[1] + " ");
+        textView2.setText("전공 선택 페이지");
     }
 
     public void timecal(ClassSubject s, Cursor c) {
@@ -338,20 +339,20 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tv0.setText(" 과목명 ");
                     tv0.setTextSize(25);
                     tv0.setTextColor(Color.BLACK);
-                    tv0.setBackgroundColor(124 - 224 - 134);
+                    tv0.setBackgroundResource(android.R.color.holo_green_light);
                     tv0.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv0);
                     TextView tv1 = new TextView(this);
                     tv1.setText(" 이 수 ");
                     tv1.setTextSize(25);
                     tv1.setTextColor(Color.BLACK);
-                    tv1.setBackgroundColor(124 - 224 - 134);
+                    tv1.setBackgroundResource(android.R.color.holo_green_light);
                     tv1.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv1);
                     TextView tv2 = new TextView(this);
                     tv2.setText(" 학 점 ");
                     tv2.setTextSize(25);
-                    tv2.setBackgroundColor(124 - 224 - 134);
+                    tv2.setBackgroundResource(android.R.color.holo_green_light);
                     tv2.setTextColor(Color.BLACK);
                     tv2.setGravity(Gravity.CENTER);
                     tbrow0.addView(tv2);
