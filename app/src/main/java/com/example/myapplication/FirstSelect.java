@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -78,7 +79,9 @@ public class FirstSelect extends AppCompatActivity {
                 }
             }
         });
-
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.학과,R.layout.spinner_item);
+        spinnerMajor1.setAdapter(adapter1);
+        spinnerMajor2.setAdapter(adapter1);
         chksubMajor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean arg1) {
@@ -100,6 +103,7 @@ public class FirstSelect extends AppCompatActivity {
 
                 } else {
                     spinnerMajor1.setVisibility(View.INVISIBLE);
+                    spinnerMajor1.setVisibility(View.GONE);
                     subMajor = -1;
                 }
             }
@@ -125,6 +129,7 @@ public class FirstSelect extends AppCompatActivity {
                     });
                 } else {
                     spinnerMajor2.setVisibility(View.INVISIBLE);
+                    spinnerMajor2.setVisibility(View.GONE);
                     doubleMajor = -1;
                 }
             }

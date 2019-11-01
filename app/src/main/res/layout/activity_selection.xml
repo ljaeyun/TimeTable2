@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="추천 조건 설정"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <ScrollView
@@ -85,9 +85,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="65dp"
+                android:layout_marginLeft="61dp"
                 android:layout_marginTop="20dp"
-                android:text="원하는 공강 요일" />
+                android:text="원하는 공강 요일"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -104,35 +105,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="월 " />
+                        android:text="월 "
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/tue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="화 " />
+                        android:text="화 "
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/wen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="수" />
+                        android:text="수"
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/thu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="목" />
+                        android:text="목"
+                        android:textSize="16sp" />
 
                     <CheckBox
                         android:id="@+id/fri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="금" />
+                        android:text="금"
+                        android:textSize="16sp" />
                 </TableRow>
 
             </TableLayout>
@@ -141,9 +147,10 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="9dp"
                 android:layout_marginTop="20dp"
-                android:text="교양 영역 선택 (1개 이상 3개 이하)" />
+                android:text="교양 영역 선택 (1개 이상 3개 이하)"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -159,22 +166,24 @@
                         android:id="@+id/sci_tec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dp"
-                        android:text="과학과 기술" />
+                        android:layout_marginRight="4dp"
+                        android:text="과학과 기술"
+                        android:textSize="15sp" />
 
                     <CheckBox
                         android:id="@+id/expression"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dp"
-                        android:text="언어와 표현" />
+                        android:text="언어와 표현"
+                        android:textSize="15sp" />
 
                     <CheckBox
                         android:id="@+id/human"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="인간과 철학" />
+                        android:text="인간과 철학"
+                        android:textSize="15sp" />
 
                 </TableRow>
 
@@ -184,14 +193,16 @@
                         android:id="@+id/social"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dp"
-                        android:text="사회와 경제" />
+                        android:layout_marginRight="4dp"
+                        android:text="사회와 경제"
+                        android:textSize="15sp" />
 
                     <CheckBox
                         android:id="@+id/global"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="글로벌 문화와 제2외국어" />
+                        android:text="글로벌 문화와 제2외국어"
+                        android:textSize="15sp" />
                 </TableRow>
 
                 <TableRow android:layout_width="match_parent">
@@ -200,22 +211,24 @@
                         android:id="@+id/arts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dp"
-                        android:text="예술과 체육" />
+                        android:layout_marginRight="4dp"
+                        android:text="예술과 체육"
+                        android:textSize="15sp" />
 
                     <CheckBox
                         android:id="@+id/e_learning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dp"
-                        android:text="서울권역 e-러닝" />
+                        android:text="서울권역 e-러닝"
+                        android:textSize="15sp" />
 
                     <CheckBox
                         android:id="@+id/english"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="실용영어" />
+                        android:text="실용영어"
+                        android:textSize="15sp" />
 
                 </TableRow>
 
@@ -227,7 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="65dp"
                 android:layout_marginTop="20dp"
-                android:text="제외할 검색어" />
+                android:text="제외할 검색어"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:id="@+id/nameTag"
@@ -276,7 +290,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="65dp"
                 android:layout_marginTop="20dp"
-                android:text="제외할 교수명" />
+                android:text="제외할 교수명"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:id="@+id/profTag"
@@ -323,9 +338,10 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="65dp"
+                android:layout_marginLeft="73dp"
                 android:layout_marginTop="20dp"
-                android:text="제외할 시간" />
+                android:text="제외할 시간"
+                android:textSize="16sp" />
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -404,35 +420,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time10"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time20"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time30"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time40"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -454,35 +470,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time11"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time21"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time31"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time41"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -504,35 +520,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time12"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time22"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time32"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time42"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -554,35 +570,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time13"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time23"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time33"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time43"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -604,35 +620,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time14"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time24"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time34"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time44"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -654,35 +670,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time15"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time25"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time35"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time45"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -704,35 +720,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time16"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time26"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time36"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time46"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -754,35 +770,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time17"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time27"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time37"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time47"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -804,35 +820,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time18"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time28"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time38"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time48"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 
@@ -854,35 +870,35 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time19"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time29"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time39"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                     <TextView
                         android:id="@+id/time49"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/cell_shape" />
+                        android:background="@drawable/cell" />
 
                 </TableRow>
 

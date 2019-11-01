@@ -57,6 +57,7 @@ public class ClassListActivity extends Activity {
         param.gravity = Gravity.CENTER;
 
         rowLayout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         t = (TableLayout) findViewById(R.id.result_table);
         arr = new ArrayList<>();
 
@@ -73,42 +74,47 @@ public class ClassListActivity extends Activity {
                     TableRow tbrow0 = new TableRow(this);
                     TextView tv0 = new TextView(this);
                     tv0.setText("학정번호");
-                    tv0.setTextSize(15);
+                    tv0.setTextSize(16);
                     tv0.setTextColor(Color.BLACK);
                     tv0.setBackgroundColor(124 - 224 - 134);
                     tv0.setGravity(Gravity.CENTER);
+                    tv0.setPadding(0,7,0,7);
                     tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(this);
                     tv1.setText("과목명");
-                    tv1.setTextSize(15);
+                    tv1.setTextSize(16);
                     tv1.setTextColor(Color.BLACK);
                     tv1.setBackgroundColor(124 - 224 - 134);
                     tv1.setGravity(Gravity.CENTER);
+                    tv1.setPadding(0,7,0,7);
                     tbrow0.addView(tv1);
 
                     TextView tv2 = new TextView(this);
                     tv2.setText("이수");
-                    tv2.setTextSize(15);
+                    tv2.setTextSize(16);
                     tv2.setBackgroundColor(124 - 224 - 134);
                     tv2.setTextColor(Color.BLACK);
                     tv2.setGravity(Gravity.CENTER);
+                    tv2.setPadding(0,7,0,7);
                     tbrow0.addView(tv2);
 
                     TextView tv3 = new TextView(this);
                     tv3.setText("교수");
-                    tv3.setTextSize(15);
+                    tv3.setTextSize(16);
                     tv3.setBackgroundColor(124 - 224 - 134);
                     tv3.setTextColor(Color.BLACK);
                     tv3.setGravity(Gravity.CENTER);
+                    tv3.setPadding(0,7,0,7);
                     tbrow0.addView(tv3);
 
                     TextView tv4 = new TextView(this);
                     tv4.setText("시간");
-                    tv4.setTextSize(15);
+                    tv4.setTextSize(16);
                     tv4.setBackgroundColor(124 - 224 - 134);
                     tv4.setTextColor(Color.BLACK);
                     tv4.setGravity(Gravity.CENTER);
+                    tv4.setPadding(0,7,0,7);
                     tbrow0.addView(tv4);
 
                     t.addView(tbrow0);
@@ -134,8 +140,9 @@ public class ClassListActivity extends Activity {
                             text[i][j].setTextSize(15);
                             text[i][j].setTextColor(Color.BLACK);
                             text[i][j].setGravity(Gravity.CENTER);
-                            text[i][j].setBackgroundResource(R.drawable.cell_shape);
+                            text[i][j].setBackgroundResource(R.drawable.cell);
                             text[i][j].setTag(i);
+                            text[i][j].setPadding(0,7,0,8);
 
                             if (j == 1) {
                                 text[i][j].setWidth(320);

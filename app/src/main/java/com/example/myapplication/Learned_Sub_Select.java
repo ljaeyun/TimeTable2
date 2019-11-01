@@ -280,6 +280,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     //tv0.setBackgroundColor(124 - 224 - 134);
                     tv0.setGravity(Gravity.CENTER);
                     tv0.setBackgroundResource(R.drawable.rounded_corners);
+                    tv0.setPadding(0,7,0,8);
                     GradientDrawable drawable = (GradientDrawable) tv0.getBackground();
                     drawable.setColor(Color.parseColor("#3978E5"));
                     tbrow0.addView(tv0);
@@ -291,6 +292,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tv1.setBackgroundColor(Color.parseColor("#EA5446"));
                     tv1.setGravity(Gravity.CENTER);
                     tv1.setBackgroundResource(R.drawable.rounded_corners3);
+                    tv1.setPadding(0,7,0,8);
                     GradientDrawable drawable1 = (GradientDrawable) tv1.getBackground();
                     drawable1.setColor(Color.parseColor("#3978E5"));
                     tbrow0.addView(tv1);
@@ -302,6 +304,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tv2.setTextColor(Color.WHITE);
                     tv2.setGravity(Gravity.CENTER);
                     tv2.setBackgroundResource(R.drawable.rounded_corners2);
+                    tv2.setPadding(0,7,0,8);
                     GradientDrawable drawable2 = (GradientDrawable) tv2.getBackground();
                     drawable2.setColor(Color.parseColor("#3978E5"));
                     tbrow0.addView(tv2);
@@ -324,9 +327,10 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                 text[i][j].setTextSize(20);
                                 text[i][j].setTextColor(Color.BLACK);
                                 text[i][j].setGravity(Gravity.CENTER);
-                                text[i][j].setBackgroundResource(R.drawable.cell_shape);
+                                text[i][j].setBackgroundResource(R.drawable.cell);
                                 text[i][j].setSingleLine(true);
                                 text[i][j].setEllipsize(TextUtils.TruncateAt.MIDDLE);
+                                text[i][j].setPadding(0,7,0,8);
 
                                 for (int l = 0; l < selected[level].size(); l++) {
                                     if (selected[level].get(l).equals(i))//선택된과목이면
@@ -340,7 +344,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                         num = (Integer) v.getTag();//선택된 번호
                                         if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
                                             for (int k = 0; k < 3; k++)
-                                                text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
+                                                text[num][k].setBackgroundResource(R.drawable.cell);//줄 선택 해제
                                             c.moveToPosition(num);
                                             for (int l = 0; l < selected[level].size(); l++) {
                                                 if (selected[level].get(l).equals(num))

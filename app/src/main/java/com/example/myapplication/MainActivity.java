@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.database.Cursor;
@@ -10,12 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.SpinnerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     Integer id, year, major;
@@ -57,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinnerMajor);
         Spinner spinner2 = (Spinner) findViewById(R.id.spinnerYear);
 
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.학과,R.layout.spinner_item);
+        spinner.setAdapter(adapter1);
+
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.학년,R.layout.spinner_item);
+        spinner2.setAdapter(adapter2);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//데이터베이스 열기
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -85,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Integer n = getmajor();
                 //gethakbun();
-                // getPassword();
                 id = 2016000000;
                 Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
                 intent.putExtra("studentId", id);

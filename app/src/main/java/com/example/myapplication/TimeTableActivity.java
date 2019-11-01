@@ -308,6 +308,7 @@ public class TimeTableActivity extends AppCompatActivity {
                 cs.put(timeArr);
                 arr.add(cs);
                 rrr.add(arr);//빈거를 넣어준다
+                Toast.makeText(getApplicationContext(), "조합되는 시간표가 없습니다", Toast.LENGTH_SHORT).show();
             }
         } else {//전공선택을 하나도 안했을때
             rrr = new ArrayList<>();//최종 조합 배열?
@@ -317,6 +318,7 @@ public class TimeTableActivity extends AppCompatActivity {
             cs.put(timeArr);
             arr.add(cs);
             rrr.add(arr);//빈거를 넣어준다
+            Toast.makeText(getApplicationContext(), "선택한 과목이 없습니다", Toast.LENGTH_SHORT).show();
         }
 
         pagerAdpater.setRrr(rrr);

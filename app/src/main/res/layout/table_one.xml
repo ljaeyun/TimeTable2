@@ -17,15 +17,16 @@
     android:orientation="horizontal"
 
     >
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="test"
-    android:textSize="30sp"
-    android:layout_marginLeft="30dp"
-    android:layout_gravity="bottom"
-    android:id="@+id/table"
-    />
+
+    <TextView
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="10dp"
+        android:text="test"
+        android:textSize="30sp" />
 
 </LinearLayout>
 <LinearLayout
@@ -34,16 +35,16 @@
     android:orientation="vertical"
 
     >
+
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="370dp"
+        android:layout_width="373dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
         android:shrinkColumns="*"
 
-        app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
@@ -51,14 +52,14 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
-                android:layout_height="20dp"
+                android:layout_width="13dp"
+                android:layout_height="25dp"
 
                 android:text="" />
 
             <TextView
                 android:layout_width="72dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
 
                 android:gravity="center"
                 android:text="월"
@@ -67,7 +68,7 @@
 
             <TextView
                 android:layout_width="72dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
 
 
                 android:gravity="center"
@@ -77,7 +78,7 @@
 
             <TextView
                 android:layout_width="72dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
 
 
                 android:gravity="center"
@@ -87,7 +88,7 @@
 
             <TextView
                 android:layout_width="72dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
 
 
                 android:gravity="center"
@@ -97,7 +98,7 @@
 
             <TextView
                 android:layout_width="72dp"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
 
 
                 android:gravity="center"
@@ -115,7 +116,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -132,6 +133,9 @@
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
 
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -143,6 +147,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -154,6 +161,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -165,6 +175,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -176,6 +189,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -188,7 +204,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -205,6 +221,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -216,6 +235,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -227,6 +249,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -238,6 +263,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -248,6 +276,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -260,7 +291,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -277,6 +308,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -288,6 +322,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -299,6 +336,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -310,6 +350,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -321,6 +364,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -333,7 +379,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -350,6 +396,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -361,6 +410,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -372,6 +424,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -383,6 +438,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -394,6 +452,9 @@
                 android:layout_gravity="clip_vertical"
 
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -407,7 +468,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -423,6 +484,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -433,6 +497,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -443,6 +510,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -453,6 +523,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -463,6 +536,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -475,7 +551,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -491,6 +567,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -501,6 +580,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -511,6 +593,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -521,6 +606,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -531,6 +619,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -543,7 +634,7 @@
             android:background="@color/colorTableBack">
 
             <TextView
-                android:layout_width="10dp"
+                android:layout_width="13dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
@@ -559,6 +650,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -569,6 +663,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -579,6 +676,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -589,6 +689,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -599,6 +702,9 @@
 
                 android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
+                android:lineSpacingExtra="3dp"
+                android:paddingLeft="2dp"
+                android:paddingTop="5dp"
                 android:text=""
                 android:textStyle="bold" />
 

@@ -80,7 +80,7 @@ public class SelectionActivity extends AppCompatActivity {
         Integer[] items = new Integer[num + 1];
         for (int i = 0; i <= num; i++)
             items[i] = i;
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this, R.layout.spinner_item, items);
         selMinorSpinner = (Spinner) findViewById(R.id.minorNum);
         selMinorSpinner.setAdapter(adapter);
         selMinorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
