@@ -30,7 +30,7 @@
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="500dp"
             android:layout_weight="15"
             android:scrollbars="none"
             android:layout_marginLeft="10dp"

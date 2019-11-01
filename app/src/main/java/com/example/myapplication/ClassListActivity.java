@@ -70,7 +70,6 @@ public class ClassListActivity extends Activity {
                     tr = new TableRow[count];
                     text = new TextView[count][5];
 
-
                     TableRow tbrow0 = new TableRow(this);
                     TextView tv0 = new TextView(this);
                     tv0.setText("학정번호");
@@ -131,27 +130,52 @@ public class ClassListActivity extends Activity {
                                 text[i][j].setText(c.getString(4));
                             else
                                 text[i][j].setText(c.getString(j));
+
                             text[i][j].setTextSize(15);
                             text[i][j].setTextColor(Color.BLACK);
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
                             text[i][j].setTag(i);
 
+                            if(j == 1) {
+                                text[i][j].setWidth(320);
+                                text[i][j].setSingleLine(true);
+                                text[i][j].setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                                //text[i][j].setSelected(true);
+                                        }
+                            if(j == 2)
+                                text[i][j].setWidth(50);
+                            if(j==3) {
+                                text[i][j].setWidth(150);
+                                text[i][j].setSingleLine(true);
+                            }
+                            if(j==4)
+                                text[i][j].setWidth(150);
                             text[i][j].setOnClickListener(new Button.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     num = (Integer) v.getTag();//선택된 번호
                                     if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
-                                        for (int k = 0; k < 5; k++)
+                                        for (int k = 0; k < 5; k++) {
                                             text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
+                                            if(k==1)
+                                            {
+                                                text[num][k].setSelected(false);
+                                            }
+                                        }
                                         c.moveToPosition(num);
                                         for (int l = 0; l < arr.size(); l++) {
                                             if (arr.get(l).getName().equals(c.getString(1)))
                                                 arr.remove(l);//배열에서 찾아서 지운다
                                         }
                                     } else {//처음 누르면
-                                        for (int k = 0; k < 5; k++)
+                                        for (int k = 0; k < 5; k++) {
                                             text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                            if(k==1)
+                                            {
+                                                text[num][k].setSelected(true);
+                                            }
+                                        }
                                         c.moveToPosition(num);
                                         cs = new ClassSubject(c.getString(1));
                                         ((major_select) major_select.mContext).timecal(cs, c);

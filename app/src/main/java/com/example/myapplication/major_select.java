@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
 
 public class major_select extends AppCompatActivity {
     public static Context mContext = null;
@@ -344,25 +346,37 @@ public class major_select extends AppCompatActivity {
                     TableRow tbrow0 = new TableRow(this);
                     TextView tv0 = new TextView(this);
                     tv0.setText(" 과목명 ");
-                    tv0.setTextSize(25);
-                    tv0.setTextColor(Color.BLACK);
-                    tv0.setBackgroundColor(124 - 224 - 134);
+                    tv0.setTextSize(20);
+                    tv0.setTextColor(Color.WHITE);
+                    //tv0.setBackgroundColor(124 - 224 - 134);
                     tv0.setGravity(Gravity.CENTER);
+                    tv0.setBackgroundResource(R.drawable.rounded_corners);
+                    GradientDrawable drawable = (GradientDrawable) tv0.getBackground();
+                    drawable.setColor(Color.parseColor("#EA5446"));
                     tbrow0.addView(tv0);
+
                     TextView tv1 = new TextView(this);
                     tv1.setText(" 이 수 ");
-                    tv1.setTextSize(25);
-                    tv1.setTextColor(Color.BLACK);
-                    tv1.setBackgroundColor(124 - 224 - 134);
+                    tv1.setTextSize(20);
+                    tv1.setTextColor(Color.WHITE);
+                    tv1.setBackgroundColor(Color.parseColor("#EA5446"));
                     tv1.setGravity(Gravity.CENTER);
+                    tv1.setBackgroundResource(R.drawable.rounded_corners3);
+                    GradientDrawable drawable1 = (GradientDrawable) tv1.getBackground();
+                    drawable1.setColor(Color.parseColor("#EA5446"));
                     tbrow0.addView(tv1);
+
                     TextView tv2 = new TextView(this);
                     tv2.setText(" 학 점 ");
-                    tv2.setTextSize(25);
-                    tv2.setBackgroundColor(124 - 224 - 134);
-                    tv2.setTextColor(Color.BLACK);
+                    tv2.setTextSize(20);
+                    //tv2.setBackgroundColor(124 - 224 - 134);
+                    tv2.setTextColor(Color.WHITE);
                     tv2.setGravity(Gravity.CENTER);
+                    tv2.setBackgroundResource(R.drawable.rounded_corners2);
+                    GradientDrawable drawable2 = (GradientDrawable) tv2.getBackground();
+                    drawable2.setColor(Color.parseColor("#EA5446"));
                     tbrow0.addView(tv2);
+
                     t.addView(tbrow0);
 
                     tr = new TableRow[count];
