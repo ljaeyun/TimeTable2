@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -305,40 +306,30 @@ public class major_select extends AppCompatActivity {
         s.put(t);
     }
 
-    private void findClasses(String classname) {
-        Cursor c1;
-        try {
-            if (level != 0)
-                c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from " + table + " where 학정번호 like '_____" + level + "%'", null);
-            else
-                c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from common", null);
-            if (c1 != null) {
-                int num = c1.getCount();//개수
-                if (num != 0) {
-                    for (int i = 0; i < num; i++) {
-                        c1.moveToNext();
-                        if (c1.getString(1).equalsIgnoreCase(classname)) {//이름같은거 찾아서
-                            timecal(cs, c1);//분반을 저장한다
-                            cs.setTypecode(0);
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("", e.getMessage());
-        }
-    }
-
     protected void showList() {
         num = 0;
         t.removeAllViews();//싹 지우고 출력
 
         try {
-            if (level != 0)
-                c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 학정번호 like '_____" + level + "%'", null);
-            else
-                c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
+            if (table.equalsIgnoreCase("software") || table.equalsIgnoreCase("cs")) {
+                if (level != 0 && level != 4) {
+                    database = openOrCreateDatabase("sw.db", MODE_PRIVATE, null);
+                    c = database.rawQuery("select distinct 과목명, 이수, 학점 from software where 학정번호 like '_____" + level + "%'", null);
+                }else if (level == 4){
+                    database = openOrCreateDatabase("ei.db", MODE_PRIVATE, null);
+                    c = database.rawQuery("select distinct 과목명, 이수, 학점 from cs where 학정번호 like '_____" + level + "%'", null);
+                }
+                else{
+                    database = openOrCreateDatabase("ei.db", MODE_PRIVATE, null);
+                    c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
+                }
+            } else {
+                if (level != 0)
+                    c = database.rawQuery("select distinct 과목명, 이수, 학점 from " + table + " where 학정번호 like '_____" + level + "%'", null);
+                else
+                    c = database.rawQuery("select distinct 과목명, 이수, 학점 from common", null);
+            }
+
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
@@ -379,6 +370,9 @@ public class major_select extends AppCompatActivity {
 
                     t.addView(tbrow0);
 
+                    TableRow.LayoutParams tparams1 = new TableRow.LayoutParams(570, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    TableRow.LayoutParams tparams2 = new TableRow.LayoutParams(120, ViewGroup.LayoutParams.WRAP_CONTENT);
+
                     tr = new TableRow[count];
                     text = new TextView[count][3];
 
@@ -393,17 +387,8 @@ public class major_select extends AppCompatActivity {
                             text[i][j].setTextColor(Color.BLACK);
                             text[i][j].setGravity(Gravity.CENTER);
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
-
-                            if (j == 0) {
-                                text[i][j].setWidth(640);
-                            }
-                            if (j == 1) {
-                                text[i][j].setWidth(150);
-                            }
-                            if (j == 2) {
-                                text[i][j].setWidth(150);
-                            }
-
+                            text[i][j].setSingleLine(true);
+                            text[i][j].setEllipsize(TextUtils.TruncateAt.MIDDLE);
 
                             for (int l = 0; l < selected[level].size(); l++) {
                                 if (selected[level].get(l).equals(i))//선택된과목이면
@@ -442,7 +427,10 @@ public class major_select extends AppCompatActivity {
                                     }
                                 }
                             });
-                            tr[i].addView(text[i][j]);//칸추가
+                            if (j == 0)
+                                tr[i].addView(text[i][j], tparams1);//칸추가
+                            else
+                                tr[i].addView(text[i][j], tparams2);//칸추가
                         }
                         t.addView(tr[i], rowLayout);//행추가
                     }

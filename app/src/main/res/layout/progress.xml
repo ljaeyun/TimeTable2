@@ -180,14 +180,13 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="남은 전공 필수" />
 
         <TableLayout
             android:id="@+id/pilsu"
-            android:layout_width="372dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"

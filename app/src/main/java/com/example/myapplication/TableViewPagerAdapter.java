@@ -29,7 +29,7 @@ public class TableViewPagerAdapter extends PagerAdapter {
     private int position;
     private int page = 1;
     int[] tableArray = new int[35];//시간표에 출력
-    int[] colors = new int[]{Color.argb(66,255, 158, 158), Color.argb(66,255, 224, 157), Color.argb(66,254, 253, 148), Color.argb(66, 161, 255, 161), Color.argb(66, 160, 250, 250), Color.argb(66, 168, 173, 255), Color.argb(66, 224, 140, 255)};
+    int[] colors = new int[]{Color.argb(66, 255, 151, 145), Color.argb(66, 255, 200, 157), Color.argb(66, 255, 247, 161), Color.argb(66, 161, 255, 161), Color.argb(66, 160, 250, 250), Color.argb(66, 168, 173, 255), Color.argb(66, 224, 140, 255)};
 
     TextView tvArray2[] = new TextView[35];
     ArrayList<ArrayList<ClassSubject>> rrr;
@@ -129,7 +129,6 @@ public class TableViewPagerAdapter extends PagerAdapter {
                 if ((classlist.get(j).getTimearr(0).print(i) % 10) < 7 && classlist.get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
                 {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
-                    tvArray2[t].setBackgroundColor(Color.argb(66,255,0,0));
                     tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
                     tvArray2[t].append("\n" + classlist.get(j).getName());
                     isSeries(classlist.get(j), t, j);
@@ -137,7 +136,6 @@ public class TableViewPagerAdapter extends PagerAdapter {
                 }
             }
         }
-
     }
 
     private boolean contains(ClassSubject cs, int t) {

@@ -23,7 +23,7 @@ public class TimeTableActivity extends AppCompatActivity {
     int[] idArray = new int[28];//강의 목록 출력
     TextView[] tvArray = new TextView[28];
     ArrayList<ArrayList<ClassSubject>> rrr;//이름.. 나중에 수정..
-    ArrayList<ClassSubject> classlist,ex_classlist;
+    ArrayList<ClassSubject> classlist, ex_classlist;
     ArrayList<ClassSubject> pluscs = new ArrayList<>();
     private ViewPager viewPager;
     private TableViewPagerAdapter pagerAdpater;
@@ -43,8 +43,9 @@ public class TimeTableActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdpater);
 
         searchview = (SearchView) findViewById(R.id.find);
-        tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+        searchview.setQueryHint("검색할 과목명");
 
+        tableLayout = (TableLayout) findViewById(R.id.tableLayout);
         tableLayout2 = (TableLayout) findViewById(R.id.table2);
 
         Intent intent1 = getIntent();

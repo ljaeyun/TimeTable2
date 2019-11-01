@@ -12,6 +12,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,7 +34,7 @@
             android:layout_height="500dp"
             android:layout_weight="15"
             android:scrollbars="none"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             >
 
             <TableLayout

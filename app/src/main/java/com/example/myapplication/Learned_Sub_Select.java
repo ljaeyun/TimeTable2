@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -30,7 +31,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
     String spw;
     Cursor c;
     ClassSubject cs;
-    ArrayList<ClassSubject> classlist,ex_classlist;
+    ArrayList<ClassSubject> classlist, ex_classlist;
     ArrayList<Integer> selected[] = new ArrayList[5];
     int num = 0, level = 0;
     TableRow tr[];
@@ -246,7 +247,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     for (int i = 0; i < num; i++) {
                         c1.moveToNext();
                         if (c1.getString(1).equalsIgnoreCase(classname)) {//이름같은거 찾아서
-                            ((major_select)major_select.mContext).timecal(cs, c1);//분반을 저장한다
+                            ((major_select) major_select.mContext).timecal(cs, c1);//분반을 저장한다
                             cs.setTypecode(0);
                         }
                     }
@@ -310,7 +311,8 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tr = new TableRow[count];
                     text = new TextView[count][3];
 
-
+                    TableRow.LayoutParams tparams1 = new TableRow.LayoutParams(570, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    TableRow.LayoutParams tparams2 = new TableRow.LayoutParams(120, ViewGroup.LayoutParams.WRAP_CONTENT);
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         tr[i] = new TableRow(this);
@@ -323,16 +325,8 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                 text[i][j].setTextColor(Color.BLACK);
                                 text[i][j].setGravity(Gravity.CENTER);
                                 text[i][j].setBackgroundResource(R.drawable.cell_shape);
-
-                                if (j == 0) {
-                                    text[i][j].setWidth(640);
-                                }
-                                if (j == 1) {
-                                    text[i][j].setWidth(150);
-                                }
-                                if (j == 2) {
-                                    text[i][j].setWidth(150);
-                                }
+                                text[i][j].setSingleLine(true);
+                                text[i][j].setEllipsize(TextUtils.TruncateAt.MIDDLE);
 
                                 for (int l = 0; l < selected[level].size(); l++) {
                                     if (selected[level].get(l).equals(i))//선택된과목이면
@@ -361,7 +355,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                             selected[level].add(num);
                                             cs = new ClassSubject(c.getString(0));//그 과목명으로
                                             findClasses(c.getString(0));//분반저장
-                                            if (((major_select)major_select.mContext).checkCredit(classlist, cs)) {
+                                            if (((major_select) major_select.mContext).checkCredit(classlist, cs)) {
                                                 classlist.add(cs); //배열에 넣는다
                                                 for (int k = 0; k < 3; k++)
                                                     text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
@@ -369,12 +363,15 @@ public class Learned_Sub_Select extends AppCompatActivity {
                                         }
                                     }
                                 });
-                                tr[i].addView(text[i][j]);
+                                if (j == 0)
+                                    tr[i].addView(text[i][j], tparams1);//칸추가
+                                else
+                                    tr[i].addView(text[i][j], tparams2);//칸추가
                             }
                             t.addView(tr[i], rowLayout);
                         }
                     }
-                    if( t.getChildCount()==1) //출력할 과목이 없다면
+                    if (t.getChildCount() == 1) //출력할 과목이 없다면
                         t.removeView(tbrow0);
                 }
             }
@@ -387,7 +384,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
 
     public boolean checkSelect(ArrayList<ClassSubject> classlist, String s) {
         for (int i = 0; i < classlist.size(); i++) {
-            if ( classlist.get(i).getName().equalsIgnoreCase(s) ) // 선택한 과목이랑 이름이 겹치면
+            if (classlist.get(i).getName().equalsIgnoreCase(s)) // 선택한 과목이랑 이름이 겹치면
                 return false;
         }
         return true;  // 안겹치면

@@ -112,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/outline"
                 android:ems="10"
                 android:hint="학번을 입력하세요"

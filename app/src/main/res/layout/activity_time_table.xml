@@ -78,14 +78,13 @@
                 android:orientation="vertical">
 
                 <TableLayout
-                    android:layout_width="350dp"
+                    android:id="@+id/table2"
+                    android:layout_width="370dp"
                     android:layout_height="0dip"
                     android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="15"
-                    android:orientation="vertical"
-                    android:id="@+id/table2"
-                    >
+                    android:orientation="vertical">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -93,7 +92,7 @@
                         android:background="@color/colorTableBack">
 
                         <TextView
-                            android:layout_width="110dp"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
 
                             android:gravity="center"
@@ -102,7 +101,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="130dp"
+                            android:layout_width="135dp"
                             android:layout_height="wrap_content"
 
                             android:gravity="center"
@@ -120,7 +119,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="63dp"
+                            android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:gravity="center"
@@ -139,7 +138,7 @@
                     <!--android:scrollbars="none">-->
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
@@ -153,26 +152,24 @@
 
                             <TextView
                                 android:id="@+id/lec0_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec0_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec0_2"
@@ -185,7 +182,7 @@
 
                             <TextView
                                 android:id="@+id/lec0_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -203,26 +200,24 @@
 
                             <TextView
                                 android:id="@+id/lec1_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec1_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec1_2"
@@ -235,7 +230,7 @@
 
                             <TextView
                                 android:id="@+id/lec1_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -253,26 +248,24 @@
 
                             <TextView
                                 android:id="@+id/lec2_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec2_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec2_2"
@@ -285,7 +278,7 @@
 
                             <TextView
                                 android:id="@+id/lec2_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -303,26 +296,24 @@
 
                             <TextView
                                 android:id="@+id/lec3_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec3_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec3_2"
@@ -335,7 +326,7 @@
 
                             <TextView
                                 android:id="@+id/lec3_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -353,26 +344,24 @@
 
                             <TextView
                                 android:id="@+id/lec4_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec4_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec4_2"
@@ -385,7 +374,7 @@
 
                             <TextView
                                 android:id="@+id/lec4_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -405,26 +394,24 @@
 
                             <TextView
                                 android:id="@+id/lec5_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec5_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
-                                android:gravity="center"
-                                android:textStyle="bold"
                                 android:ellipsize="middle"
+                                android:gravity="center"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec5_2"
@@ -437,7 +424,7 @@
 
                             <TextView
                                 android:id="@+id/lec5_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
@@ -457,24 +444,23 @@
 
                             <TextView
                                 android:id="@+id/lec6_0"
-                                android:layout_width="110dp"
+                                android:layout_width="120dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"
                                 android:gravity="center"
-                                android:textStyle="bold"
                                 android:singleLine="true"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/lec6_1"
-                                android:layout_width="130dp"
+                                android:layout_width="135dp"
                                 android:layout_height="match_parent"
 
                                 android:background="@drawable/cell_shape"
                                 android:ellipsize="middle"
-                                android:singleLine="true"
                                 android:gravity="center"
+                                android:singleLine="true"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -488,7 +474,7 @@
 
                             <TextView
                                 android:id="@+id/lec6_3"
-                                android:layout_width="63dp"
+                                android:layout_width="68dp"
                                 android:layout_height="30dp"
 
                                 android:background="@drawable/cell_shape"

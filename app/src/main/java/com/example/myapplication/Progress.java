@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -82,7 +83,7 @@ public class Progress extends AppCompatActivity {
             textView8.setText(arr3[1] + " ");
         }
 
-        textView9.setText(syear+1+"");
+        textView9.setText(syear + 1 + "");
 
         choosetable(smajor);//db다시
         if (smajor >= 3 && smajor <= 5)
@@ -140,7 +141,8 @@ public class Progress extends AppCompatActivity {
                 if (count != 0) {
                     tr = new TableRow[count];
                     text = new TextView[count][3];
-
+                    TableRow.LayoutParams tparams1 = new TableRow.LayoutParams(600, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    TableRow.LayoutParams tparams2 = new TableRow.LayoutParams(160, ViewGroup.LayoutParams.WRAP_CONTENT);
                     for (int i = 0; i < count; i++) {
                         c.moveToNext();
                         if (((Learned_Sub_Select) Learned_Sub_Select.mContext).checkSelect(ex_classlist, c.getString(0))) { //선택한 과목 제외 출력
@@ -153,18 +155,13 @@ public class Progress extends AppCompatActivity {
                                 text[i][j].setTextColor(Color.BLACK);
                                 text[i][j].setGravity(Gravity.CENTER);
                                 text[i][j].setBackgroundResource(R.drawable.cell_shape);
+                                text[i][j].setSingleLine(true);
+                                text[i][j].setEllipsize(TextUtils.TruncateAt.MIDDLE);
 
-                                if (j == 0) {
-                                    text[i][j].setWidth(650);
-                                }
-                                if (j == 1) {
-                                    text[i][j].setWidth(160);
-                                }
-                                if (j == 2) {
-                                    text[i][j].setWidth(160);
-                                }
-
-                                tr[i].addView(text[i][j]);
+                                if (j == 0)
+                                    tr[i].addView(text[i][j], tparams1);//칸추가
+                                else
+                                    tr[i].addView(text[i][j], tparams2);//칸추가
                             }
                             t.addView(tr[i], rowLayout);
                         }

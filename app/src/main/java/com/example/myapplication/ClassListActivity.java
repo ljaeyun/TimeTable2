@@ -137,20 +137,23 @@ public class ClassListActivity extends Activity {
                             text[i][j].setBackgroundResource(R.drawable.cell_shape);
                             text[i][j].setTag(i);
 
-                            if(j == 1) {
+                            if (j == 1) {
                                 text[i][j].setWidth(320);
                                 text[i][j].setSingleLine(true);
                                 text[i][j].setEllipsize(TextUtils.TruncateAt.MARQUEE);
                                 //text[i][j].setSelected(true);
-                                        }
-                            if(j == 2)
+                            }
+                            if (j == 2)
                                 text[i][j].setWidth(50);
-                            if(j==3) {
+                            if (j == 3) {
                                 text[i][j].setWidth(150);
                                 text[i][j].setSingleLine(true);
                             }
-                            if(j==4)
+                            if (j == 4) {
                                 text[i][j].setWidth(150);
+                                text[i][j].setSingleLine(true);
+                                text[i][j].setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                            }
                             text[i][j].setOnClickListener(new Button.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -158,8 +161,7 @@ public class ClassListActivity extends Activity {
                                     if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
                                         for (int k = 0; k < 5; k++) {
                                             text[num][k].setBackgroundResource(R.drawable.cell_shape);//줄 선택 해제
-                                            if(k==1)
-                                            {
+                                            if (k == 1 || k == 4) {
                                                 text[num][k].setSelected(false);
                                             }
                                         }
@@ -171,8 +173,7 @@ public class ClassListActivity extends Activity {
                                     } else {//처음 누르면
                                         for (int k = 0; k < 5; k++) {
                                             text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
-                                            if(k==1)
-                                            {
+                                            if (k == 1 || k == 4) {
                                                 text[num][k].setSelected(true);
                                             }
                                         }

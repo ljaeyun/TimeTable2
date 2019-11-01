@@ -60,6 +60,7 @@
                 android:layout_width="72dp"
                 android:layout_height="20dp"
 
+                android:gravity="center"
                 android:text="월"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -69,6 +70,7 @@
                 android:layout_height="20dp"
 
 
+                android:gravity="center"
                 android:text="화"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -78,6 +80,7 @@
                 android:layout_height="20dp"
 
 
+                android:gravity="center"
                 android:text="수"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -87,6 +90,7 @@
                 android:layout_height="20dp"
 
 
+                android:gravity="center"
                 android:text="목"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -96,6 +100,7 @@
                 android:layout_height="20dp"
 
 
+                android:gravity="center"
                 android:text="금"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -106,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorTableBack"
             android:orientation="vertical">
 
             <TextView
@@ -114,7 +119,7 @@
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="0"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -124,20 +129,20 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
 
                 android:text=""
-                android:textStyle="bold"
-
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tuesday0"
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -146,8 +151,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -156,8 +162,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -166,8 +173,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -177,14 +185,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:background="@color/colorPrimaryDark">
+            android:background="@color/colorTableBack">
 
             <TextView
                 android:layout_width="10dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="1"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -194,19 +202,20 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tuesday1"
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -215,8 +224,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -225,18 +235,19 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
-                android:textStyle="bold"
-                />
+                android:background="@drawable/cell_shape"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/friday1"
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -246,14 +257,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:background="@color/colorPrimaryDark">
+            android:background="@color/colorTableBack">
 
             <TextView
                 android:layout_width="10dp"
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="2"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -263,8 +274,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -273,8 +285,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -283,8 +296,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -293,8 +307,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -303,8 +318,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -321,7 +337,7 @@
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="3"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -331,8 +347,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -341,8 +358,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -351,8 +369,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -361,8 +380,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -371,8 +391,9 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
-                android:background="@drawable/cell_shape"
+                android:layout_gravity="clip_vertical"
 
+                android:background="@drawable/cell_shape"
                 android:text=""
                 android:textStyle="bold" />
 
@@ -390,7 +411,7 @@
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="4"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -400,8 +421,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -410,8 +431,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -420,8 +441,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -430,8 +451,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -440,8 +461,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -458,7 +479,7 @@
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="5"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -468,8 +489,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -478,8 +499,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -488,8 +509,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -498,8 +519,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -508,8 +529,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -526,7 +547,7 @@
                 android:layout_height="84dp"
 
                 android:background="@color/colorTableBack"
-                android:gravity="right"
+                android:gravity="center"
                 android:text="6"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
@@ -536,8 +557,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -546,8 +567,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -556,8 +577,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -566,8 +587,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
@@ -576,8 +597,8 @@
                 android:layout_width="72dp"
                 android:layout_height="84dp"
 
+                android:layout_gravity="clip_vertical"
                 android:background="@drawable/cell_shape"
-
                 android:text=""
                 android:textStyle="bold" />
 
