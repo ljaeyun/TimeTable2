@@ -5,20 +5,21 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/llayout"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_gravity="center"
+        android:layout_gravity="left|center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
         <Button
             android:id="@+id/progress_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_gravity="center|start"
-            android:layout_marginLeft="5dp"
-            android:text="추가" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/mypage" />
 
         <SearchView
             android:id="@+id/find"
@@ -26,18 +27,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="15dp">
 
         </SearchView>
 
         <Button
             android:id="@+id/button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
             android:layout_gravity="center|end"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="추가" />
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/make" />
 
     </LinearLayout>
 

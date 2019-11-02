@@ -282,19 +282,19 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tv0.setBackgroundResource(R.drawable.rounded_corners);
                     tv0.setPadding(0,7,0,8);
                     GradientDrawable drawable = (GradientDrawable) tv0.getBackground();
-                    drawable.setColor(Color.parseColor("#3978E5"));
+                    drawable.setColor(Color.parseColor("#616fc7"));
                     tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(this);
                     tv1.setText(" 이 수 ");
                     tv1.setTextSize(20);
                     tv1.setTextColor(Color.WHITE);
-                    tv1.setBackgroundColor(Color.parseColor("#EA5446"));
+                    tv1.setBackgroundColor(Color.parseColor("#616fc7"));
                     tv1.setGravity(Gravity.CENTER);
                     tv1.setBackgroundResource(R.drawable.rounded_corners3);
                     tv1.setPadding(0,7,0,8);
                     GradientDrawable drawable1 = (GradientDrawable) tv1.getBackground();
-                    drawable1.setColor(Color.parseColor("#3978E5"));
+                    drawable1.setColor(Color.parseColor("#616fc7"));
                     tbrow0.addView(tv1);
 
                     TextView tv2 = new TextView(this);
@@ -306,7 +306,7 @@ public class Learned_Sub_Select extends AppCompatActivity {
                     tv2.setBackgroundResource(R.drawable.rounded_corners2);
                     tv2.setPadding(0,7,0,8);
                     GradientDrawable drawable2 = (GradientDrawable) tv2.getBackground();
-                    drawable2.setColor(Color.parseColor("#3978E5"));
+                    drawable2.setColor(Color.parseColor("#616fc7"));
                     tbrow0.addView(tv2);
 
                     t.addView(tbrow0);

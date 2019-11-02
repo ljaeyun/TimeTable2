@@ -53,7 +53,7 @@ public class FirstSelect extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (rotc.isChecked()) {// 나중에 애니메이션효과 추가2
                     if (syear == 2 || syear == 3) {
-                        int year = syear+1;
+                        int year = syear + 1;
                         database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
                         try {
                             Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from 군사학 where 학정번호 like '_____" + year + "%'", null);
@@ -75,11 +75,12 @@ public class FirstSelect extends AppCompatActivity {
                         rotc.setChecked(false);
                     }
                 } else {
-                    classlist.remove(classlist.size() - 1);//넣은거 뺀다
+                    if (classlist.size() != 0)
+                        classlist.remove(classlist.size() - 1);//넣은거 뺀다
                 }
             }
         });
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.학과,R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.학과, R.layout.spinner_item);
         spinnerMajor1.setAdapter(adapter1);
         spinnerMajor2.setAdapter(adapter1);
         chksubMajor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

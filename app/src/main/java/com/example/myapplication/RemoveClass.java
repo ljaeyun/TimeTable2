@@ -53,16 +53,16 @@ public class RemoveClass extends Activity {
         ll.addView(linearLayout, param);
 
         Button button1 = new Button(this);
-        button1.setText("확인");
-        button1.setTextSize(15);
+        button1.setBackgroundResource(R.drawable.check);
+
 
         Button button2 = new Button(this);
-        button2.setText("취소");
-        button2.setTextSize(15);
+        button2.setBackgroundResource(R.drawable.x);
 
-        param = new LinearLayout.LayoutParams(220, 120);
-        param.setMargins(30, 0, 30, 0);
+        param = new LinearLayout.LayoutParams(80, 80);
+        param.setMargins(30, 5, 170, 0);
         linearLayout.addView(button1, param);
+        param = new LinearLayout.LayoutParams(100, 100);
         linearLayout.addView(button2, param);
 
         button1.setOnClickListener(new Button.OnClickListener() {

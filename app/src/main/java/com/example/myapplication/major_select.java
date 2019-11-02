@@ -344,19 +344,19 @@ public class major_select extends AppCompatActivity {
                     tv0.setBackgroundResource(R.drawable.rounded_corners);
                     tv0.setPadding(0,7,0,8);
                     GradientDrawable drawable = (GradientDrawable) tv0.getBackground();
-                    drawable.setColor(Color.parseColor("#EA5446"));
+                    drawable.setColor(Color.parseColor("#E8675C"));
                     tbrow0.addView(tv0);
 
                     TextView tv1 = new TextView(this);
                     tv1.setText(" 이 수 ");
                     tv1.setTextSize(20);
                     tv1.setTextColor(Color.WHITE);
-                    tv1.setBackgroundColor(Color.parseColor("#EA5446"));
+                    tv1.setBackgroundColor(Color.parseColor("#E8675C"));
                     tv1.setGravity(Gravity.CENTER);
                     tv1.setBackgroundResource(R.drawable.rounded_corners3);
                     tv1.setPadding(0,7,0,8);
                     GradientDrawable drawable1 = (GradientDrawable) tv1.getBackground();
-                    drawable1.setColor(Color.parseColor("#EA5446"));
+                    drawable1.setColor(Color.parseColor("#E8675C"));
                     tbrow0.addView(tv1);
 
                     TextView tv2 = new TextView(this);
@@ -368,7 +368,7 @@ public class major_select extends AppCompatActivity {
                     tv2.setBackgroundResource(R.drawable.rounded_corners2);
                     tv2.setPadding(0,7,0,8);
                     GradientDrawable drawable2 = (GradientDrawable) tv2.getBackground();
-                    drawable2.setColor(Color.parseColor("#EA5446"));
+                    drawable2.setColor(Color.parseColor("#E8675C"));
                     tbrow0.addView(tv2);
 
                     t.addView(tbrow0);
@@ -396,7 +396,7 @@ public class major_select extends AppCompatActivity {
 
                             for (int l = 0; l < selected[level].size(); l++) {
                                 if (selected[level].get(l).equals(i))//선택된과목이면
-                                    text[i][j].setBackgroundResource(R.drawable.select_cell);
+                                    text[i][j].setBackgroundResource(R.drawable.select2);
                             }
                             text[i][j].setTag(i);
 
@@ -404,7 +404,7 @@ public class major_select extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     num = (Integer) v.getTag();//선택된 번호
-                                    if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select_cell).getConstantState()) {//다시누르면
+                                    if (v.getBackground().getConstantState() == getResources().getDrawable(R.drawable.select2).getConstantState()) {//다시누르면
                                         for (int k = 0; k < 3; k++)
                                             text[num][k].setBackgroundResource(R.drawable.cell);//줄 선택 해제
                                         c.moveToPosition(num);
@@ -427,7 +427,7 @@ public class major_select extends AppCompatActivity {
                                         ex_classlist.add(cs); //배열에 넣는다
 
                                         for (int k = 0; k < 3; k++)
-                                            text[num][k].setBackgroundResource(R.drawable.select_cell);//선택한 줄 색칠
+                                            text[num][k].setBackgroundResource(R.drawable.select2);//선택한 줄 색칠
                                     }
                                 }
                             });

@@ -129,8 +129,8 @@ public class TableViewPagerAdapter extends PagerAdapter {
                 if ((classlist.get(j).getTimearr(0).print(i) % 10) < 7 && classlist.get(j).getTimearr(0).print(i) < 50)//6교시까지만 표시, 금요일까지만 표시
                 {
                     int t = changeint(classlist.get(j).getTimearr(0).print(i));
-                    tvArray2[t].setText(classlist.get(j).getTimearr(0).getProf());
-                    tvArray2[t].append("\n" + classlist.get(j).getName());
+                    tvArray2[t].setText(classlist.get(j).getName());
+                    tvArray2[t].append("\n" + classlist.get(j).getTimearr(0).getProf());
                     isSeries(classlist.get(j), t, j);
                     tvArray2[t].setBackgroundColor(colors[j]);//여러색 설정
                 }
@@ -151,11 +151,11 @@ public class TableViewPagerAdapter extends PagerAdapter {
             if (contains(cs, t - 1)) { //위에 연강존재
                 tvArray2[t].setText("");
             } else if (contains(cs, t + 1)) {//아래에
-                tvArray2[t].setText(cs.getTimearr(0).getProf());
-                tvArray2[t].append("\n" + cs.getName());
+                tvArray2[t].setText(cs.getName());
+                tvArray2[t].append("\n" + cs.getTimearr(0).getProf());
             } else {//연강 안존재함
-                tvArray2[t].setText(cs.getTimearr(0).getProf());
-                tvArray2[t].append("\n" + cs.getName());
+                tvArray2[t].setText(cs.getName());
+                tvArray2[t].append("\n" + cs.getTimearr(0).getProf());
             }
         } else {
             if (contains(cs, t - 1) && contains(cs, t + 1)) {//둘다!
@@ -165,8 +165,8 @@ public class TableViewPagerAdapter extends PagerAdapter {
                     tvArray2[t].setText("");
                 }
                 if (contains(cs, t + 1)) {//아래에
-                    tvArray2[t].setText(cs.getTimearr(0).getProf());
-                    tvArray2[t].append("\n" + cs.getName());
+                    tvArray2[t].setText(cs.getName());
+                    tvArray2[t].append("\n" + cs.getTimearr(0).getProf());
                 }
             }
 

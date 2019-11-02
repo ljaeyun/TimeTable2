@@ -260,12 +260,10 @@ public class SelectionActivity extends AppCompatActivity {
                     linearLayout.addView(textView, param);
 
                     Button button = new Button(v.getContext());
-                    button.setText("X");
-                    button.setTypeface(null, Typeface.BOLD);
-                    button.setBackgroundResource(R.drawable.round_button);
-                    button.setTextSize(10);
-                    param = new LinearLayout.LayoutParams(80, 80);
-                    param.setMargins(20, 0, 30, 5);
+                    button.setBackgroundResource(R.drawable.x);
+
+                    param = new LinearLayout.LayoutParams(70, 70);
+                    param.setMargins(10, 0, 30, 5);
                     linearLayout.addView(button, param);
                     nametableRow.addView(linearLayout);
 
@@ -296,12 +294,9 @@ public class SelectionActivity extends AppCompatActivity {
                     linearLayout.addView(textView, param);
 
                     Button button = new Button(v.getContext());
-                    button.setText("X");
-                    button.setTypeface(null, Typeface.BOLD);
-                    button.setBackgroundResource(R.drawable.round_button);
-                    button.setTextSize(10);
-                    param = new LinearLayout.LayoutParams(80, 80);
-                    param.setMargins(20, 0, 30, 5);
+                    button.setBackgroundResource(R.drawable.x);
+                    param = new LinearLayout.LayoutParams(70, 70);
+                    param.setMargins(10, 0, 30, 5);
                     linearLayout.addView(button, param);
                     proftableRow.addView(linearLayout);
 

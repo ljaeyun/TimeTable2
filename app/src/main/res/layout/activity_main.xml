@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="커타팡"
-            android:textColor="@android:color/black"
+            android:textColor="#000000"
             android:textSize="30pt" />
 
         <TextView
@@ -46,8 +46,8 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginLeft="60dp"
                 android:text="학과"
-                android:textColor="@android:color/black"
-                android:textSize="23dp" />
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinnerMajor"
@@ -72,8 +72,8 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginLeft="60dp"
                 android:text="학년"
-                android:textColor="@android:color/black"
-                android:textSize="23dp" />
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinnerYear"
@@ -96,8 +96,8 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginLeft="60dp"
                 android:text="학번"
-                android:textColor="@android:color/black"
-                android:textSize="23dp" />
+                android:textSize="23dp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/editTextId"
@@ -113,11 +113,13 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:text="입장"
+            android:background="@drawable/pangpang"
+            android:gravity="center"
+            android:textSize="18sp"
             tools:ignore="HardcodedText,MissingConstraints" />
 
     </LinearLayout>
