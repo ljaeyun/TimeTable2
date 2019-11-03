@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class FirstSelect extends AppCompatActivity {
     public static Context mContext = null;
     Integer sid, syear, smajor, subMajor = -1, doubleMajor = -1;
-    ArrayList<ClassSubject> classlist;
+    ArrayList<ClassSubject> classlist,ex_classlist;
 
     SQLiteDatabase database;
 
@@ -38,6 +38,7 @@ public class FirstSelect extends AppCompatActivity {
         smajor = intent1.getIntExtra("studentMajor", 1);
         makedb();//교양 db생성
         classlist = new ArrayList<>();
+        ex_classlist = new ArrayList<>();
 
         chksubMajor = (CheckBox) findViewById(R.id.subMajor);
         chkdoubleMajor = (CheckBox) findViewById(R.id.doubleMajor);
@@ -215,6 +216,7 @@ public class FirstSelect extends AppCompatActivity {
         intent.putExtra("subMajor", subMajor);
         intent.putExtra("doubleMajor", doubleMajor);
         intent.putParcelableArrayListExtra("classlist", classlist);
+        intent.putParcelableArrayListExtra("ex_classlist", ex_classlist);
 
         startActivity(intent);
     }

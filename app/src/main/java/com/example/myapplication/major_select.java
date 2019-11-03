@@ -53,6 +53,7 @@ public class major_select extends AppCompatActivity {
         setContentView(R.layout.major_select);
 
         classlist = new ArrayList<>();
+        ex_classlist = new ArrayList<>();//들은거
         selected[0] = new ArrayList<>();
         selected[1] = new ArrayList<>();
         selected[2] = new ArrayList<>();
@@ -69,7 +70,7 @@ public class major_select extends AppCompatActivity {
         subMajor = intent1.getIntExtra("subMajor", -1);//부전공
         doubleMajor = intent1.getIntExtra("doubleMajor", -1);//복수전공
         classlist = intent1.getParcelableArrayListExtra("classlist");
-        ex_classlist = new ArrayList<>();//들은거
+        ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");
 
         if (isMajor == 0)
             choosetable(smajor);//전공 db열고 table선택
