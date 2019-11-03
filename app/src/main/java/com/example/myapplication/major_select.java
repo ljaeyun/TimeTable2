@@ -451,7 +451,8 @@ public class major_select extends AppCompatActivity {
         int Max = 19;
         int sum = 0;
         for (int i = 0; i < list.size(); i++) {
-            sum += list.get(i).getTimearr(0).getCredit();
+            if (list.get(i).getTypecode() != 10)
+                sum += list.get(i).getTimearr(0).getCredit();
         }
         sum += cs.getTimearr(0).getCredit();//넣을 과목
 
@@ -459,8 +460,10 @@ public class major_select extends AppCompatActivity {
             Max = 21;
         }
 
-        if (sum > Max)//일단
+        if (sum > Max) {//일단
+            Toast.makeText(getApplicationContext(), "최대 "+ Max + "학점까지만 선택하실 수 있습니다", Toast.LENGTH_SHORT).show();
             return false;//못넣게
+        }
         else
             return true;
     }

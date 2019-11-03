@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Integer n = getmajor();
-                //gethakbun();
-                id = 2016000000;
+                gethakbun();
+                //id = 2016000000;
                 Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
                 intent.putExtra("studentId", id);
                 intent.putExtra("studentYear", year);

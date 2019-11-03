@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -72,6 +73,7 @@ public class FirstSelect extends AppCompatActivity {
                             Log.e("", e.getMessage());
                         }
                     } else {//1,2학년은 rotc가 없죵
+                        Toast.makeText(getApplicationContext(), "3,4학년만 선택 가능합니다", Toast.LENGTH_SHORT).show();
                         rotc.setChecked(false);
                     }
                 } else {
