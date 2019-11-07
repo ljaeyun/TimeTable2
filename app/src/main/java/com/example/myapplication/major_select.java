@@ -451,10 +451,9 @@ public class major_select extends AppCompatActivity {
     public boolean checkCredit(ArrayList<ClassSubject> list, ClassSubject cs) {
         int Max = 19;
         int sum = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getTypecode() != 10)
+        for (int i = 0; i < list.size(); i++)
                 sum += list.get(i).getTimearr(0).getCredit();
-        }
+
         sum += cs.getTimearr(0).getCredit();//넣을 과목
 
         if (Integer.parseInt(sid.toString().substring(2, 4)) <= 16) {
