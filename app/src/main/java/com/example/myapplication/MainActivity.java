@@ -111,10 +111,8 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner2 = (Spinner) findViewById(R.id.spinnerYear);
 
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.학과, R.layout.spinner_item);
-        spinner.setAdapter(adapter1);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.학년, R.layout.spinner_item);
-        spinner2.setAdapter(adapter2);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//데이터베이스 열기
             @Override

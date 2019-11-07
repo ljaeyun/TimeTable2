@@ -272,12 +272,11 @@
 
                     <Button
                         android:id="@+id/add_button"
-                        android:layout_width="0dp"
+                        android:layout_width="30dp"
                         android:layout_height="27dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:layout_weight="1"
                         android:background="@drawable/plus" />
 
                 </TableRow>
