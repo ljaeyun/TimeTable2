@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -139,6 +140,47 @@ public class Progress extends AppCompatActivity {
             if (c != null) {
                 int count = c.getCount();//개수
                 if (count != 0) {
+
+                    TableRow tbrow0 = new TableRow(this);
+                    TextView tv0 = new TextView(this);
+                    tv0.setText(" 과목명 ");
+                    tv0.setTextSize(20);
+                    tv0.setTextColor(Color.WHITE);
+                    //tv0.setBackgroundColor(124 - 224 - 134);
+                    tv0.setGravity(Gravity.CENTER);
+                    tv0.setBackgroundResource(R.drawable.rounded_corners);
+                    tv0.setPadding(0,7,0,8);
+                    GradientDrawable drawable = (GradientDrawable) tv0.getBackground();
+                    drawable.setColor(Color.parseColor("#66616fc7"));
+                    tbrow0.addView(tv0);
+
+                    TextView tv1 = new TextView(this);
+                    tv1.setText(" 이 수 ");
+                    tv1.setTextSize(20);
+                    tv1.setTextColor(Color.WHITE);
+                    tv1.setBackgroundColor(Color.parseColor("#E8675C"));
+                    tv1.setGravity(Gravity.CENTER);
+                    tv1.setBackgroundResource(R.drawable.rounded_corners3);
+                    tv1.setPadding(0,7,0,8);
+                    GradientDrawable drawable1 = (GradientDrawable) tv1.getBackground();
+                    drawable1.setColor(Color.parseColor("#66616fc7"));
+                    tbrow0.addView(tv1);
+
+                    TextView tv2 = new TextView(this);
+                    tv2.setText(" 학 점 ");
+                    tv2.setTextSize(20);
+                    //tv2.setBackgroundColor(124 - 224 - 134);
+                    tv2.setTextColor(Color.WHITE);
+                    tv2.setGravity(Gravity.CENTER);
+                    tv2.setBackgroundResource(R.drawable.rounded_corners2);
+                    tv2.setPadding(0,7,0,8);
+                    GradientDrawable drawable2 = (GradientDrawable) tv2.getBackground();
+                    drawable2.setColor(Color.parseColor("#66616fc7"));
+                    tbrow0.addView(tv2);
+
+                    t.addView(tbrow0);
+
+
                     tr = new TableRow[count];
                     text = new TextView[count][3];
                     TableRow.LayoutParams tparams1 = new TableRow.LayoutParams(600, ViewGroup.LayoutParams.WRAP_CONTENT);
