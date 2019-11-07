@@ -18,6 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     Integer id, year, major;
@@ -47,10 +56,52 @@ public class MainActivity extends AppCompatActivity {
         this.major = major;
     }
 
+    public static final String PACKAGE_DIR = "/data/data/com.example.myapplication/databases";
+    public static final String[] Database_name = new String[9];
+
+    public static void initialize(Context ctx) {
+// check
+        Database_name[0] = "test.db";
+        Database_name[1] = "credit.db";
+        Database_name[2] = "natural.db";
+        Database_name[3] = "biz.db";
+        Database_name[4] = "sw.db";
+        Database_name[5] = "ei.db";
+        Database_name[6] = "engineer.db";
+        Database_name[7] = "hss.db";
+        Database_name[8] = "kwlaw.db";
+
+        File folder = new File(PACKAGE_DIR);
+        folder.mkdirs();
+
+        for (int i = 0; i < 9; i++) {
+            File outfile = new File(PACKAGE_DIR + "/" + Database_name[i]);
+            if (outfile.length() <= 0) {
+                AssetManager assetManager = ctx.getResources().getAssets();
+                try {
+                    InputStream is = assetManager.open(Database_name[i], AssetManager.ACCESS_BUFFER);
+                    long filesize = is.available();
+                    byte[] tempdata = new byte[(int) filesize];
+                    is.read(tempdata);
+                    is.close();
+                    outfile.createNewFile();
+                    FileOutputStream fo = new FileOutputStream(outfile);
+                    fo.write(tempdata);
+                    fo.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initialize(getApplicationContext());
 
         editTextid = (EditText) findViewById(R.id.editTextId);
 
@@ -59,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinnerMajor);
         Spinner spinner2 = (Spinner) findViewById(R.id.spinnerYear);
 
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,R.array.학과,R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.학과, R.layout.spinner_item);
         spinner.setAdapter(adapter1);
 
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.학년,R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.학년, R.layout.spinner_item);
         spinner2.setAdapter(adapter2);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//데이터베이스 열기
@@ -91,22 +142,22 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer n = getmajor();
-                gethakbun();
                 //id = 2016000000;
-                Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
-                intent.putExtra("studentId", id);
-                intent.putExtra("studentYear", year);
-                intent.putExtra("studentMajor", major);
-                startActivity(intent);
+                String hakbun = "";
+                hakbun = editTextid.getText().toString();
+
+                if (hakbun.equals(""))
+                    Toast.makeText(getApplicationContext(), "학번을 입력하세요", Toast.LENGTH_SHORT).show();
+                else {
+                    setId(Integer.parseInt(hakbun));//int로 바꿔서 전달
+
+                    Intent intent = new Intent(getApplicationContext(), FirstSelect.class);
+                    intent.putExtra("studentId", id);
+                    intent.putExtra("studentYear", year);
+                    intent.putExtra("studentMajor", major);
+                    startActivity(intent);
+                }
             }
         });
     }
-
-    private void gethakbun() {
-        String hakbun = "";
-        hakbun = editTextid.getText().toString();
-        setId(Integer.parseInt(hakbun));//int로 바꿔서 전달
-    }
-
 }

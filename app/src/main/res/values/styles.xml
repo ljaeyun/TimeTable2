@@ -7,7 +7,7 @@
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/custom</item>
         <item name="android:buttonStyle">@style/NanumsrButtonStyle</item>
         <item name="android:editTextStyle">@style/NanumsrEditTextStyle</item>
         <item name="android:checkboxStyle">@style/NanumsrCheckboxStyle</item>
@@ -21,6 +21,7 @@
     </style>
     <style name="NanumsrEditTextStyle" parent="@android:style/Widget.DeviceDefault.EditText">
         <item name="android:fontFamily">@font/nanumsquareround</item>
+        <item name="android:textCursorDrawable">@color/custom</item>
     </style>
     <style name="NanumsrCheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
     <item name="android:fontFamily">@font/nanumsquareround</item>

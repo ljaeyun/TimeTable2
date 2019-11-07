@@ -49,40 +49,6 @@ public class FirstSelect extends AppCompatActivity {
         spinnerMajor2 = (Spinner) findViewById(R.id.spinnerMajor2);
         spinnerMajor2.setVisibility(View.GONE);
 
-        rotc = (CheckBox) findViewById(R.id.option6);
-        rotc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (rotc.isChecked()) {// 나중에 애니메이션효과 추가2
-                    if (syear == 2 || syear == 3) {
-                        int year = syear + 1;
-                        database = openOrCreateDatabase("test.db", MODE_PRIVATE, null);
-                        try {
-                            Cursor c1 = database.rawQuery("select 학정번호, 과목명, 이수,학점, 담당교수, 요일1,시간1,요일2,시간2 from 군사학 where 학정번호 like '_____" + year + "%'", null);
-                            if (c1 != null) {
-                                int num = c1.getCount();
-                                for (int i = 0; i < num; i++) {
-                                    c1.moveToNext();
-                                    ClassSubject cs1 = new ClassSubject(c1.getString(1));
-                                    ((major_select) major_select.mContext).timecal(cs1, c1);//분반 추가하고
-                                    cs1.setTypecode(10);
-                                    classlist.add(cs1);//과목이름을 가진 ..
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e("", e.getMessage());
-                        }
-                    } else {//1,2학년은 rotc가 없죵
-                        Toast.makeText(getApplicationContext(), "3,4학년만 선택 가능합니다", Toast.LENGTH_SHORT).show();
-                        rotc.setChecked(false);
-                    }
-                } else {
-                    if (classlist.size() != 0)
-                        classlist.remove(classlist.size() - 1);//넣은거 뺀다
-                }
-            }
-        });
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.학과, R.layout.spinner_item);
         spinnerMajor1.setAdapter(adapter1);
         spinnerMajor2.setAdapter(adapter1);

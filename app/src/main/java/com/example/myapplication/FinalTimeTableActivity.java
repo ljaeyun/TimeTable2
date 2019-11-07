@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -33,12 +34,24 @@ public class FinalTimeTableActivity extends AppCompatActivity {
         pagerAdpater = new TableViewPagerAdapter(this);
         viewPager.setAdapter(pagerAdpater);
         searchview = (SearchView) findViewById(R.id.find);
+        searchview.setQueryHint("검색할 과목명");
+        searchview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                searchview.setIconified(false);
+            }
+        });
+
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
         Intent intent1 = getIntent();
         sid = intent1.getIntExtra("studentId", 1);
         smajor = intent1.getIntExtra("studentMajor", 1);
         rrr = (ArrayList<ArrayList<ClassSubject>>) intent1.getSerializableExtra("final_list");//모든 조합 받아와서
         ex_classlist = intent1.getParcelableArrayListExtra("ex_classlist");
+
+        if(rrr.size()>=50)
+            Toast.makeText(getApplicationContext(), "50개의 시간표만 보여집니다.", Toast.LENGTH_SHORT).show();
+
 
         for (int i = 0; i < idArray.length; i++) {
             int jj = i / 4;

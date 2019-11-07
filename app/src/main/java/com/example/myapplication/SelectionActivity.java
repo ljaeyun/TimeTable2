@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -260,12 +262,12 @@ public class SelectionActivity extends AppCompatActivity {
                     linearLayout.addView(textView, param);
 
                     Button button = new Button(v.getContext());
-                    button.setBackgroundResource(R.drawable.x);
-
                     param = new LinearLayout.LayoutParams(70, 70);
-                    param.setMargins(10, 0, 30, 5);
+                    param.setMargins(0, 0, 15, 5);
                     linearLayout.addView(button, param);
                     nametableRow.addView(linearLayout);
+
+                    button.setBackgroundResource(R.drawable.x);
 
                     button.setOnClickListener(new Button.OnClickListener() {
                         @Override
@@ -296,7 +298,7 @@ public class SelectionActivity extends AppCompatActivity {
                     Button button = new Button(v.getContext());
                     button.setBackgroundResource(R.drawable.x);
                     param = new LinearLayout.LayoutParams(70, 70);
-                    param.setMargins(10, 0, 30, 5);
+                    param.setMargins(0, 0, 15, 5);
                     linearLayout.addView(button, param);
                     proftableRow.addView(linearLayout);
 
@@ -330,6 +332,9 @@ public class SelectionActivity extends AppCompatActivity {
     }
 
     private void make(ArrayList<ClassSubject> list, ArrayList<ArrayList<ClassSubject>> rrr, ArrayList<ClassSubject> a, int j) {//모든 조합 구해서 rrr에
+        if(rrr.size()>=50)
+            return;
+
         int maxnum = list.size();//전체 과목 수?
 
         for (int i = 0, length = list.get(j).getTimeSize(); i < length; i++)//j번째 과목의 분반개수
