@@ -151,7 +151,7 @@ public class Progress extends AppCompatActivity {
                                 text[i][j] = new TextView(this);
                                 text[i][j].setText(c.getString(j));
 
-                                text[i][j].setTextSize(19);
+                                text[i][j].setTextSize(20);
                                 text[i][j].setTextColor(Color.BLACK);
                                 text[i][j].setGravity(Gravity.CENTER);
                                 text[i][j].setBackgroundResource(R.drawable.cell);

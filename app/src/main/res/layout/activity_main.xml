@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
@@ -30,13 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:text="Custom Timetable of Pangwoon University" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="부전공"
-                android:textSize="22sp" />
+                android:textSize="15sp" />
 
             <CheckBox
                 android:id="@+id/doubleMajor"
@@ -80,7 +80,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:text="복수전공"
-                android:textSize="22sp" />
+                android:textSize="15sp" />
 
         </TableRow>
 
@@ -152,8 +152,8 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:background="@drawable/pangpang"

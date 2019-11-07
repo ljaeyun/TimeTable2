@@ -23,7 +23,6 @@
         <activity android:name=".SelectionActivity" />
         <activity android:name=".ClassListActivity"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
-        <activity android:name=".FirstSelect"/>
         <activity android:name=".major_select"/>
         <activity android:name=".Learned_Sub_Select">
             <intent-filter>

@@ -229,7 +229,7 @@ public class ClassListActivity extends Activity {
 
     private void makedb() {
 
-        if (!((FirstSelect) FirstSelect.mContext).isTableExists("allclass")) {//모든 전공+교양 allclass
+        if (!((MainActivity) MainActivity.mContext).isTableExists("allclass")) {//모든 전공+교양 allclass
             database.execSQL("create table allclass as select * from allsubject");
 
             database = openOrCreateDatabase("biz.db", MODE_PRIVATE, null);

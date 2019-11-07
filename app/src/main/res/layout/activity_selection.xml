@@ -266,8 +266,8 @@
                         android:layout_span="6"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:maxLength="4"
                         android:inputType="text"
+                        android:maxLength="4"
                         android:textColorLink="@color/custom" />
 
                     <Button
@@ -316,8 +316,8 @@
                         android:layout_span="6"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:maxLength="4"
                         android:inputType="text"
+                        android:maxLength="4"
                         android:textColorLink="@color/custom" />
 
                     <Button
